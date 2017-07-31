@@ -1,12 +1,11 @@
 package entities;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Activity {
@@ -27,8 +26,9 @@ public class Activity {
 		this.experenice = experenice;
 	}
 
-	@ManyToMany(mappedBy = "activities")
-	List<User> users;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public String getName() {
 		return name;
@@ -42,12 +42,12 @@ public class Activity {
 		return id;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

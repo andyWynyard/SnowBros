@@ -28,17 +28,13 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToOne(mappedBy = "user")
 	private UserRating userRating;
 	
 	@OneToOne(mappedBy = "user")
 	private UserType userType;
 	
-	@ManyToMany
-	@JoinTable(name = "activity_user",
-	joinColumns = @JoinColumn(name = "user_id"),
-	inverseJoinColumns = @JoinColumn(name = "activity_id")
-			)
+	@OneToMany(mappedBy = "user")
 	private List<Activity> activities;
 	
 	@ManyToMany
