@@ -16,7 +16,7 @@
     <class>entities.User</class>
     <class>entities.Return</class>
     <class>entities.UserType</class>
-    <class>entities.ExtraCurricular</class>
+    <class>entities.ExtraCurr</class>
   
 
     <properties>
