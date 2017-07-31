@@ -19,12 +19,12 @@ USE `snowbros` ;
 -- Table `user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` INT NOT NULL,
+  `id` INT NULL,
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
+  `email` VARCHAR(191) NULL,
   `phone_number` VARCHAR(45) NULL,
-  `picture` VARCHAR(45) NULL,
+  `picture` VARCHAR(300) NULL,
   `password` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
@@ -46,12 +46,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `trip` (
   `id` INT NOT NULL,
-  `title` VARCHAR(45) NULL,
+  `title` VARCHAR(300) NULL,
   `number_seats` INT NULL,
-  `point_of_origin` VARCHAR(45) NULL,
+  `point_of_origin` VARCHAR(300) NULL,
   `date` DATETIME NULL,
-  `point_of_return` VARCHAR(45) NULL,
-  `description` VARCHAR(45) NULL,
+  `point_of_return` VARCHAR(300) NULL,
+  `description` VARCHAR(300) NULL,
   `destination_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `dest_idx` (`destination_id` ASC),
@@ -69,8 +69,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `user_trip` (
   `user_id` INT NOT NULL,
   `trip_id` INT NOT NULL,
-  `id` INT NOT NULL,
-  PRIMARY KEY (`id`),
   INDEX `user_id_idx` (`user_id` ASC),
   INDEX `trip_id_idx` (`trip_id` ASC),
   CONSTRAINT `user_id`
@@ -125,9 +123,9 @@ ENGINE = InnoDB;
 -- Table `user_rating`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `user_rating` (
-  `value` ENUM('1', '2', '3', '4', '5') NOT NULL,
+  `value` INT NOT NULL,
   `user_id` INT NOT NULL,
-  `id` VARCHAR(45) NOT NULL,
+  `id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `rating`
     FOREIGN KEY (`user_id`)
@@ -142,16 +140,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `activity` (
   `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `exp` ENUM('1', '2', '3', '4', '5') NOT NULL,
-  `user_id` INT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `activities_idx` (`user_id` ASC),
-  CONSTRAINT `activities`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `name` VARCHAR(300) NULL,
+  `exp` INT NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -171,8 +162,30 @@ CREATE TABLE IF NOT EXISTS `user_type` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE USER 'snowbros' IDENTIFIED BY 'snowbros';
 
+-- -----------------------------------------------------
+-- Table `activity_user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `activity_user` (
+  `activity_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  INDEX `activity_idx` (`activity_id` ASC),
+  INDEX `user_idx` (`user_id` ASC),
+  CONSTRAINT `activity`
+    FOREIGN KEY (`activity_id`)
+    REFERENCES `activity` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE USER 'user1' IDENTIFIED BY 'user1';
+
+GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'user1';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
