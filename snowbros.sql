@@ -142,7 +142,14 @@ CREATE TABLE IF NOT EXISTS `activity` (
   `id` INT NOT NULL,
   `name` VARCHAR(300) NULL,
   `exp` INT NOT NULL,
-  PRIMARY KEY (`id`))
+  `user_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_idx` (`user_id` ASC),
+  CONSTRAINT `user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -162,31 +169,32 @@ CREATE TABLE IF NOT EXISTS `user_type` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE USER 'user2' IDENTIFIED BY 'user2';
 
--- -----------------------------------------------------
--- Table `activity_user`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `activity_user` (
-  `activity_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  INDEX `activity_idx` (`activity_id` ASC),
-  INDEX `user_idx` (`user_id` ASC),
-  CONSTRAINT `activity`
-    FOREIGN KEY (`activity_id`)
-    REFERENCES `activity` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `user`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE USER 'user1' IDENTIFIED BY 'user1';
-
-GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'user1';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `snowbros`;
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (1, 'Charlie', 'Actor', 'charlie@sd.com', '3333333333', 'images/charlie.jpg', 'password');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (2, 'Travis', 'Way', 'travis@sd.com', '2222222222', 'images/travis.jpg', 'password');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (3, 'Michael', 'Maldonado', 'michael@sd.com', '7777777777', 'images/mike.jpg', 'password');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (4, 'Andy', 'BeerFoot', 'Andy@s.com', '010101010101', 'images/andy.jpg', 'passworde');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `activity`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `snowbros`;
+INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (1, 'Skiing', DEFAULT, NULL);
+
+COMMIT;
+
