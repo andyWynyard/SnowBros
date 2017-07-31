@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+/Users/andrewwynyard/SD/SnowBros/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
-3027837260.index
-29125196.index
-3669199384.index
-60596313.index
-2697471592.index
-1344660497.index
