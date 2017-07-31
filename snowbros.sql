@@ -169,8 +169,9 @@ CREATE TABLE IF NOT EXISTS `user_type` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE USER 'user2' IDENTIFIED BY 'user2';
+CREATE USER 'user3' IDENTIFIED BY 'user3';
 
+GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'user3';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
@@ -185,6 +186,72 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `p
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (2, 'Travis', 'Way', 'travis@sd.com', '2222222222', 'images/travis.jpg', 'password');
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (3, 'Michael', 'Maldonado', 'michael@sd.com', '7777777777', 'images/mike.jpg', 'password');
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (4, 'Andy', 'BeerFoot', 'Andy@s.com', '010101010101', 'images/andy.jpg', 'passworde');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (5, 'Admin', 'Admin', 'admin@sd.com', '11111111111', 'images/admin.jpg', 'admin');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `destination`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `snowbros`;
+INSERT INTO `destination` (`id`, `name`) VALUES (1, 'Copper Mountain');
+INSERT INTO `destination` (`id`, `name`) VALUES (2, 'Breckenridge');
+INSERT INTO `destination` (`id`, `name`) VALUES (3, 'Vail Mountain Resort');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `trip`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `snowbros`;
+INSERT INTO `trip` (`id`, `title`, `number_seats`, `point_of_origin`, `date`, `point_of_return`, `description`, `destination_id`) VALUES (1, 'Andy\'s Big Trip to ShredTown', 3, 'Moe\'s Bagels', '2017-12-12 06:00:00', 'At the car', 'ShredTown yalllllll', 1);
+INSERT INTO `trip` (`id`, `title`, `number_seats`, `point_of_origin`, `date`, `point_of_return`, `description`, `destination_id`) VALUES (2, 'Charlie\'s Average sized trip to Shredville', 2, 'Rosenberg\'s Bagels', '2017-12-13 06:00:00', 'Apres-Ski Bar', 'Shredville, guys', 2);
+INSERT INTO `trip` (`id`, `title`, `number_seats`, `point_of_origin`, `date`, `point_of_return`, `description`, `destination_id`) VALUES (3, 'Travis\' Small trip to ShredCity', 4, 'The Bagel Deli', '2018-01-02 07:00:00', 'The trunk of the car', 'SHREDDDINNNNNGGG', 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `extra_curr`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `snowbros`;
+INSERT INTO `extra_curr` (`trip_id`, `name`, `id`) VALUES (1, 'Dat Sweet Sweet Chronic', 1);
+INSERT INTO `extra_curr` (`trip_id`, `name`, `id`) VALUES (2, 'Drank', 2);
+INSERT INTO `extra_curr` (`trip_id`, `name`, `id`) VALUES (3, 'Drunk', 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `return`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `snowbros`;
+INSERT INTO `return` (`id`, `trip_id`, `return`, `return_time`) VALUES (1, 1, true, '2017-12-12 14:30:00');
+INSERT INTO `return` (`id`, `trip_id`, `return`, `return_time`) VALUES (2, 2, true, '2017-12-13 15:00:00');
+INSERT INTO `return` (`id`, `trip_id`, `return`, `return_time`) VALUES (3, 3, true, '2018-01-12 15:30:00');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user_rating`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `snowbros`;
+INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (4, 1, 1);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (5, 1, 2);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (4, 2, 3);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (3, 2, 4);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (5, 4, 5);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (3, 3, 6);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (2, 4, 7);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (4, 3, 8);
 
 COMMIT;
 
@@ -194,7 +261,25 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `snowbros`;
-INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (1, 'Skiing', DEFAULT, NULL);
+INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (1, 'Skiing', 5, 1);
+INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (2, 'Snowboarding', 2, 1);
+INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (3, 'Skiing', 1, 3);
+INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (4, 'Skiing', 1, 2);
+INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (5, 'Skiing', 4, 4);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `snowbros`;
+INSERT INTO `user_type` (`id`, `user_id`, `admin`) VALUES (1, 1, false);
+INSERT INTO `user_type` (`id`, `user_id`, `admin`) VALUES (2, 2, false);
+INSERT INTO `user_type` (`id`, `user_id`, `admin`) VALUES (3, 3, false);
+INSERT INTO `user_type` (`id`, `user_id`, `admin`) VALUES (4, 4, false);
+INSERT INTO `user_type` (`id`, `user_id`, `admin`) VALUES (5, 5, true);
 
 COMMIT;
 
