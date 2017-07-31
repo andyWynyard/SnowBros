@@ -37,10 +37,10 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `trips` (
   `id` INT NOT NULL,
   `title` VARCHAR(45) NULL,
-  `number_seats` VARCHAR(45) NULL,
+  `number_seats` INT NULL,
   `destination` VARCHAR(45) NULL,
   `point_of_origin` VARCHAR(45) NULL,
-  `date` VARCHAR(45) NULL,
+  `date` DATETIME NULL,
   `point_of_return` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
@@ -71,9 +71,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ExtraCurr`
+-- Table `extra_curr`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ExtraCurr` (
+CREATE TABLE IF NOT EXISTS `extra_curr` (
   `trip_id` INT NULL,
   `name` VARCHAR(45) NULL,
   `id` INT NULL,
@@ -155,9 +155,9 @@ CREATE TABLE IF NOT EXISTS `user_type` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE USER 'snowbro1' IDENTIFIED BY 'snowbro1';
+CREATE USER 'snowBro' IDENTIFIED BY 'snowBro';
 
-GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'snowbro1';
+GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'snowBro';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
