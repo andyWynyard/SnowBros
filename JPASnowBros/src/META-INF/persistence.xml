@@ -25,9 +25,9 @@
       <property name="javax.persistence.jdbc.url"
         value="jdbc:mysql://localhost:3306/snow_bros" />
       <property name="javax.persistence.jdbc.user"
-        value="snowBros"/>
+        value="user1"/>
       <property name="javax.persistence.jdbc.password"
-        value="snowBros" />
+        value="user1" />
       <property name="javax.persistence.jdbc.driver"
         value="com.mysql.jdbc.Driver" />
   
