@@ -28,7 +28,7 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@OneToOne(mappedBy = "user")
+	@OneToMany(mappedBy = "user")
 	private UserRating userRating;
 	
 	@OneToOne(mappedBy = "user")
