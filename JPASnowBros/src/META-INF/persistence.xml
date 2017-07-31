@@ -9,7 +9,6 @@
     </provider>
 
     <!-- List Entities Here -->
-    <!-- <class>entities.Customer</class> -->
     <class>entities.Activity</class>
     <class>entities.Trip</class>
     <class>entities.UserRating</class>
@@ -19,7 +18,6 @@
     <class>entities.UserType</class>
     <class>entities.ExtraCurricular</class>
   
-    
 
     <properties>
       <property name="javax.persistence.jdbc.url"
