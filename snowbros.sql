@@ -16,18 +16,35 @@ CREATE SCHEMA IF NOT EXISTS `snowbros` DEFAULT CHARACTER SET utf8 ;
 USE `snowbros` ;
 
 -- -----------------------------------------------------
+-- Table `user_type`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `user_type` (
+  `id` INT NOT NULL,
+  `admin` TINYINT(1) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` INT NULL,
+  `id` INT NOT NULL,
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
   `email` VARCHAR(191) NULL,
   `phone_number` VARCHAR(45) NULL,
   `picture` VARCHAR(300) NULL,
   `password` VARCHAR(45) NULL,
+  `user_type` INT NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+  INDEX `usertype_idx` (`user_type` ASC),
+  CONSTRAINT `usertype`
+    FOREIGN KEY (`user_type`)
+    REFERENCES `user_type` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -152,41 +169,37 @@ CREATE TABLE IF NOT EXISTS `activity` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE USER 'user8' IDENTIFIED BY 'user8';
 
--- -----------------------------------------------------
--- Table `user_type`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `user_type` (
-  `id` INT NOT NULL,
-  `user_id` INT NULL,
-  `admin` TINYINT(1) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `type_idx` (`user_id` ASC),
-  CONSTRAINT `type`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE USER 'user3' IDENTIFIED BY 'user3';
-
-GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'user3';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
+-- Data for table `user_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `snowbros`;
+INSERT INTO `user_type` (`id`, `admin`) VALUES (1, false);
+INSERT INTO `user_type` (`id`, `admin`) VALUES (2, false);
+INSERT INTO `user_type` (`id`, `admin`) VALUES (3, false);
+INSERT INTO `user_type` (`id`, `admin`) VALUES (4, false);
+INSERT INTO `user_type` (`id`, `admin`) VALUES (5, true);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `user`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `snowbros`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (1, 'Charlie', 'Actor', 'charlie@sd.com', '3333333333', 'images/charlie.jpg', 'password');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (2, 'Travis', 'Way', 'travis@sd.com', '2222222222', 'images/travis.jpg', 'password');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (3, 'Michael', 'Maldonado', 'michael@sd.com', '7777777777', 'images/mike.jpg', 'password');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (4, 'Andy', 'BeerFoot', 'Andy@s.com', '010101010101', 'images/andy.jpg', 'passworde');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`) VALUES (5, 'Admin', 'Admin', 'admin@sd.com', '11111111111', 'images/admin.jpg', 'admin');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `user_type`) VALUES (1, 'Charlie', 'Actor', 'charlie@sd.com', '3333333333', 'images/charlie.jpg', 'password', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `user_type`) VALUES (2, 'Travis', 'Way', 'travis@sd.com', '2222222222', 'images/travis.jpg', 'password', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `user_type`) VALUES (3, 'Michael', 'Maldonado', 'michael@sd.com', '7777777777', 'images/mike.jpg', 'password', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `user_type`) VALUES (4, 'Andy', 'BeerFoot', 'Andy@s.com', '010101010101', 'images/andy.jpg', 'passworde', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `user_type`) VALUES (5, 'Admin', 'Admin', 'admin@sd.com', '11111111111', 'images/admin.jpg', 'admin', 2);
 
 COMMIT;
 
@@ -266,20 +279,6 @@ INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (2, 'Snowboarding
 INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (3, 'Skiing', 1, 3);
 INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (4, 'Skiing', 1, 2);
 INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (5, 'Skiing', 4, 4);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `user_type`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `snowbros`;
-INSERT INTO `user_type` (`id`, `user_id`, `admin`) VALUES (1, 1, false);
-INSERT INTO `user_type` (`id`, `user_id`, `admin`) VALUES (2, 2, false);
-INSERT INTO `user_type` (`id`, `user_id`, `admin`) VALUES (3, 3, false);
-INSERT INTO `user_type` (`id`, `user_id`, `admin`) VALUES (4, 4, false);
-INSERT INTO `user_type` (`id`, `user_id`, `admin`) VALUES (5, 5, true);
 
 COMMIT;
 
