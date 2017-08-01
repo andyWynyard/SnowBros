@@ -18,6 +18,8 @@ USE `snowbros` ;
 -- -----------------------------------------------------
 -- Table `user_type`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_type` ;
+
 CREATE TABLE IF NOT EXISTS `user_type` (
   `id` INT NOT NULL,
   `admin` TINYINT(1) NULL,
@@ -28,6 +30,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `user`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `user` ;
+
 CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL,
   `first_name` VARCHAR(45) NULL,
@@ -51,6 +55,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `destination`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `destination` ;
+
 CREATE TABLE IF NOT EXISTS `destination` (
   `id` INT NOT NULL,
   `name` VARCHAR(300) NULL,
@@ -61,6 +67,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `trip`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `trip` ;
+
 CREATE TABLE IF NOT EXISTS `trip` (
   `id` INT NOT NULL,
   `title` VARCHAR(300) NULL,
@@ -83,6 +91,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `user_trip`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_trip` ;
+
 CREATE TABLE IF NOT EXISTS `user_trip` (
   `user_id` INT NOT NULL,
   `trip_id` INT NOT NULL,
@@ -104,6 +114,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `extra_curr`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `extra_curr` ;
+
 CREATE TABLE IF NOT EXISTS `extra_curr` (
   `trip_id` INT NULL,
   `name` VARCHAR(45) NULL,
@@ -121,6 +133,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `return`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `return` ;
+
 CREATE TABLE IF NOT EXISTS `return` (
   `id` INT NULL,
   `trip_id` INT NULL,
@@ -139,6 +153,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `user_rating`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_rating` ;
+
 CREATE TABLE IF NOT EXISTS `user_rating` (
   `value` INT NOT NULL,
   `user_id` INT NOT NULL,
@@ -155,6 +171,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `activity`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `activity` ;
+
 CREATE TABLE IF NOT EXISTS `activity` (
   `id` INT NOT NULL,
   `name` VARCHAR(300) NULL,
@@ -169,13 +187,13 @@ CREATE TABLE IF NOT EXISTS `activity` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- ----------------------------------------------------
--- USER CREATION SCRIPT
--- ----------------------------------------------------
+SET SQL_MODE = '';
+GRANT USAGE ON *.* TO user9;
+ DROP USER user9;
+SET SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+CREATE USER 'user9' IDENTIFIED BY 'user9';
 
-CREATE USER 'user9'@'localhost' IDENTIFIED BY 'user9';
-GRANT ALL PRIVILEGES ON snowbros.* to 'user9'@'localhost';
-
+GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'user9';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
