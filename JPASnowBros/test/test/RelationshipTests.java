@@ -76,7 +76,7 @@ public class RelationshipTests {
 	public void test_that_trip_has_many_users_and_users_have_many_trips() {
 		User u = em.find(User.class, 1);
 		Trip t = em.find(Trip.class, 2);
-		assertEquals(u.getTrips().size(), 3);
+		assertEquals(u.getTrips().size(), 2);
 		assertEquals(t.getUsers().size(), 3);
 	}
 	
@@ -89,7 +89,7 @@ public class RelationshipTests {
 	}
 	
 	@Test
-	public void test_that_trip_has_list_of_extraCurrs_and_extra_currs_have_one_trip() {
+	public void test_that_trip_has_list_of_extraCurrs_and_extra_currs_have_several_trips() {
 		Trip t = em.find(Trip.class, 1);
 		List<ExtraCurr> ec = t.getExtraCurrs();
 		ExtraCurr ec1 = ec.get(0);
@@ -99,9 +99,9 @@ public class RelationshipTests {
 		assertNotNull(ec1);
 		assertNotNull(ec2);
 		
-		assertEquals(ec.size(), 2);
+		assertEquals(ec.size(), 3);
 		assertEquals(ec1.getName(), "Dat Sweet Sweet Chronic");
-		assertEquals(ec2.getName(), "COCAINE BABY");
+		assertEquals(ec2.getName(), "Drank");
 		
 	}
 	
@@ -123,6 +123,23 @@ public class RelationshipTests {
 		assertNotNull(t.getExtraCurrs());
 		assertTrue(ec.getTrips().size() > 0);
 		assertTrue(t.getExtraCurrs().size() > 0);
+	}
+	
+	@Test
+	public void test_get_from_activity_to_extraCurrs() {
+		Activity a = em.find(Activity.class, 1);
+		User u = a.getUser();
+		assertNotNull(u);
+		assertEquals(u.getFirstName(), "Charlie");
+		List<Trip> trips = u.getTrips();
+		Trip t = trips.get(0);
+		assertNotNull(t);
+		assertEquals(t.getTitle(), "Charlie's Average sized trip to Shredville");
+		List<ExtraCurr> ecs = t.getExtraCurrs();
+		assertEquals(ecs.size(), 3);
+		ExtraCurr ec = ecs.get(0);
+		assertNotNull(ec);
+		assertEquals(ec.getName(), "Dat Sweet Sweet Chronic");
 	}
 
 }
