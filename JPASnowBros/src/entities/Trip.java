@@ -52,8 +52,6 @@ public class Trip {
 
 	private String description;
 
-	@Column(name = "destination_id")
-	private int destinationId;
 
 	@OneToOne(mappedBy = "trip")
 	private Return roundtrip;
@@ -116,14 +114,6 @@ public class Trip {
 		this.description = description;
 	}
 
-	public int getDestinationId() {
-		return destinationId;
-	}
-
-	public void setDestinationId(int destinationId) {
-		this.destinationId = destinationId;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -156,9 +146,10 @@ public class Trip {
 
 	@Override
 	public String toString() {
-		return "Trip [id=" + id + ", title=" + title + ", numberSeats=" + numberSeats + ", pointOfOrigin="
-				+ pointOfOrigin + ", date=" + date + ", pointOfReturn=" + pointOfReturn + ", description=" + description
-				+ ", destinationId=" + destinationId + "]";
+		return "Trip [id=" + id + ", ec=" + ec + ", title=" + title + ", destination=" + destination + ", users="
+				+ users + ", numberSeats=" + numberSeats + ", pointOfOrigin=" + pointOfOrigin + ", date=" + date
+				+ ", pointOfReturn=" + pointOfReturn + ", description=" + description + ", roundtrip=" + roundtrip
+				+ "]";
 	}
 
 }
