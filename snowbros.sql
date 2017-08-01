@@ -119,16 +119,9 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `extra_curr` ;
 
 CREATE TABLE IF NOT EXISTS `extra_curr` (
-  `trip_id` INT NULL,
   `name` VARCHAR(45) NULL,
   `id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `extras_idx` (`trip_id` ASC),
-  CONSTRAINT `extras`
-    FOREIGN KEY (`trip_id`)
-    REFERENCES `trip` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -185,6 +178,28 @@ CREATE TABLE IF NOT EXISTS `activity` (
   CONSTRAINT `user`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `trip_ec`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `trip_ec` ;
+
+CREATE TABLE IF NOT EXISTS `trip_ec` (
+  `trip_id` INT NOT NULL,
+  `ec_id` INT NOT NULL,
+  INDEX `ec_idx` (`ec_id` ASC),
+  CONSTRAINT `trip`
+    FOREIGN KEY (`trip_id`)
+    REFERENCES `trip` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ec`
+    FOREIGN KEY (`ec_id`)
+    REFERENCES `extra_curr` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -274,9 +289,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `snowbros`;
-INSERT INTO `extra_curr` (`trip_id`, `name`, `id`) VALUES (1, 'Dat Sweet Sweet Chronic', 1);
-INSERT INTO `extra_curr` (`trip_id`, `name`, `id`) VALUES (2, 'Drank', 2);
-INSERT INTO `extra_curr` (`trip_id`, `name`, `id`) VALUES (3, 'Drunk', 3);
+INSERT INTO `extra_curr` (`name`, `id`) VALUES ('Dat Sweet Sweet Chronic', 1);
+INSERT INTO `extra_curr` (`name`, `id`) VALUES ('Drank', 2);
+INSERT INTO `extra_curr` (`name`, `id`) VALUES ('Drunk', 3);
 
 COMMIT;
 
