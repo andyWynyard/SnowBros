@@ -254,6 +254,22 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `user_trip`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `snowbros`;
+INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (1, 3);
+INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (5, 2);
+INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (2, 1);
+INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (3, 1);
+INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (4, 1);
+INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (1, 2);
+INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (5, 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `extra_curr`
 -- -----------------------------------------------------
 START TRANSACTION;
