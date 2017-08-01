@@ -37,19 +37,11 @@ public class RelationshipTests {
 		User u = em.find(User.class, 1);
 		List<Activity> activities = u.getActivities();
 		assertNotNull(activities);
-<<<<<<< HEAD
-//		assertEquals(u.getActivities().get(0), "Skiing");
-//		Activity a = em.find(Activity.class, 1);
-//		User u2 = a.getUser();
-//		assertNotNull(u2);
-//		assertEquals(u2.getFirstName(), "Chuck");
-=======
 		assertEquals(u.getActivities().get(0).getName(), "Skiing");
 		Activity a = em.find(Activity.class, 1);
 		User u2 = a.getUser();
 		assertNotNull(u2);
 		assertEquals(u2.getFirstName(), "Charlie");
->>>>>>> 169ef2540ee0fbf0cff44f8cfd3ae79de58ea53d
 	}
 
 }
