@@ -118,8 +118,6 @@ public class Trip {
 		return id;
 	}
 
-
-
 	public List<ExtraCurr> getEc() {
 		return ec;
 	}
