@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "user_rating")
@@ -20,6 +22,8 @@ public class UserRating {
     @JoinColumn(name="user_id")
     private User user;
     
+    @Min(1)
+    @Max(5)
     private int value;
     
     public User getUser() {
