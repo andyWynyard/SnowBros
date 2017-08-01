@@ -10,7 +10,7 @@ public interface UserDAO {
 	
 	public User create(User user);
 	
-	public User validate(User user, String password);
+	public User validate(String email, String password);
 	
 	public List<Trip> userTrips(User user);
 	
