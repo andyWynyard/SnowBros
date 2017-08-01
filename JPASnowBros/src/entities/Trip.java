@@ -13,13 +13,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
 @Entity
+@Table(name = "trip")
 public class Trip {
 
 	@Id
@@ -27,7 +27,7 @@ public class Trip {
 	private int id;
 
 	@OneToMany(mappedBy = "trip")
-	private ExtraCurr ec;
+	private List<ExtraCurr> ec;
 
 	private String title;
 
@@ -128,11 +128,13 @@ public class Trip {
 		return id;
 	}
 
-	public ExtraCurr getEc() {
+
+
+	public List<ExtraCurr> getEc() {
 		return ec;
 	}
 
-	public void setEc(ExtraCurr ec) {
+	public void setEc(List<ExtraCurr> ec) {
 		this.ec = ec;
 	}
 
