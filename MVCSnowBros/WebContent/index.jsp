@@ -32,7 +32,7 @@
   <div class="well">
   <form action="getUser.do" method="POST">
   
-  	<h5>User name</h5>
+  	<h5>Email</h5>
     <input type="email" name="email"/>
     <h5>Password</h5>
     <input type="password" name="password"/>
