@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.hibernate.usertype.UserType;
 
@@ -31,7 +31,8 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<UserRating> userRating;
 	
-	@OneToOne(mappedBy = "user")
+	@ManyToOne
+	@JoinColumn(name = "user_type")
 	private UserType userType;
 	
 	@OneToMany(mappedBy = "user")

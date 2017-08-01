@@ -1,11 +1,12 @@
 package entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,30 +18,26 @@ public class UserType {
     private int id;
 
     // Linked to User class
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @OneToMany(mappedBy = "userType")
+    private List<User> users;
 
     private boolean admin;
     
-    
     //GETTERS AND SETTERS BELOW
-
-
 
     public boolean isAdmin() {
         return admin;
     }
 
-    public User getUser() {
-        return user;
-    }
+    public List<User> getUsers() {
+		return users;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 
-    public void setAdmin(boolean admin) {
+	public void setAdmin(boolean admin) {
         this.admin = admin;
     }
 
@@ -48,9 +45,10 @@ public class UserType {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "UserType [id=" + id + ", user=" + user + ", admin=" + admin + "]";
-    }
+	@Override
+	public String toString() {
+		return "UserType [id=" + id + ", users=" + users + ", admin=" + admin + "]";
+	}
+
     
 }
