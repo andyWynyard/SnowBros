@@ -4,7 +4,6 @@ import java.util.List;
 
 import entities.ExtraCurr;
 import entities.Trip;
-import entities.User;
 
 public interface TripDAO {
 

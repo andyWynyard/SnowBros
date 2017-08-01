@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import entities.ExtraCurr;
 import entities.Trip;
-import entities.User;
 
 @Transactional
 @Repository
