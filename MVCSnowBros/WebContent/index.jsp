@@ -24,12 +24,29 @@
   
   <div class="jumbotron">
   <h1>SnowBros</h1>
-  <p>Get ready to go to shred-town!!!/>
+  <p>Get ready to go to shredtown!!!</p>
+  <p>Go hard in the gnarly POW POW!</p>
   
+  </div> <!-- End of Jumbotron -->
+  
+  <div class="well">
+  <form action="getUser.do" method="POST">
+  
+  	<h5>User name</h5>
+    <input type="email" name="email"/>
+    <h5>Password</h5>
+    <input type="password" name="password"/>
+       
+    		<br>
+      <input type="submit" value="Submit" name="submit" />
+
+  </form>
+  
+  <form action="createProfile.do" method="GET">
+    			<input type="submit" value="Create new account">
+  		</form>
   
   </div>
-  
-  
   
   
   
