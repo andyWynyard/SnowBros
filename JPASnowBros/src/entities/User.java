@@ -29,7 +29,7 @@ public class User {
 	private String lastName;
 	
 	@OneToMany(mappedBy = "user")
-	private UserRating userRating;
+	private List<UserRating> userRating;
 	
 	@OneToOne(mappedBy = "user")
 	private UserType userType;
@@ -105,13 +105,12 @@ public class User {
 		this.activities = activities;
 	}
 	
-	
 
-	public UserRating getUserRating() {
+	public List<UserRating> getUserRating() {
 		return userRating;
 	}
 
-	public void setUserRating(UserRating userRating) {
+	public void setUserRating(List<UserRating> userRating) {
 		this.userRating = userRating;
 	}
 

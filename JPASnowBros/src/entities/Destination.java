@@ -7,8 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "destination")
 public class Destination {
     
 	@Id
@@ -18,7 +20,7 @@ public class Destination {
     private String name;
     
     @OneToMany(mappedBy="destination")
-    List<Trip> trips;
+    private List<Trip> trips;
 
     public String getName() {
         return name;
@@ -42,7 +44,7 @@ public class Destination {
 
 	@Override
 	public String toString() {
-		return "Destination [id=" + id + ", name=" + name + ", trips=" + trips + "]";
+		return "Destination [id=" + id + ", name=" + name + "]";
 	}
 
 }
