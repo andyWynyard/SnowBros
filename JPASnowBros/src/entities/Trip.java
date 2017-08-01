@@ -14,7 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.print.attribute.standard.Destination;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "trip")
@@ -42,6 +43,7 @@ public class Trip {
 	@Column(name = "point_of_origin")
 	private String pointOfOrigin;
 
+	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	@Column(name = "point_of_return")
