@@ -1,7 +1,6 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -92,7 +91,7 @@ public class RelationshipTests {
 	@Test
 	public void test_that_trip_has_list_of_extraCurrs_and_extra_currs_have_one_trip() {
 		Trip t = em.find(Trip.class, 1);
-		List<ExtraCurr> ec = t.getEc();
+		List<ExtraCurr> ec = t.getExtraCurrs();
 		ExtraCurr ec1 = ec.get(0);
 		ExtraCurr ec2 = ec.get(1);
 		
@@ -114,6 +113,16 @@ public class RelationshipTests {
 		LocalDateTime ldt = LocalDateTime.of(2017, Month.DECEMBER, 12, 14, 30, 00);
 		assertEquals(r.getReturnTime(), ldt);
 		assertEquals(t, r.getTrip());
+	}
+	
+	@Test
+	public void test_manyToMany_between_extraCurrs_and_trip() {
+		Trip t = em.find(Trip.class, 1);
+		ExtraCurr ec = em.find(ExtraCurr.class, 1);
+		assertNotNull(ec.getTrips());
+		assertNotNull(t.getExtraCurrs());
+		assertTrue(ec.getTrips().size() > 0);
+		assertTrue(t.getExtraCurrs().size() > 0);
 	}
 
 }
