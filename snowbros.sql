@@ -338,3 +338,21 @@ INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (5, 'Skiing', 4, 
 
 COMMIT;
 
+
+-- -----------------------------------------------------
+-- Data for table `trip_ec`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `snowbros`;
+INSERT INTO `trip_ec` (`trip_id`, `ec_id`) VALUES (1, 1);
+INSERT INTO `trip_ec` (`trip_id`, `ec_id`) VALUES (2, 1);
+INSERT INTO `trip_ec` (`trip_id`, `ec_id`) VALUES (3, 1);
+INSERT INTO `trip_ec` (`trip_id`, `ec_id`) VALUES (1, 2);
+INSERT INTO `trip_ec` (`trip_id`, `ec_id`) VALUES (2, 2);
+INSERT INTO `trip_ec` (`trip_id`, `ec_id`) VALUES (3, 2);
+INSERT INTO `trip_ec` (`trip_id`, `ec_id`) VALUES (1, 3);
+INSERT INTO `trip_ec` (`trip_id`, `ec_id`) VALUES (2, 3);
+INSERT INTO `trip_ec` (`trip_id`, `ec_id`) VALUES (3, 3);
+
+COMMIT;
+
