@@ -1,5 +1,6 @@
 package entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,16 +16,9 @@ public class Activity {
 	private int id;
 
 	private String name;
-
+	
+	@Column(name = "exp")
 	private int experenice;
-
-	public int getExperenice() {
-		return experenice;
-	}
-
-	public void setExperenice(int experenice) {
-		this.experenice = experenice;
-	}
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -33,9 +27,17 @@ public class Activity {
 	public String getName() {
 		return name;
 	}
-
+	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public int getExperenice() {
+		return experenice;
+	}
+
+	public void setExperenice(int experenice) {
+		this.experenice = experenice;
 	}
 
 	public int getId() {
@@ -49,6 +51,8 @@ public class Activity {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	
 
 	@Override
 	public String toString() {
