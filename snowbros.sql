@@ -169,7 +169,12 @@ CREATE TABLE IF NOT EXISTS `activity` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE USER 'user8' IDENTIFIED BY 'user8';
+-- ----------------------------------------------------
+-- USER CREATION SCRIPT
+-- ----------------------------------------------------
+
+CREATE USER 'user9'@'localhost' IDENTIFIED BY 'user9';
+GRANT ALL PRIVILEGES ON snowbros.* to 'user9'@'localhost';
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
