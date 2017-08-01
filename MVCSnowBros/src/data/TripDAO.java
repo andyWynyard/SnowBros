@@ -12,7 +12,7 @@ public interface TripDAO {
 	
 	public List<Trip> searchTrip(String title);
 	
-	//public List<Trip> searchTrip(ExtraCurr ec);
+	public List<Trip> searchTrip(ExtraCurr ec);
 	
 	public Trip updateTrip(Trip trip);
 	

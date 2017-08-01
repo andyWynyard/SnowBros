@@ -19,4 +19,8 @@ public interface UserDAO {
 	public User deleteUser(User user);
 	
 	public User addFriends(User user);
+
+	public User rateUser(User user, int rating);
+	
+
 }
