@@ -9,9 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,8 +26,12 @@ public class Trip {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@OneToMany(mappedBy = "trip")
-	private List<ExtraCurr> ec;
+	@ManyToMany
+	@JoinTable(name = "trip_ec",
+	joinColumns = @JoinColumn(name = "trip_id"),
+	inverseJoinColumns = @JoinColumn(name = "ec_id")
+			)
+	private List<ExtraCurr> extraCurrs;
 
 	private String title;
 
@@ -118,12 +122,12 @@ public class Trip {
 		return id;
 	}
 
-	public List<ExtraCurr> getEc() {
-		return ec;
+	public List<ExtraCurr> getExtraCurrs() {
+		return extraCurrs;
 	}
 
-	public void setEc(List<ExtraCurr> ec) {
-		this.ec = ec;
+	public void setExtraCurrs(List<ExtraCurr> extraCurrs) {
+		this.extraCurrs = extraCurrs;
 	}
 
 	public Destination getDestination() {
@@ -144,10 +148,10 @@ public class Trip {
 
 	@Override
 	public String toString() {
-		return "Trip [id=" + id + ", ec=" + ec + ", title=" + title + ", destination=" + destination + ", users="
-				+ users + ", numberSeats=" + numberSeats + ", pointOfOrigin=" + pointOfOrigin + ", date=" + date
-				+ ", pointOfReturn=" + pointOfReturn + ", description=" + description + ", roundtrip=" + roundtrip
-				+ "]";
+		return "Trip [id=" + id + ", extraCurrs=" + extraCurrs + ", title=" + title + ", destination=" + destination
+				+ ", users=" + users + ", numberSeats=" + numberSeats + ", pointOfOrigin=" + pointOfOrigin + ", date="
+				+ date + ", pointOfReturn=" + pointOfReturn + ", description=" + description + ", roundtrip="
+				+ roundtrip + "]";
 	}
 
 }

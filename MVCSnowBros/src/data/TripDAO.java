@@ -4,17 +4,14 @@ import java.util.List;
 
 import entities.ExtraCurr;
 import entities.Trip;
-import entities.User;
 
 public interface TripDAO {
 
 	public Trip createTrip(Trip trip);
 	
-	public Trip searchTrip(Trip trip);
+	public List<Trip> searchTrip(String title);
 	
-	public Trip searchTrip(User user);
-	
-	public Trip searchTrip(ExtraCurr ec);
+	public List<Trip> searchTrip(ExtraCurr ec);
 	
 	public Trip updateTrip(Trip trip);
 	

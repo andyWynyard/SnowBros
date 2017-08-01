@@ -1,12 +1,13 @@
 package entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,9 +22,8 @@ public class ExtraCurr {
     private String name;
 
     // Linked to Trip class
-    @ManyToOne
-    @JoinColumn(name = "trip_id")
-    private Trip trip;
+    @ManyToMany(mappedBy = "extraCurrs")
+    private List<Trip> trips;
 
     // GETTERS AND SETTERS BELOW
 
@@ -31,15 +31,18 @@ public class ExtraCurr {
         return name;
     }
 
-    public Trip getTrip() {
-        return trip;
-    }
 
-    public void setTrip(Trip trip) {
-        this.trip = trip;
-    }
+    public List<Trip> getTrips() {
+		return trips;
+	}
 
-    public void setName(String name) {
+
+	public void setTrips(List<Trip> trips) {
+		this.trips = trips;
+	}
+
+
+	public void setName(String name) {
         this.name = name;
     }
 
@@ -47,9 +50,10 @@ public class ExtraCurr {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "ExtraCirricular [id=" + id + ", name=" + name + ", trip=" + trip + "]";
-    }
+
+	@Override
+	public String toString() {
+		return "ExtraCurr [id=" + id + ", name=" + name + ", trips=" + trips + "]";
+	}
 
 }

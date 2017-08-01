@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 public class Activity {
@@ -18,6 +20,8 @@ public class Activity {
 	private String name;
 	
 	@Column(name = "exp")
+	@Min(1)
+	@Max(5)
 	private int experenice;
 
 	@ManyToOne
