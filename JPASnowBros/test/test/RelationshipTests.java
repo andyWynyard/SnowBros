@@ -3,6 +3,8 @@ package test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,6 +16,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import entities.Activity;
+import entities.Destination;
+import entities.ExtraCurr;
+import entities.Return;
 import entities.Trip;
 import entities.User;
 import entities.UserRating;
@@ -74,7 +79,41 @@ public class RelationshipTests {
 		Trip t = em.find(Trip.class, 2);
 		assertEquals(u.getTrips().size(), 3);
 		assertEquals(t.getUsers().size(), 3);
+	}
+	
+	@Test
+	public void test_that_trip_has_a_destination_and_destination_has_list_of_trips() {
+		Trip t = em.find(Trip.class, 1);
+		Destination d = t.getDestination();
+		assertNotNull(d);
+		assertEquals(d.getTrips().size(), 1);
+	}
+	
+	@Test
+	public void test_that_trip_has_list_of_extraCurrs_and_extra_currs_have_one_trip() {
+		Trip t = em.find(Trip.class, 1);
+		List<ExtraCurr> ec = t.getEc();
+		ExtraCurr ec1 = ec.get(0);
+		ExtraCurr ec2 = ec.get(1);
 		
+		assertNotNull(ec);
+		assertNotNull(ec1);
+		assertNotNull(ec2);
+		
+		assertEquals(ec.size(), 2);
+		assertEquals(ec1.getName(), "Dat Sweet Sweet Chronic");
+		assertEquals(ec2.getName(), "COCAINE BABY");
+		
+	}
+	
+	@Test
+	public void test_that_each_trip_has_a_return_and_each_return_has_a_trip() {
+		Trip t = em.find(Trip.class, 1);
+		Return r = t.getRoundtrip();
+		assertNotNull(r);
+		LocalDateTime ldt = LocalDateTime.of(2017, Month.DECEMBER, 12, 14, 30, 00);
+		assertEquals(r.getReturnTime(), ldt);
+		assertEquals(t, r.getTrip());
 	}
 
 }
