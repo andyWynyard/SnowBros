@@ -60,6 +60,7 @@ DROP TABLE IF EXISTS `destination` ;
 CREATE TABLE IF NOT EXISTS `destination` (
   `id` INT NOT NULL,
   `name` VARCHAR(300) NULL,
+  `link` VARCHAR(300) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -78,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `trip` (
   `point_of_return` VARCHAR(300) NULL,
   `description` VARCHAR(300) NULL,
   `destination_id` INT NOT NULL,
+  `owner_id` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `dest_idx` (`destination_id` ASC),
   CONSTRAINT `dest`
@@ -131,11 +133,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `return`
+-- Table `return1`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `return` ;
+DROP TABLE IF EXISTS `return1` ;
 
-CREATE TABLE IF NOT EXISTS `return` (
+CREATE TABLE IF NOT EXISTS `return1` (
   `id` INT NULL,
   `trip_id` INT NULL,
   `return` TINYINT(1) NULL,
@@ -232,9 +234,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `snowbros`;
-INSERT INTO `destination` (`id`, `name`) VALUES (1, 'Copper Mountain');
-INSERT INTO `destination` (`id`, `name`) VALUES (2, 'Breckenridge');
-INSERT INTO `destination` (`id`, `name`) VALUES (3, 'Vail Mountain Resort');
+INSERT INTO `destination` (`id`, `name`, `link`) VALUES (1, 'Copper Mountain', NULL);
+INSERT INTO `destination` (`id`, `name`, `link`) VALUES (2, 'Breckenridge', NULL);
+INSERT INTO `destination` (`id`, `name`, `link`) VALUES (3, 'Vail Mountain Resort', NULL);
 
 COMMIT;
 
@@ -244,9 +246,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `snowbros`;
-INSERT INTO `trip` (`id`, `title`, `number_seats`, `point_of_origin`, `date`, `point_of_return`, `description`, `destination_id`) VALUES (1, 'Andy\'s Big Trip to ShredTown', 3, 'Moe\'s Bagels', '2017-12-12 06:00:00', 'At the car', 'ShredTown yalllllll', 1);
-INSERT INTO `trip` (`id`, `title`, `number_seats`, `point_of_origin`, `date`, `point_of_return`, `description`, `destination_id`) VALUES (2, 'Charlie\'s Average sized trip to Shredville', 2, 'Rosenberg\'s Bagels', '2017-12-13 06:00:00', 'Apres-Ski Bar', 'Shredville, guys', 2);
-INSERT INTO `trip` (`id`, `title`, `number_seats`, `point_of_origin`, `date`, `point_of_return`, `description`, `destination_id`) VALUES (3, 'Travis\' Small trip to ShredCity', 4, 'The Bagel Deli', '2018-01-02 07:00:00', 'The trunk of the car', 'SHREDDDINNNNNGGG', 3);
+INSERT INTO `trip` (`id`, `title`, `number_seats`, `point_of_origin`, `date`, `point_of_return`, `description`, `destination_id`, `owner_id`) VALUES (1, 'Andy\'s Big Trip to ShredTown', 3, 'Moe\'s Bagels', '2017-12-12 06:00:00', 'At the car', 'ShredTown yalllllll', 1, DEFAULT);
+INSERT INTO `trip` (`id`, `title`, `number_seats`, `point_of_origin`, `date`, `point_of_return`, `description`, `destination_id`, `owner_id`) VALUES (2, 'Charlie\'s Average sized trip to Shredville', 2, 'Rosenberg\'s Bagels', '2017-12-13 06:00:00', 'Apres-Ski Bar', 'Shredville, guys', 2, DEFAULT);
+INSERT INTO `trip` (`id`, `title`, `number_seats`, `point_of_origin`, `date`, `point_of_return`, `description`, `destination_id`, `owner_id`) VALUES (3, 'Travis\' Small trip to ShredCity', 4, 'The Bagel Deli', '2018-01-02 07:00:00', 'The trunk of the car', 'SHREDDDINNNNNGGG', 3, DEFAULT);
 
 COMMIT;
 
@@ -264,13 +266,13 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `return`
+-- Data for table `return1`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `snowbros`;
-INSERT INTO `return` (`id`, `trip_id`, `return`, `return_time`) VALUES (1, 1, true, '2017-12-12 14:30:00');
-INSERT INTO `return` (`id`, `trip_id`, `return`, `return_time`) VALUES (2, 2, true, '2017-12-13 15:00:00');
-INSERT INTO `return` (`id`, `trip_id`, `return`, `return_time`) VALUES (3, 3, true, '2018-01-12 15:30:00');
+INSERT INTO `return1` (`id`, `trip_id`, `return`, `return_time`) VALUES (1, 1, true, '2017-12-12 14:30:00');
+INSERT INTO `return1` (`id`, `trip_id`, `return`, `return_time`) VALUES (2, 2, true, '2017-12-13 15:00:00');
+INSERT INTO `return1` (`id`, `trip_id`, `return`, `return_time`) VALUES (3, 3, true, '2018-01-12 15:30:00');
 
 COMMIT;
 
