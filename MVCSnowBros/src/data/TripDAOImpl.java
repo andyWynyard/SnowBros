@@ -56,7 +56,7 @@ public class TripDAOImpl implements TripDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		System.out.println(trips);
 		try {
 			List<Trip> nameTrips = em.createQuery(query2, Trip.class).setParameter("search", "%" + search + "%")
 					.setParameter("serach1", "%" + search + "%").getResultList();
@@ -66,7 +66,7 @@ public class TripDAOImpl implements TripDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		System.out.println(trips);
 		// try {
 		// List<Trip> ecTrips = em.createQuery(query3,
 		// Trip.class).setParameter("search", "%" + search + "%")
@@ -87,6 +87,7 @@ public class TripDAOImpl implements TripDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(trips);
 		return trips;
 	}
 

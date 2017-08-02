@@ -34,15 +34,15 @@ public class SnowBroController {
 	@RequestMapping(path = "searchPage.do")
 	public String allTrips(Model model) {
 		List<Trip> trips = td.allTrips();
-		model.addAttribute("searchresults", null);
+		model.addAttribute("searchResults", null);
 		model.addAttribute("allTrips", trips);
 		return "search.jsp";
 	}
 
-	@RequestMapping(path = "searchTitle.do")
+	@RequestMapping(path = "search.do")
 	public String SearchTitle(@RequestParam("searchTitle") String title, Model model) {
 		List<Trip> trips = td.searchTrip(title);
-		System.out.println(trips);
+		System.out.println("controller......." + trips);
 		model.addAttribute("searchResults", trips);
 		return "search.jsp";
 	}
@@ -113,7 +113,7 @@ public class SnowBroController {
 			@RequestParam("destination") String dest, @RequestParam("description") String desc,
 			@RequestParam("pointOfOrigin") String pO, @RequestParam("date") String date,
 			@RequestParam("pointOfReturn") String pR, @RequestParam("numberSeats") int seats,
-			@RequestParam("extraCurrs") String ec) {
+			@RequestParam("extraCurrs") String ec,@RequestParam("userId") int userId) {
 		Trip trip = new Trip();
 		Destination d = td.findDestinationByNameOrCreateNewDestination(dest);
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm a");
@@ -131,6 +131,7 @@ public class SnowBroController {
 		trip.setPointOfReturn(pR);
 		trip.setNumberSeats(seats);
 		// trip.setExtraCurrs(ec);
+		trip.setOwnerId(userId);
 		Trip t = td.createTrip(trip);
 
 		model.addAttribute("trip", t);

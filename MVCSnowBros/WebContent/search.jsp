@@ -17,21 +17,12 @@
 <jsp:include page="partials/_navProfile.jsp"></jsp:include>
 
 		<div class="well">
-			Search for Trip by Title
-			<form action="searchTitle.do" method="GET">
+			Search for Trip
+			<form action="search.do" method="GET">
 				<input type="submit" value="Search"> <input type="text"
 					name="searchTitle">
 			</form>
-			<br> Search for Trip by Extracurriculars
-			<form action="searchExtra.do" method="GET">
-				<input type="submit" value="Search"> <input type="text"
-					name="searchEC">
-			</form>
-			<br> Search for Trips by User
-			<form action="searchUser.do" method="GET">
-				<input type="submit" value="Search"> <input type="text"
-					name="searchUser">
-			</form>
+			
 
 
 			<br><br>
@@ -50,10 +41,8 @@
 
 					<c:forEach items="${allTrips}" var="trip">
     						${trip.title}<br>
-    						${trip.destination}<br>
-    						${trip.date}<br>
-    						${trip.description}<br>
-    						${trip.numberSeats}<br>
+    						${trip.destination.name}<br>
+    						<br><br>
 					</c:forEach>
 
 				</c:otherwise>
