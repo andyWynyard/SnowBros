@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -32,7 +33,7 @@ public class TripDAOImpl implements TripDAO {
 
 	@Override
 	public List<Trip> searchTrip(String search) {
-		List<Trip> trips = null;
+		List<Trip> trips = new ArrayList<>();
 		String query1 = "Select t FROM Trip t Where t.title LIKE :search";
 		String query2 = "SELECT u.trips FROM User u WHERE u.firstName LIKE :search OR u.lastName LIKE :search1"; // set
 																													// 2
