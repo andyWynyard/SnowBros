@@ -65,7 +65,7 @@ public class SnowBroController {
 	public String CreateProfile(Model model) {
 		User u = null;
 		model.addAttribute("user", u);
-		return "createEditProfile.jsp";
+		return "createProfile.jsp";
 	}
 
 	@RequestMapping(path = "createProfile.do")
@@ -193,7 +193,7 @@ public class SnowBroController {
 	@RequestMapping(path = "editUserPage.do", method = RequestMethod.GET)
 	public String goToEditUserPage(Model model, @RequestParam("userId") int userId) {
 		model.addAttribute("user", ud.findUserById(userId));
-		return "createEditProfile.jsp";
+		return "editProfile.jsp";
 	}
 
 	@RequestMapping(path = "deleteTrip.do", method = RequestMethod.POST)
