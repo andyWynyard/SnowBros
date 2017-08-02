@@ -15,6 +15,7 @@ import entities.Trip;
 public class SnowBroController{
 	@Autowired
 		private TripDAO td;
+	@Autowired
 		private UserDAO ud;
 	
 		@RequestMapping(path = "searchPage.do")
