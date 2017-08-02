@@ -23,7 +23,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User create(User user) {
 		try {
-			System.out.println("*************************************************"+user);
+			
 			em.persist(user);
 			
 			em.flush();
