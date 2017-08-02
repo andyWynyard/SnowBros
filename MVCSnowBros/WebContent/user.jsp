@@ -63,7 +63,7 @@
   		</form>
   		
   		<form action="viewFriends.do" method="GET">
-  		<h3>Your Bro's</h3>
+  		<h3>Your Bros</h3>
   			<c:forEach items = "${user.friends}" var = "friends">
          		<input type="submit" value="${friends.firstName} ${friends.lastName}">
     				<input type="hidden" value="${friends.id}" name="friendId">

@@ -46,7 +46,7 @@
   			<input type="hidden" value="${user.id}" name="userId">
   		</form>
   
-  </div>
+  </div> <!-- end of profile well -->
   <div class="well">
   
   <p>${trip.destination}</p>
@@ -83,7 +83,7 @@
   
   
   		<form action="editUserPage.do" method="GET">
-    			<input type="submit" value="Edit this Film" name="${film.id}">
+    			<input type="submit" value="Edit profile" name="${user.id}">
     			<input type="hidden" value="${user.id}" name="userId">
   		</form>
   		
@@ -97,7 +97,7 @@
   		</c:if>
   		
   		<form action="viewButtsInSeats.do" method="GET">
-  		<h3>Your Bro's</h3>
+  		<h3>Your Bros</h3>
   			<c:forEach items = "${tripPassengers}" var = "bros">
          		<input type="submit" value="${bros.firstName} ${bros.lastName}">
     				<input type="hidden" value="${bros.id}" name="broId">
