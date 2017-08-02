@@ -92,15 +92,16 @@
   		<form action="deleteTrip.do" method="POST">
     			<input type="submit" value="Delete this trip">
     			<input type="hidden" value="${trip.id}" name="tripId">
+    			<input type="hidden" value="${user.id}" name="userId">
   		</form>
   		
   		</c:if>
   		
-  		<form action="viewButtsInSeats.do" method="GET">
+  		<form action="getProfilePage.do" method="GET">
   		<h3>Your Bros</h3>
   			<c:forEach items = "${tripPassengers}" var = "bros">
          		<input type="submit" value="${bros.firstName} ${bros.lastName}">
-    				<input type="hidden" value="${bros.id}" name="broId">
+    				<input type="hidden" value="${bros.id}" name="userId">
          </c:forEach>	
   		</form>
 
