@@ -39,7 +39,7 @@ public class SnowBroController {
 		return "search.jsp";
 	}
 
-	@RequestMapping(path = "search.do")
+	@RequestMapping(path = "searchTrip.do")
 	public String SearchTitle(@RequestParam("searchTitle") String title, Model model) {
 		List<Trip> trips = td.searchTrip(title);
 		System.out.println("controller......." + trips);

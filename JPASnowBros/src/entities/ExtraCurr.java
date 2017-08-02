@@ -54,7 +54,7 @@ public class ExtraCurr {
 
 	@Override
 	public String toString() {
-		return "ExtraCurr [id=" + id + ", name=" + name + ", trips=" + trips + "]";
+		return "ExtraCurr [id=" + id + ", name=" + name+ "]";
 	}
 
 }

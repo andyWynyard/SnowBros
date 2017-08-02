@@ -18,7 +18,7 @@
 
 		<div class="well">
 			Search for Trip
-			<form action="search.do" method="GET">
+			<form action="searchTrip.do" method="GET">
 				<input type="submit" value="Search"> <input type="text"
 					name="searchTitle">
 			</form>
@@ -27,7 +27,7 @@
 
 			<br><br>
 			<c:choose>
-				<c:when test="${searchResults} != null">
+				<c:when test="${searchResults != null}">
 					<c:forEach items="${searchResults}" var="trip">
     						${trip.title}<br>
     						${trip.destination}<br>
