@@ -31,8 +31,7 @@
   
   <div class="well">
   
-  <c:choose>
-   <c:when test="${user} == null">
+
    
    <h1>Create your profile here</h1>
     <form action="createProfile.do" method="POST">
@@ -52,32 +51,6 @@
       </form>
    
    
-   
-   </c:when>
-   <c:when test="${user.id} != null">
-   
-   
-   <h1>Edit your profile here</h1>
-    <form action="editProfile.do" method="POST">
-       <h5>First Name</h5>
-       <input type="text" name="firstName" value="${user.firstName}"/>
-       <h5>Last Name</h5>
-       <input type="text" name="lastName" value="${user.lastName}"/>
-       <h5>email (this will be your username)</h5>
-       <input type="text" name="email" value="${user.email}"/>
-       <h5>HTML link to a picture you want</h5>
-       <input type="text" name="picture" value="${user.picture}">
-    		<br>
-    		<br>
-      <input type="submit" value="Submit" name="submit" />
-      </form>
-   
-   
-   
-   </c:when>
-   
-</c:choose>
-  
   
     </div>
   
