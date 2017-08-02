@@ -34,22 +34,20 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<UserRating> userRating;
 	
-	@ManyToOne
-	@JoinColumn(name = "user_type")
-	private UserType userType;
+	@Column(name="admin")
+	private boolean userType;
 	
 	@OneToMany(mappedBy = "user")
 	private List<Activity> activities;
 	
 	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Trip> trips;
-	@Email
-	@Min(1)
+	
 	private String email;
 	
 	@Column(name = "phone_number")
 	private String phoneNumber;
-	@Min(1)
+
 	private String password;
 	
 	private String picture;
@@ -127,14 +125,17 @@ public class User {
 		this.userRating = userRating;
 	}
 
-	public UserType getUserType() {
+
+	
+
+	public boolean isUserType() {
 		return userType;
 	}
 
-	public void setUserType(UserType userType) {
+	public void setUserType(boolean userType) {
 		this.userType = userType;
 	}
-	
+
 	public List<Trip> getTrips() {
 		return trips;
 	}
@@ -145,9 +146,12 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", phoneNumber=" + phoneNumber + "]";
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName 
+				+ ", userType=" + userType + ", email=" + email + ", phoneNumber=" + phoneNumber + ", password="
+				+ password + ", picture=" + picture + "]";
 	}
+
+	
 
 	
 	

@@ -78,6 +78,7 @@ public class SnowBroController {
 		user.setEmail(email);
 		user.setPassword(password);
 		user.setPicture(picture);
+		user.setUserType(false);
 		ud.create(user);
 		model.addAttribute("user", user);
 		return "user.jsp";

@@ -16,39 +16,21 @@ CREATE SCHEMA IF NOT EXISTS `snowbros` DEFAULT CHARACTER SET utf8 ;
 USE `snowbros` ;
 
 -- -----------------------------------------------------
--- Table `user_type`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_type` ;
-
-CREATE TABLE IF NOT EXISTS `user_type` (
-  `id` INT NOT NULL,
-  `admin` TINYINT(1) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `user`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `user` ;
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
   `email` VARCHAR(191) NULL,
   `phone_number` VARCHAR(45) NULL,
   `picture` VARCHAR(300) NULL,
   `password` VARCHAR(45) NULL,
-  `user_type` INT NOT NULL,
+  `admin` TINYINT(1) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC),
-  INDEX `usertype_idx` (`user_type` ASC),
-  CONSTRAINT `usertype`
-    FOREIGN KEY (`user_type`)
-    REFERENCES `user_type` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
 
@@ -58,7 +40,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `destination` ;
 
 CREATE TABLE IF NOT EXISTS `destination` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(300) NULL,
   `link` VARCHAR(300) NULL,
   PRIMARY KEY (`id`))
@@ -71,7 +53,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `trip` ;
 
 CREATE TABLE IF NOT EXISTS `trip` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(300) NULL,
   `number_seats` INT NULL,
   `point_of_origin` VARCHAR(300) NULL,
@@ -120,7 +102,7 @@ DROP TABLE IF EXISTS `extra_curr` ;
 
 CREATE TABLE IF NOT EXISTS `extra_curr` (
   `name` VARCHAR(45) NULL,
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -131,7 +113,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `return1` ;
 
 CREATE TABLE IF NOT EXISTS `return1` (
-  `id` INT NULL,
+  `id` INT NULL AUTO_INCREMENT,
   `trip_id` INT NULL,
   `return` TINYINT(1) NULL,
   `return_time` DATETIME NULL,
@@ -153,7 +135,7 @@ DROP TABLE IF EXISTS `user_rating` ;
 CREATE TABLE IF NOT EXISTS `user_rating` (
   `value` INT NOT NULL,
   `user_id` INT NOT NULL,
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   CONSTRAINT `rating`
     FOREIGN KEY (`user_id`)
@@ -169,7 +151,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `activity` ;
 
 CREATE TABLE IF NOT EXISTS `activity` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(300) NULL,
   `exp` INT NOT NULL,
   `user_id` INT NULL,
@@ -217,29 +199,15 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `user_type`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `snowbros`;
-INSERT INTO `user_type` (`id`, `admin`) VALUES (1, false);
-INSERT INTO `user_type` (`id`, `admin`) VALUES (2, false);
-INSERT INTO `user_type` (`id`, `admin`) VALUES (3, false);
-INSERT INTO `user_type` (`id`, `admin`) VALUES (4, false);
-INSERT INTO `user_type` (`id`, `admin`) VALUES (5, true);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `user`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `snowbros`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `user_type`) VALUES (1, 'Charlie', 'Actor', 'charlie@sd.com', '3333333333', 'images/charlie.jpg', 'password', 1);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `user_type`) VALUES (2, 'Travis', 'Way', 'travis@sd.com', '2222222222', 'images/travis.jpg', 'password', 1);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `user_type`) VALUES (3, 'Michael', 'Maldonado', 'michael@sd.com', '7777777777', 'images/mike.jpg', 'password', 1);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `user_type`) VALUES (4, 'Andy', 'BeerFoot', 'Andy@s.com', '010101010101', 'images/andy.jpg', 'passworde', 1);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `user_type`) VALUES (5, 'Admin', 'Admin', 'admin@sd.com', '11111111111', 'images/admin.jpg', 'admin', 2);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `admin`) VALUES (1, 'Charlie', 'Actor', 'charlie@sd.com', '3333333333', 'images/charlie.jpg', 'password', 0);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `admin`) VALUES (2, 'Travis', 'Way', 'travis@sd.com', '2222222222', 'images/travis.jpg', 'password', 0);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `admin`) VALUES (3, 'Michael', 'Maldonado', 'michael@sd.com', '7777777777', 'images/mike.jpg', 'password', 0);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `admin`) VALUES (4, 'Andy', 'BeerFoot', 'Andy@s.com', '010101010101', 'images/andy.jpg', 'passworde', 0);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `admin`) VALUES (5, 'Admin', 'Admin', 'admin@sd.com', '11111111111', 'images/admin.jpg', 'admin', 1);
 
 COMMIT;
 
