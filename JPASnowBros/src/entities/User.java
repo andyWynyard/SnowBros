@@ -56,10 +56,22 @@ public class User {
 	@Min(1)
 	private String password;
 	
+	private String picture;
+	
 //	GETTERS AND SETTERS (GET HER? I HARDLY KNOW HER!) BELOW.
 
+	
+	
 	public String getFirstName() {
 		return firstName;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
 	public void setFirstName(String firstName) {

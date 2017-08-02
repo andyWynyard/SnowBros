@@ -22,5 +22,7 @@ public interface UserDAO {
 
 	public User rateUser(User user, int rating);
 	
+	public User findUserById(int id);
+	
 
 }

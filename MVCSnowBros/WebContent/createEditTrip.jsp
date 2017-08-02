@@ -91,8 +91,8 @@
   </c:when>
    <c:when test="${trip.id} != null">
    
-   <h1>Create your trip here</h1>
-    <form action="createTrip.do" method="POST">
+   <h1>Edit your trip here</h1>
+    <form action="editTrip.do" method="POST">
     
        <h5>Title</h5>
        <input type="text" name="title" value="${trip.title}"/>

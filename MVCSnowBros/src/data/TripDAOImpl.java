@@ -1,6 +1,5 @@
 package data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import entities.ExtraCurr;
 import entities.Trip;
 
 @Transactional
@@ -33,37 +31,58 @@ public class TripDAOImpl implements TripDAO {
 	}
 
 	@Override
-	public List<Trip> searchTrip(String title) {
+	public List<Trip> searchTrip(String search) {
 		List<Trip> trips = null;
+		String query1 = "Select t FROM Trip t Where t.title LIKE :search";
+		String query2 = "SELECT u.trips FROM User u WHERE u.firstName LIKE :search OR u.lastName LIKE :search1"; // set
+																													// 2
+																													// parameters
+																													// to
+																													// the
+																													// same
+																													// thing
+		String query3 = "SELECT ec.trips FROM ExtraCurr ec WHERE ec.name LIKE :search";
+		String query4 = "SELECT d.trips FROM Destination d WHERE d.name LIKE :search";
 
 		try {
-			trips = em.createQuery("Select t FROM Trip t Where t.title LIKE :title", Trip.class)
-					.setParameter("title", "%" + title + "%").getResultList();
-			em.persist(trips);
-			em.flush();
-
+			List<Trip> titleTrips = em.createQuery(query1, Trip.class).setParameter("search", "%" + search + "%")
+					.getResultList();
+			for (Trip trip : titleTrips) {
+				trips.add(trip);
+			}
 		} catch (Exception e) {
-
-			return null;
+			e.printStackTrace();
 		}
-
-		return trips;
-	}
-
-	@Override
-	public List<Trip> searchTrip(ExtraCurr ec) {
-		List<Trip> trips = new ArrayList<>();
 
 		try {
-			trips = em.createQuery("Select ec.trips FROM ExtraCurr ec Where ec.id = :id", Trip.class)
-					.setParameter("name", "%" + ec.getId() + "%").getResultList();
-			em.persist(trips);
-			em.flush();
-
+			List<Trip> nameTrips = em.createQuery(query2, Trip.class).setParameter("search", "%" + search + "%")
+					.setParameter("serach1", "%" + search + "%").getResultList();
+			for (Trip trip : nameTrips) {
+				trips.add(trip);
+			}
 		} catch (Exception e) {
-			trips = null;
+			e.printStackTrace();
 		}
 
+		try {
+			List<Trip> ecTrips = em.createQuery(query3, Trip.class).setParameter("search", "%" + search + "%")
+					.getResultList();
+			for (Trip trip : ecTrips) {
+				trips.add(trip);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try {
+			List<Trip> destTrips = em.createQuery(query4, Trip.class).setParameter("search", "%" + search + "%")
+					.getResultList();
+			for (Trip trip : destTrips) {
+				trips.add(trip);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return trips;
 	}
 
@@ -109,6 +128,12 @@ public class TripDAOImpl implements TripDAO {
 	public List<Trip> allTrips() {
 		return em.createQuery("Select t FROM Trip t", Trip.class).getResultList();
 
+	}
+
+	@Override
+	public Trip findTripById(int id) {
+		Trip t = em.find(Trip.class, id);
+		return t;
 	}
 
 }

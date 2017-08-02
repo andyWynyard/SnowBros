@@ -70,9 +70,9 @@ textarea {
 			</form>
 
 
-
+			<br><br>
 			<c:choose>
-				<c:when test="${searchresults} != null">
+				<c:when test="${searchResults} != null">
 					<c:forEach items="${searchresults}" var="trip">
     						${trip.title}<br>
     						${trip.destination}<br>
@@ -84,7 +84,7 @@ textarea {
 
 				<c:otherwise>
 
-					<c:forEach items="${alltrips}" var="trip">
+					<c:forEach items="${allTrips}" var="trip">
     						${trip.title}<br>
     						${trip.destination}<br>
     						${trip.date}<br>
