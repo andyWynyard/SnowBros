@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import entities.Destination;
 import entities.Trip;
 
 @Transactional
@@ -42,7 +43,8 @@ public class TripDAOImpl implements TripDAO {
 																													// the
 																													// same
 																													// thing
-		//String query3 = "SELECT ec.trips FROM ExtraCurr ec WHERE ec.name LIKE :search";
+		// String query3 = "SELECT ec.trips FROM ExtraCurr ec WHERE ec.name LIKE
+		// :search";
 		String query4 = "SELECT d.trips FROM Destination d WHERE d.name LIKE :search";
 
 		try {
@@ -65,15 +67,16 @@ public class TripDAOImpl implements TripDAO {
 			e.printStackTrace();
 		}
 
-//		try {
-//			List<Trip> ecTrips = em.createQuery(query3, Trip.class).setParameter("search", "%" + search + "%")
-//					.getResultList();
-//			for (Trip trip : ecTrips) {
-//				trips.add(trip);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		// try {
+		// List<Trip> ecTrips = em.createQuery(query3,
+		// Trip.class).setParameter("search", "%" + search + "%")
+		// .getResultList();
+		// for (Trip trip : ecTrips) {
+		// trips.add(trip);
+		// }
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
 
 		try {
 			List<Trip> destTrips = em.createQuery(query4, Trip.class).setParameter("search", "%" + search + "%")
@@ -135,6 +138,25 @@ public class TripDAOImpl implements TripDAO {
 	public Trip findTripById(int id) {
 		Trip t = em.find(Trip.class, id);
 		return t;
+	}
+
+	@Override
+	public Destination findDestinationByNameOrCreateNewDestination(String name) {
+		String query = "SELECT d FROM Destination d WHERE name = :name";
+		Destination d = new Destination();
+		try {
+			d = em.createQuery(query, Destination.class).setParameter("name", name).getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (d.getName() != null) {
+			return d;
+		} else {
+			d.setName(name);
+			em.persist(d);
+			em.flush();
+			return d;
+		}
 	}
 
 }

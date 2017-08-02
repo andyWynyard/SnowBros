@@ -2,9 +2,8 @@ package data;
 
 import java.util.List;
 
-import entities.ExtraCurr;
+import entities.Destination;
 import entities.Trip;
-import entities.User;
 
 public interface TripDAO {
 
@@ -19,5 +18,7 @@ public interface TripDAO {
 	public List<Trip> allTrips();
 	
 	public Trip findTripById(int id);
+	
+	public Destination findDestinationByNameOrCreateNewDestination(String name);
 	
 }

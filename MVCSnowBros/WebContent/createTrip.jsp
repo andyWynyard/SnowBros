@@ -77,7 +77,7 @@
   			<option value="6">6</option>
 		</select>
 		<p>Scooby Snax</p>	
-		<input type="textarea" name="extraCurr"/>
+		<input type="textarea" name="extraCurrs"/>
  		
     		<br>
     		<br>

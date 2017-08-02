@@ -48,11 +48,13 @@
   
   </div> <!-- end of profile well -->
   <div class="well">
-  
-  <p>${trip.destination}</p>
-  <p>${trip.description}</p>
-  <p>${trip.extraCurr}</p>
-  <p>${trip.pointOfReturn}</p>
+  <p>Trip: ${trip.title}</p>
+  <p>Destination: ${trip.destination.name}</p>
+  <p>Description: ${trip.description}</p>
+  <p> Seats available: ${trip.numberSeats}</p>
+  <%-- <p>${trip.extraCurr}</p> --%>
+  <p>Leaving from: ${trip.pointOfOrigin}</p>
+  <p>Return point: ${trip.pointOfReturn}</p>
   
    <c:choose>
    <c:when test="${user.id} == ${trip.ownerId}">
@@ -76,7 +78,7 @@
   		height="450"
   		frameborder="0" style="border:0"
   		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyASJj0SjYy3dfJWAm53SUPlIlqOXclJEWk
-    		&q=${trip.destination}" allowfullscreen>
+    		&q=${trip.destination.name}" allowfullscreen>
 	</iframe>
   
   </div>

@@ -25,7 +25,10 @@ public class Trip {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
-
+	
+	@Column(name = "owner_id")
+	private int ownerId;
+	
 	@ManyToMany
 	@JoinTable(name = "trip_ec",
 	joinColumns = @JoinColumn(name = "trip_id"),
@@ -149,13 +152,22 @@ public class Trip {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
+	
+	public int getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
+	}
 
 	@Override
 	public String toString() {
-		return "Trip [id=" + id + ", extraCurrs=" + extraCurrs + ", title=" + title + ", destination=" + destination
-				+ ", users=" + users + ", numberSeats=" + numberSeats + ", pointOfOrigin=" + pointOfOrigin + ", date="
-				+ date + ", pointOfReturn=" + pointOfReturn + ", description=" + description + ", roundtrip="
-				+ roundtrip + "]";
+		return "Trip [id=" + id + ", ownerId=" + ownerId + ", extraCurrs=" + extraCurrs + ", title=" + title
+				+ ", destination=" + destination + ", users=" + users + ", numberSeats=" + numberSeats
+				+ ", pointOfOrigin=" + pointOfOrigin + ", date=" + date + ", pointOfReturn=" + pointOfReturn
+				+ ", description=" + description + ", roundtrip=" + roundtrip + "]";
 	}
+
 
 }

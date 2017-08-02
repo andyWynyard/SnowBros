@@ -1,5 +1,9 @@
 package controllers;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -106,21 +110,30 @@ public class SnowBroController {
 
 	@RequestMapping(path = "createTrip.do")
 	public String CreateTrip(Model model, @RequestParam("title") String title,
-			@RequestParam("destination") Destination dest, @RequestParam("description") String desc,
-			@RequestParam("pointOfOrigin") String pO, @RequestParam("date") Date date,
+			@RequestParam("destination") String dest, @RequestParam("description") String desc,
+			@RequestParam("pointOfOrigin") String pO, @RequestParam("date") String date,
 			@RequestParam("pointOfReturn") String pR, @RequestParam("numberSeats") int seats,
-			@RequestParam("extraCurr") ExtraCurr ec) {
+			@RequestParam("extraCurrs") String ec) {
 		Trip trip = new Trip();
+		Destination d = td.findDestinationByNameOrCreateNewDestination(dest);
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm a");
+		Date datey = new Date();
+		try {
+			datey = format.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		trip.setTitle(title);
-		trip.setDestination(dest);
+		trip.setDestination(d);
 		trip.setDescription(desc);
 		trip.setPointOfOrigin(pO);
-		trip.setDate(date);
+		trip.setDate(datey);
 		trip.setPointOfReturn(pR);
 		trip.setNumberSeats(seats);
 		// trip.setExtraCurrs(ec);
+		Trip t = td.createTrip(trip);
 
-		model.addAttribute("trip", trip);
+		model.addAttribute("trip", t);
 		return "trip.jsp";
 	}
 
@@ -129,7 +142,7 @@ public class SnowBroController {
 			@RequestParam("destination") Destination dest, @RequestParam("description") String desc,
 			@RequestParam("pointOfOrigin") String pO, @RequestParam("date") Date date,
 			@RequestParam("pointOfReturn") String pR, @RequestParam("numberSeats") int seats,
-			@RequestParam("extraCurr") ExtraCurr ec) {
+			@RequestParam("extraCurr") ExtraCurr ec, @RequestParam("userId") int userId) {
 		Trip trip = new Trip();
 		trip.setTitle(title);
 		trip.setDestination(dest);
@@ -138,6 +151,7 @@ public class SnowBroController {
 		trip.setDate(date);
 		trip.setPointOfReturn(pR);
 		trip.setNumberSeats(seats);
+		trip.setOwnerId(userId);
 		// trip.setExtraCurrs(ec);
 
 		model.addAttribute("trip", trip);
