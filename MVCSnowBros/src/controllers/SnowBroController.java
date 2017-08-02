@@ -38,6 +38,7 @@ public class SnowBroController {
 	@RequestMapping(path = "searchTitle.do")
 	public String SearchTitle(@RequestParam("searchTitle") String title, Model model) {
 		List<Trip> trips = td.searchTrip(title);
+		System.out.println(trips);
 		model.addAttribute("searchResults", trips);
 		return "search.jsp";
 	}
@@ -171,7 +172,7 @@ public class SnowBroController {
 	@RequestMapping(path = "editTripPage.do", method = RequestMethod.GET)
 	public String goToEditTrip(Model model, @RequestParam(name = "tripId") int tripId) {
 		model.addAttribute("trip", td.findTripById(tripId));
-		return "createEditTrip.jsp";
+		return "editTrip.jsp";
 	}
 
 	@RequestMapping(path = "addMeToTrip.do", method = RequestMethod.POST)
@@ -219,7 +220,7 @@ public class SnowBroController {
 	@RequestMapping(path = "createTripPage.do", method = RequestMethod.GET)
 	public String goToCreateTripPage(Model model, @RequestParam(name = "userId") int userId) {
 		model.addAttribute("user", ud.findUserById(userId));
-		return "createEditTrip.jsp";
+		return "createTrip.jsp";
 	}
 
 	@RequestMapping(path = "searchPage.jsp", method = RequestMethod.GET)

@@ -73,7 +73,7 @@ textarea {
 			<br><br>
 			<c:choose>
 				<c:when test="${searchResults} != null">
-					<c:forEach items="${searchresults}" var="trip">
+					<c:forEach items="${searchResults}" var="trip">
     						${trip.title}<br>
     						${trip.destination}<br>
     						${trip.date}<br>

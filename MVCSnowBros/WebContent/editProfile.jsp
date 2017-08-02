@@ -44,6 +44,7 @@
        <input type="text" name="email" value="${user.email}"/>
        <h5>HTML link to a picture you want</h5>
        <input type="text" name="picture" value="${user.picture}">
+       <input type="hidden" name="password" value="${user.password}">
     		<br>
     		<br>
       <input type="submit" value="Submit" name="submit" />
