@@ -3,6 +3,7 @@ package entities;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ public class Destination {
     
     private String name;
     
-    @OneToMany(mappedBy="destination")
+    @OneToMany(mappedBy="destination", fetch = FetchType.EAGER)
     private List<Trip> trips;
 
     public String getName() {

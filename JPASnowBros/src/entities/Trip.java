@@ -39,7 +39,11 @@ public class Trip {
 	@JoinColumn(name = "destination_id")
 	private Destination destination;
 
-	@ManyToMany(mappedBy = "trips")
+	@ManyToMany
+	@JoinTable(name = "user_trip",
+			joinColumns = @JoinColumn(name = "trip_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id")
+					)
 	private List<User> users;
 
 	@Column(name = "number_seats")

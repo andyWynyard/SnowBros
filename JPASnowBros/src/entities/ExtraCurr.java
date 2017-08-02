@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ public class ExtraCurr {
     private String name;
 
     // Linked to Trip class
-    @ManyToMany(mappedBy = "extraCurrs")
+    @ManyToMany(mappedBy = "extraCurrs", fetch = FetchType.EAGER)
     private List<Trip> trips;
 
     // GETTERS AND SETTERS BELOW

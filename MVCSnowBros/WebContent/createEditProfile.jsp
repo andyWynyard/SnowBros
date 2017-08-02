@@ -32,7 +32,7 @@
   <div class="well">
   
   <c:choose>
-   <c:when test="${user.id} == null">
+   <c:when test="${user} == null">
    
    <h1>Create your profile here</h1>
     <form action="createProfile.do" method="POST">
@@ -77,11 +77,6 @@
    </c:when>
    
 </c:choose>
-  
-  
-  
-  
-  
   
   
     </div>

@@ -63,6 +63,8 @@ public class SnowBroController {
 
 	@RequestMapping(path = "createProfile1.do")
 	public String CreateProfile(Model model) {
+		User u = null;
+		model.addAttribute("user", u);
 		return "createEditProfile.jsp";
 	}
 
