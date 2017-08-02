@@ -66,6 +66,7 @@
    		<form action="addMeToTrip.do" method="POST">
     			<input type="submit" value="Add me to Trip!">
     			<input type="hidden" value="${user.id}" name="userId">
+    			<input type="hidden" value="${trip.id}" name="tripId">
   		</form>
   	</c:when>
   </c:choose>
