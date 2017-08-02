@@ -1,6 +1,7 @@
 package data;
 
 import java.util.List;
+import java.util.Set;
 
 import entities.Destination;
 import entities.Trip;
@@ -9,7 +10,7 @@ public interface TripDAO {
 
 	public Trip createTrip(Trip trip);
 	
-	public List<Trip> searchTrip(String search);
+	public Set<Trip> searchTrip(String search);
 	
 	public Trip updateTrip(Trip trip);
 	

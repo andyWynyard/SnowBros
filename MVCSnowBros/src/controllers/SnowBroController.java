@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,7 @@ public class SnowBroController {
 
 	@RequestMapping(path = "searchTrip.do")
 	public String SearchTitle(@RequestParam("searchTitle") String title, Model model) {
-		List<Trip> trips = td.searchTrip(title);
+		Set<Trip> trips = td.searchTrip(title);
 		System.out.println("controller......." + trips);
 		model.addAttribute("searchResults", trips);
 		return "search.jsp";
