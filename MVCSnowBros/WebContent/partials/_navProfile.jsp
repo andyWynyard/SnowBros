@@ -3,8 +3,8 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
     
-<c:choose>
-	<c:when test="${user} != null">
+
+	<c:if test="${user.firstName != null}">
   
    <div class="well">
   <img src="${user.picture}" alt="Your photo" height="42" width="42">
@@ -23,8 +23,8 @@
   
   </div>
 
-</c:when>
-<c:when test="${user} == null">
+</c:if>
+<c:if test="${user.firstName == null}">
   
   <form action="getUser.do" method="POST">
   
@@ -38,5 +38,4 @@
 
   </form>
   
-  </c:when>
-  </c:choose>
+  </c:if>

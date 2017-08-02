@@ -13,8 +13,7 @@
   <body>
   <div class="container">
   
- <jsp:include page="partials/_title.jsp"></jsp:include>
-  
+ <jsp:include page="partials/_title.jsp"></jsp:include> 
  <jsp:include page="partials/_navProfile.jsp"></jsp:include>
   
   <div class="well">
