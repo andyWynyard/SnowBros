@@ -42,7 +42,7 @@
 
   </form>
   
-  <form action="createProfile.do" method="GET">
+  <form action="createProfile1.do" method="GET">
     			<input type="submit" value="Create new account">
   		</form>
   

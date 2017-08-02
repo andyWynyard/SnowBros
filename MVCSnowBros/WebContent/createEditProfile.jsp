@@ -42,6 +42,8 @@
        <input type="text" name="lastName"/>
        <h5>email (this will be your username)</h5>
        <input type="text" name="email"/>
+       <h5>password </h5>
+       <input type="password" name="password"/>
        <h5>HTML link to a picture you want</h5>
        <input type="text" name="picture">
     		<br>
