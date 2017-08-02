@@ -8,49 +8,13 @@
 
 <meta charset="UTF-8">
 <title>View</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
-	type="text/css" />
-<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<style>
-textarea {
-	min-width: 100%;
-}
-</style>
-<link rel="shortcut icon"
-	href="https://www.shareicon.net/data/128x128/2016/01/18/704925_letter_512x512.png"
-	type="image/x-icon" />
+ <jsp:include page="partials/_resources.jsp"></jsp:include>
 </head>
 <body>
 	<div class="container">
 
-		<div class="jumbotron">
-			<h1>SnowBros</h1>
-			<p>Get ready to go to shredtown!!!</p>
-			<p>Go hard in the gnarly POW POW!</p>
-
-
-
-		</div>
-		<!-- End of Jumbotron -->
-
-		<div class="well">
-			<img src="${user.picture}" alt="Your photo" height="42" width="42">
-			<h1>${user.firstName}${user.lastName}</h1>
-			<h3>${user.email}</h3>
-			<h3>Your rating is: ${rating}</h3>
-
-			<form action="logOut.do" method="GET">
-				<input type="submit" value="Log Out">
-			</form>
-
-			<form action="getProfilePage.do" method="GET">
-				<input type="submit" value="Profile Page"> <input
-					type="hidden" value="${user.id}" name="userId">
-			</form>
-
-		</div>
+<jsp:include page="partials/_title.jsp"></jsp:include>
+<jsp:include page="partials/_navProfile.jsp"></jsp:include>
 
 		<div class="well">
 			Search for Trip by Title
