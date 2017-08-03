@@ -19,7 +19,7 @@
   <div class="row">
   <div class="col-xs-6">
   
-  <div class="panel panel-default">
+  <div class="panel panel-success">
   <div class="panel-heading">
     <h3 class="panel-title">Trip: ${trip.title}</h3>
   </div>
@@ -35,22 +35,20 @@
   
  
  
-  	<div class="panel panel-body">
   	
-  	</div>
-  </div>
+  
   
    <c:choose>
    <c:when test="${user.id == trip.ownerId}">
   		<form action="editTripPage.do" method="GET">
-    			<input type="submit" value="Edit this Trip!">
+    			<input type="submit" class="btn btn-warning" value="Edit this Trip!">
     			<input type="hidden" value="${trip.id}" name="tripId">
   		</form>
   </c:when>
   
   <c:when test="${user.id != trip.ownerId}">
    		<form action="addMeToTrip.do" method="POST">
-    			<input type="submit" value="Add me to Trip!">
+    			<input type="submit" class="btn btn-primary" value="Add me to Trip!">
     			<input type="hidden" value="${user.id}" name="userId">
     			<input type="hidden" value="${trip.id}" name="tripId">
   		</form>
@@ -60,7 +58,7 @@
   <c:if test="${user.id == trip.ownerId}">
   		
   		<form action="deleteTrip.do" method="POST">
-    			<input type="submit" value="Delete this trip">
+    			<input type="submit" class="btn btn-danger" value="Delete this trip">
     			<input type="hidden" value="${trip.id}" name="tripId">
     			<input type="hidden" value="${user.id}" name="userId">
   		</form>

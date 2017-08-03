@@ -19,35 +19,40 @@
 <div class="row">
 <div class="col-xs-6">
 		
-			Search for Trip
+			<h3>Search for Trip</h3>
 			<form action="searchTrip.do" method="GET">
-				<input type="submit" value="Search"> <input type="text"
-					name="searchTitle">
+			
+			
+			<div class="input-group">
+      			<input type="text" class="form-control" placeholder="Search for..." name="searchTitle">
+      				<span class="input-group-btn">
+        					<button class="btn btn-default" type="submit">Go!</button>
+      				</span>
+    			</div><!-- /input-group -->
+			
 			</form>
 			
-			<br><br>
+			<br>
 			<c:choose>
 				<c:when test="${searchResults != null}">
 					<c:forEach items="${searchResults}" var="trip">
 					
-					
-					<form action="viewTrip.do" method="POST">
-    					<p><input type="submit" value="${trip.destination.name} on ${trip.date}">
+					<form action="viewTrip.do" method="GET">
+    					<p><input type="submit" class="btn btn-info btn-block" value="${trip.destination.name} on ${trip.date}">
     					<input type="hidden" value="${trip.id}" name="tripId">
   					</form>	
-					
-					
-    						
+					<br>
 					</c:forEach>
 				</c:when>
 
 				<c:otherwise>
 
 					<c:forEach items="${allTrips}" var="trip">
-    						<form action="viewTrip.do" method="POST">
-    					<p><input type="submit" value="${trip.destination.name} on ${trip.date}">
+    						<form action="viewTrip.do" method="GET">
+    					<p><input type="submit" class="btn btn-info btn-block" value="${trip.destination.name} on ${trip.date}">
     					<input type="hidden" value="${trip.id}" name="tripId">
   					</form>	
+  					<br>
 					</c:forEach>
 
 				</c:otherwise>
@@ -59,22 +64,26 @@
 		
 		<div class="col-xs-6">
 		
-		Search for Bros
+		<h3>Search for Bros</h3>
 			<form action="searchUser.do" method="GET">
-				<input type="submit" value="Search"> <input type="text"
-					name="searchUser">
+					
+			<div class="input-group">
+      			<input type="text" class="form-control" placeholder="Search for..." name="searchUser">
+      				<span class="input-group-btn">
+        					<button class="btn btn-default" type="submit">Go!</button>
+      				</span>
+    			</div><!-- /input-group -->		
+					<br>
 			</form>
+		
+			<form action="viewUser.do" method="GET">
+    					<p><input type="submit" class="btn btn-success btn-block" value="${user.firstName} ${user.lastName}">
+    					<input type="hidden" value="${user.id}" name="userId">
+  					</form>	
 	
-						<br><br>
-    						${user.firstName}<br>
-    						${user.lastName}<br>
-    						<br><br>
-		
+						<br>
+    		
 		</div>
-		
-		
-		
-
 		</div>
 	</div>
 	</div><!-- end of opening container -->
