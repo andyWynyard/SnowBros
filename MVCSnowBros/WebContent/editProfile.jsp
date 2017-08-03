@@ -43,7 +43,7 @@
        <input type="text" class="form-control input-lg" name="picture" value="${user.picture}">
     </div> 
     </div> 
-    
+    <input type="hidden" name="password" value="${user.password}">
     		<br>
       <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit" name="submit" />
       </form>

@@ -38,8 +38,8 @@
        <input type="text" class="form-control input-lg" name="email"/>
        </div>
      <div class="col-xs-6">  
-     <h4>HTML link to a picture you want</h4>
-       <input type="text" class="form-control input-lg" name="picture">
+     <h4>Password</h4>
+       <input type="password" class="form-control input-lg" name="password">
     </div> 
     </div> 
     
