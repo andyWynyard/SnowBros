@@ -15,44 +15,93 @@
 
 <jsp:include page="partials/_title.jsp"></jsp:include>
 <jsp:include page="partials/_navProfile.jsp"></jsp:include>
-
-		<div class="well">
+<div class="well">
+<div class="row">
+<div class="col-xs-6">
+		
 			Search for Trip
 			<form action="searchTrip.do" method="GET">
 				<input type="submit" value="Search"> <input type="text"
 					name="searchTitle">
 			</form>
 			
-
-
 			<br><br>
 			<c:choose>
 				<c:when test="${searchResults != null}">
 					<c:forEach items="${searchResults}" var="trip">
-    						${trip.title}<br>
-    						${trip.destination}<br>
-    						${trip.date}<br>
-    						${trip.description}<br>
-    						${trip.numberSeats}<br>
+					
+					
+					<form action="viewTrip.do" method="POST">
+    					<p><input type="submit" value="${trip.destination.name} on ${trip.date}">
+    					<input type="hidden" value="${trip.id}" name="tripId">
+  					</form>	
+					
+					
+    						
 					</c:forEach>
 				</c:when>
 
 				<c:otherwise>
 
 					<c:forEach items="${allTrips}" var="trip">
-    						${trip.title}<br>
-    						${trip.destination.name}<br>
-    						<br><br>
+    						<form action="viewTrip.do" method="POST">
+    					<p><input type="submit" value="${trip.destination.name} on ${trip.date}">
+    					<input type="hidden" value="${trip.id}" name="tripId">
+  					</form>	
 					</c:forEach>
 
 				</c:otherwise>
 
 			</c:choose>
 		</div>
+		
+		
+		
+		<div class="col-xs-6">
+		
+		Search for Bros
+			<form action="searchUser.do" method="GET">
+				<input type="submit" value="Search"> <input type="text"
+					name="searchUser">
+			</form>
+			
 
 
+			<br><br>
+			<c:choose>
+				<c:when test="${searchBros != null}">
+					<c:forEach items="${searchBros}" var="user">
+    						${user.firstName}<br>
+    						${user.lastName}<br>
+    						${user.date}<br>
+    					
+					</c:forEach>
+				</c:when>
+
+				<c:otherwise>
+
+					<c:forEach items="${allUsers}" var="user">
+    						${user.firstName}<br>
+    						${user.lastName}<br>
+    						<br><br>
+					</c:forEach>
+
+				</c:otherwise>
+
+			</c:choose>
+		
+		
+		
+		
+		
+		</div>
+		
+		
+		
+
+		</div>
 	</div>
-	<!-- end of opening container -->
+	</div><!-- end of opening container -->
 
 </body>
 
