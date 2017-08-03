@@ -33,19 +33,12 @@
   		<h3>Your Trips</h3>
   			<c:forEach items = "${user.trips}" var = "trips">
   		<form action="viewTrip.do" method="GET">
-         		<input type="submit" value="${trips.destination}">
+         		<input type="submit" class="btn btn-primary btn-lg active" value="${trips.destination.name} on ${trips.date}">
     				<input type="hidden" value="${trips.id}" name="tripId">
   		</form>
          </c:forEach>	
   		
-  		<form action="createTripPage.do" method="GET">
-    			<input type="submit" value="Create Trip">
-    			<input type="hidden" value="${user.id}" name="userId">
-  		</form>
-  
-  		<form action="searchPage.do" method="GET">
-  			<input type="submit" value="Search for Bros or Rides">
-  		</form>
+  		
 
   
   </div>

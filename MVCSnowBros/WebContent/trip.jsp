@@ -16,6 +16,9 @@
 	<jsp:include page="partials/_navProfile.jsp"></jsp:include>
   
   <div class="well">
+  <div class="row">
+  <div class="col-xs-6">
+  
   <p>Trip: ${trip.title}</p>
   <p>Destination: ${trip.destination.name}</p>
   <p>Description: ${trip.description}</p>
@@ -25,14 +28,14 @@
   <p>Return point: ${trip.pointOfReturn}</p>
   
    <c:choose>
-   <c:when test="${user.id} == ${trip.ownerId}">
+   <c:when test="${user.id == trip.ownerId}">
   		<form action="editTripPage.do" method="GET">
     			<input type="submit" value="Edit this Trip!">
     			<input type="hidden" value="${trip.id}" name="tripId">
   		</form>
   </c:when>
   
-  <c:when test="${user.id} != ${trip.ownerId}">
+  <c:when test="${user.id != trip.ownerId}">
    		<form action="addMeToTrip.do" method="POST">
     			<input type="submit" value="Add me to Trip!">
     			<input type="hidden" value="${user.id}" name="userId">
@@ -41,24 +44,7 @@
   	</c:when>
   </c:choose>
   
-  	<iframe
-  		width="300"
-  		height="450"
-  		frameborder="0" style="border:0"
-  		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyASJj0SjYy3dfJWAm53SUPlIlqOXclJEWk
-    		&q=${trip.destination.name}" allowfullscreen>
-	</iframe>
-  
-  </div>
-  
-  
-  
-  		<form action="editUserPage.do" method="GET">
-    			<input type="submit" value="Edit profile" name="${user.id}">
-    			<input type="hidden" value="${user.id}" name="userId">
-  		</form>
-  		
-  		<c:if test="${user.id} == ${trip.ownerId}">
+  <c:if test="${user.id == trip.ownerId}">
   		
   		<form action="deleteTrip.do" method="POST">
     			<input type="submit" value="Delete this trip">
@@ -67,6 +53,24 @@
   		</form>
   		
   		</c:if>
+  
+  </div>
+  <div class="col-xs-6">
+  
+  	<iframe
+  		width="100%"
+  		height="450"
+  		frameborder="0" style="border:0"
+  		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyASJj0SjYy3dfJWAm53SUPlIlqOXclJEWk
+    		&q=${trip.destination.name}" allowfullscreen>
+	</iframe>
+  
+  </div>
+  </div>
+  </div>
+  
+  		
+  		
   		
   		<form action="getProfilePage.do" method="GET">
   		<h3>Your Bros</h3>

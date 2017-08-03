@@ -23,6 +23,15 @@
   			<input type="submit" class="btn btn-primary btn-lg btn-block" value="Profile Page">
   			<input type="hidden" value="${user.id}" name="userId">
   		</form>
+  		
+  		<form action="createTripPage.do" method="GET">
+    			<input type="submit" class="btn btn-success btn-lg btn-block" value="Create Trip">
+    			<input type="hidden" value="${user.id}" name="userId">
+  		</form>
+  
+  		<form action="searchPage.do"  method="GET">
+  			<input type="submit" class="btn btn-info btn-lg btn-block" value="Search for Bros or Rides">
+  		</form>
   		<form action="logOut.do" method="GET">
   			<input type="submit" class="btn btn-secondary btn-lg btn-block" value="Log Out">
   		</form>
@@ -36,6 +45,8 @@
     			<input type="submit" class="btn btn-danger btn-lg btn-block" value="Delete your account">
     			<input type="hidden" value="${user.id}" name="userId">
   		</form>	
+  		
+  		
   		
   </div>
   </div>
