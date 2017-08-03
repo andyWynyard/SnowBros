@@ -159,6 +159,9 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public double getUserRating(User user) {
 		List<UserRating> ratings = user.getUserRating();
+		if (ratings == null) {
+			return 0;
+		}
 		int total = 0;
 		int counter = ratings.size();
 		for (UserRating rating : ratings) {
