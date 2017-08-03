@@ -1,7 +1,8 @@
 package data;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import entities.Destination;
 import entities.Trip;
+import entities.User;
 
 @Transactional
 @Repository
@@ -33,14 +35,23 @@ public class TripDAOImpl implements TripDAO {
 	}
 
 	@Override
-	public List<Trip> searchTrip(String search) {
-		List<Trip> trips = new ArrayList<>();
+	public Set<Trip> searchTrip(String search) {
+		Set<Trip> trips = new HashSet<>();
 		String query1 = "Select t FROM Trip t Where t.title LIKE :search";
-		String query2 = "SELECT u.trips FROM User u WHERE u.firstName LIKE :search OR u.lastName LIKE :search1"; // set
+
 																							// thing
+
+		String query2 = "SELECT u FROM User u JOIN FETCH u.trips WHERE u.firstName LIKE :search OR u.lastName LIKE :search1"; // set
+																													// 2
+																													// parameters
+																													// to
+																													// the
+																													// same
+																													// thing
+
 		// String query3 = "SELECT ec.trips FROM ExtraCurr ec WHERE ec.name LIKE
 		// :search";
-		String query4 = "SELECT d.trips FROM Destination d WHERE d.name LIKE :search";
+		String query4 = "SELECT d FROM Destination d WHERE d.name LIKE :search";
 
 		try {
 			List<Trip> titleTrips = em.createQuery(query1, Trip.class).setParameter("search", "%" + search + "%")
@@ -53,8 +64,10 @@ public class TripDAOImpl implements TripDAO {
 		}
 		System.out.println(trips);
 		try {
-			List<Trip> nameTrips = em.createQuery(query2, Trip.class).setParameter("search", "%" + search + "%")
+
+			List<User> users = em.createQuery(query2, User.class).setParameter("search", "%" + search + "%")
 					.setParameter("search1", "%" + search + "%").getResultList();
+			List<Trip> nameTrips = users.get(0).getTrips();
 			for (Trip trip : nameTrips) {
 				trips.add(trip);
 			}
@@ -62,20 +75,20 @@ public class TripDAOImpl implements TripDAO {
 			e.printStackTrace();
 		}
 		System.out.println(trips);
-		// try {
-		// List<Trip> ecTrips = em.createQuery(query3,
-		// Trip.class).setParameter("search", "%" + search + "%")
-		// .getResultList();
-		// for (Trip trip : ecTrips) {
-		// trips.add(trip);
-		// }
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-
+//		// try {
+//		// List<Trip> ecTrips = em.createQuery(query3,
+//		// Trip.class).setParameter("search", "%" + search + "%")
+//		// .getResultList();
+//		// for (Trip trip : ecTrips) {
+//		// trips.add(trip);
+//		// }
+//		// } catch (Exception e) {
+//		// e.printStackTrace();
+//		// }
+//
 		try {
-			List<Trip> destTrips = em.createQuery(query4, Trip.class).setParameter("search", "%" + search + "%")
-					.getResultList();
+			List<Trip> destTrips = em.createQuery(query4, Destination.class).setParameter("search", "%" + search + "%")
+					.getResultList().get(0).getTrips();
 			for (Trip trip : destTrips) {
 				trips.add(trip);
 			}
