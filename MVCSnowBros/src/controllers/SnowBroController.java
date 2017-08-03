@@ -137,7 +137,6 @@ public class SnowBroController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		System.out.println(user);
 		trip.setTitle(title);
 		trip.setDestination(d);
 		trip.setDescription(desc);
@@ -155,6 +154,7 @@ public class SnowBroController {
 		trips.add(trip);
 		user.setTrips(trips);
 		System.out.println(user.getTrips());
+		System.out.println(trip.getUsers());
 		model.addAttribute("trip", t);
 		model.addAttribute("user",user);
 		return "trip.jsp";

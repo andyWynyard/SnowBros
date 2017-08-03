@@ -38,13 +38,13 @@
          </c:forEach>	
   		</form> --%>
   		
-  		<form action="viewTrip.do" method="GET">
   		<h3>Your Trips</h3>
   			<c:forEach items = "${user.trips}" var = "trips">
+  		<form action="viewTrip.do" method="GET">
          		<input type="submit" value="${trips.destination}">
     				<input type="hidden" value="${trips.id}" name="tripId">
-         </c:forEach>	
   		</form>
+         </c:forEach>	
   		
   		<form action="createTripPage.do" method="GET">
     			<input type="submit" value="Create Trip">
