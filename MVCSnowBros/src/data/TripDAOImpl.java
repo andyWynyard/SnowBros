@@ -37,12 +37,7 @@ public class TripDAOImpl implements TripDAO {
 		List<Trip> trips = new ArrayList<>();
 		String query1 = "Select t FROM Trip t Where t.title LIKE :search";
 		String query2 = "SELECT u.trips FROM User u WHERE u.firstName LIKE :search OR u.lastName LIKE :search1"; // set
-																													// 2
-																													// parameters
-																													// to
-																													// the
-																													// same
-																													// thing
+																							// thing
 		// String query3 = "SELECT ec.trips FROM ExtraCurr ec WHERE ec.name LIKE
 		// :search";
 		String query4 = "SELECT d.trips FROM Destination d WHERE d.name LIKE :search";
@@ -59,7 +54,7 @@ public class TripDAOImpl implements TripDAO {
 		System.out.println(trips);
 		try {
 			List<Trip> nameTrips = em.createQuery(query2, Trip.class).setParameter("search", "%" + search + "%")
-					.setParameter("serach1", "%" + search + "%").getResultList();
+					.setParameter("search1", "%" + search + "%").getResultList();
 			for (Trip trip : nameTrips) {
 				trips.add(trip);
 			}
