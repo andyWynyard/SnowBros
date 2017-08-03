@@ -46,7 +46,7 @@ public class SnowBroController {
 	//////////////////// SEARCH.JSP///////////////////////
 	//////////////////////////////////////////////////
 	@RequestMapping(path = "searchPage.do")
-	public String allTrips(@ModelAttribute("user")User user,Model model) {
+	public String allTrips(@ModelAttribute("user") User user, Model model) {
 		List<Trip> trips = td.allTrips();
 		model.addAttribute("searchResults", null);
 		model.addAttribute("allTrips", trips);
@@ -285,7 +285,6 @@ public class SnowBroController {
 		model.addAttribute("user", ud.findUserById(userId));
 		return "createTrip.jsp";
 	}
-
 
 
 	///////////////////////////////////////////////////
