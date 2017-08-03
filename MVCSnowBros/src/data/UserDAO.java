@@ -24,5 +24,7 @@ public interface UserDAO {
 	
 	public User findUserById(int id);
 	
+	public List<User> searchForUserByName(String name);
+	
 	public List<User> viewFriends(User user);
 }

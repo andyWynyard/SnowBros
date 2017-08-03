@@ -140,5 +140,20 @@ public class UserDAOImpl implements UserDAO {
 		List<User> friends = u.getFriends();
 		return friends;
 	}
+	
+	@Override
+	public List<User> searchForUserByName(String name) {
+		List<User> userResults = new ArrayList<>();
+		String query = "SELECT u FROM User u WHERE u.firstName LIKE :search OR u.lastName LIKE :search1";
+		try {
+			userResults = em.createQuery(query, User.class)
+					      .setParameter("search",  name)
+					      .setParameter("search1", name)
+					      .getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userResults;
+	}
 
 }
