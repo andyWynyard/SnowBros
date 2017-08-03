@@ -9,11 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 
 
 
@@ -23,6 +21,13 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@ManyToMany
+	@JoinTable(name = "user_friend",
+	joinColumns = @JoinColumn(name = "user_id"),
+	inverseJoinColumns = @JoinColumn(name = "friend_id")
+			)
+	private List<User> friends;
 	
 	@Column(name = "first_name")
 	
@@ -143,6 +148,14 @@ public class User {
 	public void setTrips(List<Trip> trips) {
 		this.trips = trips;
 	}
+	
+	public List<User> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(List<User> friends) {
+		this.friends = friends;
+	}
 
 	@Override
 	public String toString() {
@@ -151,8 +164,4 @@ public class User {
 				+ password + ", picture=" + picture + "]";
 	}
 
-	
-
-	
-	
 }
