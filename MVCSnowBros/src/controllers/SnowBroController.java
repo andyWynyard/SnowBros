@@ -138,6 +138,8 @@ public class SnowBroController {
 		ud.updateUser(user1);
 		model.addAttribute("user", user1);
 		model.addAttribute("rating", ud.getUserRating(user1));
+		List<User> friends = ud.viewFriends(user);
+		model.addAttribute("friends", friends);
 		System.out.println(ud.getUserRating(user1));
 		return "user.jsp";
 	}
@@ -214,7 +216,7 @@ public class SnowBroController {
 	@RequestMapping(path = "getUser.do")
 	public String validate(@ModelAttribute("user") User user, Model model, @RequestParam("email") String email,
 			@RequestParam("password") String password) {
-		// ********* testing encryption ************************************
+		// ************* testing encryption ************************************
 		// validate password
 		System.out.println(ud.findUserPasswordByEmail(email) + " from database");
 		System.out.println(password + " from user");
@@ -223,9 +225,12 @@ public class SnowBroController {
 		System.out.println(passWordMatches);
 		User u = ud.validate(email, password);
 		if (u != null && passWordMatches) {
-
+			
+			
 			model.addAttribute("user", u);
 			model.addAttribute("rating", ud.getUserRating(u));
+			List<User> friends = ud.viewFriends(u);
+			model.addAttribute("friends", friends);
 
 			return "user.jsp";
 
@@ -251,6 +256,8 @@ public class SnowBroController {
 			@RequestParam(name = "userId") int userId) {
 		model.addAttribute("user", ud.findUserById(userId)); // ud.findUserById(userId) returns a user object
 		model.addAttribute("rating", ud.getUserRating(user));
+		List<User> friends = ud.viewFriends(user);
+		model.addAttribute("friends", friends);
 		System.out.println(ud.getUserRating(user));
 		return "user.jsp";
 	}
@@ -296,6 +303,8 @@ public class SnowBroController {
 		td.deleteTrip(td.findTripById(tripId));
 		model.addAttribute("user", ud.findUserById(userId));
 		model.addAttribute("rating", ud.getUserRating(user));
+		List<User> friends = ud.viewFriends(user);
+		model.addAttribute("friends", friends);
 		return "user.jsp";
 	}
 
@@ -337,16 +346,6 @@ public class SnowBroController {
 		model.addAttribute("brorating", ud.getUserRating(friend));
 		model.addAttribute("addFriend", false);
 		return "bro.jsp";
-	}
-
-	@RequestMapping(path = "viewFriends.do", method = RequestMethod.GET)
-	public String viewFriends(@ModelAttribute("user") User user, Model model) {
-
-		List<User> friends = ud.viewFriends(user);
-		model.addAttribute("allFriends", friends);
-		model.addAttribute("user", user);
-		model.addAttribute("rating", ud.getUserRating(user));
-		return "friendsList.jsp";
 	}
 
 	@RequestMapping(path = "ViewUser.do", method = RequestMethod.GET)
