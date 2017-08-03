@@ -332,6 +332,28 @@ public class SnowBroController {
 		return "friendsList.jsp";
 	}
 	
+	@RequestMapping(path = "ViewUser.do", method = RequestMethod.GET)
+	public String goToBrosUserPage(@ModelAttribute("user") User user, Model model, @RequestParam("broId") int broId) {
+		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
+		User u = ud.findUserById(broId);
+		model.addAttribute("brorating", ud.getUserRating(u));
+		model.addAttribute("bro", u);
+		
+		
+		return "bro.jsp";
+	}
+	@RequestMapping(path = "rate.do", method = RequestMethod.GET)
+	public String goToRate(@ModelAttribute("user") User user, Model model, @RequestParam("broId") int broId) {
+		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
+		User u = ud.findUserById(broId);
+		model.addAttribute("brorating", ud.getUserRating(u));
+		model.addAttribute("bro", u);
+		
+		
+		return "rate.jsp";
+	}
 	
 
 }

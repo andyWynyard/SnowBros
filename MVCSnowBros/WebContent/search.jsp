@@ -64,12 +64,22 @@
 				<input type="submit" value="Search"> <input type="text"
 					name="searchUser">
 			</form>
-	
-						<br><br>
-    						${user.firstName}<br>
-    						${user.lastName}<br>
-    						<br><br>
-		
+	<c:choose>
+    						<c:when test="${searchResultsUsers != null}">
+					<c:forEach items="${searchResultsUsers}" var="bro">
+					
+					
+					<form action="ViewUser.do" method="GET">
+    					<p><img src="${bro.picture}" alt="Your photo" height="10%" width="10%"><input type="submit" value="${bro.firstName}">
+    					<input type="hidden" value="${bro.id}" name="broId">
+    					<input type="hidden" value="${user.id}" name="userId">
+  					</form>	
+					
+					
+    						
+					</c:forEach>
+				</c:when>
+		</c:choose>
 		</div>
 		
 		
