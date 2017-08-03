@@ -62,6 +62,15 @@ public class SnowBroController {
 		model.addAttribute("user",user);
 		return "search.jsp";
 	}
+	
+	@RequestMapping(path = "searchUser.do", method = RequestMethod.GET)
+	public String searchUser(@ModelAttribute("user") User user, @RequestParam("serchUser") String search, Model model) {
+		Set<User> users = ud.searchForUserByName(search);
+		System.out.println(users);
+		model.addAttribute("searchResults", users);
+		model.addAttribute("user", user);
+		return "seach.jsp";
+	}
 
 	// @RequestMapping(path = "searchExtra.do")
 	// public String SearchTitle(@RequestParam("searchEC") ExtraCurr ec, Model
@@ -306,5 +315,7 @@ public class SnowBroController {
 		model.addAttribute("user", user);
 		return "friendsList.jsp";
 	}
+	
+	
 
 }

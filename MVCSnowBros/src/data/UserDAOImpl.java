@@ -2,6 +2,7 @@ package data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -142,7 +143,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
-	public List<User> searchForUserByName(String name) {
+	public Set<User> searchForUserByName(String name) {
 		List<User> userResults = new ArrayList<>();
 		String query = "SELECT u FROM User u WHERE u.firstName LIKE :search OR u.lastName LIKE :search1";
 		try {
@@ -153,7 +154,7 @@ public class UserDAOImpl implements UserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return userResults;
+		return (Set)(userResults);
 	}
 
 }
