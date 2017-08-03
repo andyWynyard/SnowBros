@@ -159,9 +159,14 @@ public class UserDAOImpl implements UserDAO {
 	public double getUserRating(User user) {
 		
 		String query = "SELECT u FROM User u JOIN FETCH u.userRating WHERE u.id = :id";
-		User u = em.createQuery(query, User.class)
+		User u = user;
+		try {
+		u = em.createQuery(query, User.class)
 				      			  .setParameter("id", user.getId())
 				      			  .getResultList().get(0);
+		} catch (Exception e) {
+			return 0;
+		}
 		List<UserRating> ratings = new ArrayList<>();
 		try {
 		ratings = u.getUserRating();
