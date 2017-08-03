@@ -60,7 +60,7 @@
 
 <c:if test="${user.email == null}">
   <div class="well">
-  <form action="getUser.do" method="POST">
+  <form action="getUser.do" method="GET">
   	<p>Email
     <input type="email" name="email"/>
     Password
