@@ -81,8 +81,10 @@
 					<c:forEach items="${searchResultsUsers}" var="bro">
 					
 					
-					<form action="viewUser.do" method="GET">
-    					<p><input type="submit" class="btn btn-success btn-block btn-lg" value="${user.firstName} ${user.lastName}">
+
+					<form action="ViewUser.do" method="GET">
+    					<p><input type="submit" class="btn btn-success btn-block btn-lg" value="${bro.firstName} ${bro.lastName}">
+
     					<input type="hidden" value="${bro.id}" name="broId">
     					<input type="hidden" value="${user.id}" name="userId">
   					</form>	

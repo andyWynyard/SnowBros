@@ -40,14 +40,14 @@
   	<div class="col-xs-6">
 		
 		<h3>Your SnowBros</h3>	
-  		<%-- <c:forEach items = "${user}" var = "bros">
-  		<form action="viewBros.do" method="GET">
-         		<p><input type="submit" class="btn btn-success btn-block" value="${user.firstName} ${user.lastName}">
-    					<input type="hidden" value="${user.id}" name="userId">
+  		<c:forEach items = "${friends}" var = "bro">
+  		<form action="ViewUser.do" method="GET">
+         		<p><input type="submit" class="btn btn-success btn-block" value="${bro.firstName} ${bro.lastName}">
+    					<input type="hidden" value="${bro.id}" name="broId">
   					</form>	
 	
 						<br>
-         </c:forEach> --%>	
+         </c:forEach> 	
 
   
   </div>

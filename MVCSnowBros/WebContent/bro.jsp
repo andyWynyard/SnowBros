@@ -36,6 +36,21 @@
   			<input type="hidden" value="${bro.id}" name="broId">
   			<input type="submit" value="Rate User" name="Rate" />
   			</form>
+  			<c:choose>
+    						<c:when test="${addFriend}">
+					
+					
+					
+					<form action="addFriend.do" method="POST">
+    					<p><input type="submit" class="btn btn-success btn-block" value="Add Friend">
+    					<input type="hidden" value="${bro.id}" name="broId">
+    					<input type="hidden" value="${user.id}" name="userId">
+  					</form>	
+	
+						<br>
+				
+				</c:when>
+		</c:choose>
   			<br><br>
   			<c:forEach items = "${bro.trips}" var = "trips">
   			<form action="viewTrip.do" method="GET">

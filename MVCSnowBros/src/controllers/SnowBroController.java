@@ -54,23 +54,25 @@ public class SnowBroController {
 		List<Trip> trips = td.allTrips();
 		model.addAttribute("searchResults", null);
 		model.addAttribute("allTrips", trips);
-		model.addAttribute("user",user);
+		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));
 		return "search.jsp";
 	}
 
 	@RequestMapping(path = "searchTrip.do")
-	public String SearchTitle(@ModelAttribute("user")User user,@RequestParam("searchTitle") String title, Model model) {
+	public String SearchTitle(@ModelAttribute("user") User user, @RequestParam("searchTitle") String title,
+			Model model) {
 		Set<Trip> trips = td.searchTrip(title);
 		System.out.println("controller......." + trips);
 		model.addAttribute("searchResults", trips);
-		model.addAttribute("user",user);
+		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));
 		return "search.jsp";
 	}
-	
+
 	@RequestMapping(path = "searchUser.do", method = RequestMethod.GET)
-	public String searchUser(@ModelAttribute("user") User user, @RequestParam("searchUser") String search, Model model) {
+	public String searchUser(@ModelAttribute("user") User user, @RequestParam("searchUser") String search,
+			Model model) {
 		Set<User> users = ud.searchForUserByName(search);
 		System.out.println(users);
 		model.addAttribute("searchResultsUsers", users);
@@ -106,14 +108,15 @@ public class SnowBroController {
 	@RequestMapping(path = "createProfile.do")
 	public String CreateProfile(Model model, @RequestParam("firstName") String fName,
 			@RequestParam("lastName") String lName, @RequestParam("email") String email,
-			@RequestParam("picture") String picture, @RequestParam("password") String password) throws NoSuchAlgorithmException {
+			@RequestParam("picture") String picture, @RequestParam("password") String password)
+			throws NoSuchAlgorithmException {
 		User user = new User();
 		user.setFirstName(fName);
 		user.setLastName(lName);
 		user.setEmail(email);
 		// i need to encrypt the password rt here
 		user.setPassword(ed.encrypt(password));
-		//.setPassword(password);
+		// .setPassword(password);
 		user.setPicture(picture);
 		user.setUserType(false);
 		ud.create(user);
@@ -135,6 +138,8 @@ public class SnowBroController {
 		ud.updateUser(user1);
 		model.addAttribute("user", user1);
 		model.addAttribute("rating", ud.getUserRating(user1));
+		List<User> friends = ud.viewFriends(user);
+		model.addAttribute("friends", friends);
 		System.out.println(ud.getUserRating(user1));
 		return "user.jsp";
 	}
@@ -171,14 +176,14 @@ public class SnowBroController {
 		// trip.setExtraCurrs(ec);
 		trip.setOwnerId(userId);
 		Trip t = td.createTrip(trip);
-		List <Trip> trips= user.getTrips();
+		List<Trip> trips = user.getTrips();
 		trips.add(trip);
 		user.setTrips(trips);
 		System.out.println(user.getTrips());
 		System.out.println(trip.getUsers());
 		model.addAttribute("trip", t);
 		model.addAttribute("rating", ud.getUserRating(user));
-		model.addAttribute("user",user);
+		model.addAttribute("user", user);
 		return "trip.jsp";
 	}
 
@@ -198,7 +203,7 @@ public class SnowBroController {
 		trip.setNumberSeats(seats);
 		trip.setOwnerId(userId);
 		// trip.setExtraCurrs(ec);
-		model.addAttribute("user",user);
+		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("trip", trip);
 		return "trip.jsp";
@@ -211,18 +216,21 @@ public class SnowBroController {
 	@RequestMapping(path = "getUser.do")
 	public String validate(@ModelAttribute("user") User user, Model model, @RequestParam("email") String email,
 			@RequestParam("password") String password) {
-	//********* testing encryption ************************************	
-		//validate password
+		// ************* testing encryption ************************************
+		// validate password
 		System.out.println(ud.findUserPasswordByEmail(email) + " from database");
 		System.out.println(password + " from user");
-		boolean passWordMatches  = ed.matches(password, ud.findUserPasswordByEmail(email));
-		//print out true or false for password matching
-		System.out.println(passWordMatches);		 
+		boolean passWordMatches = ed.matches(password, ud.findUserPasswordByEmail(email));
+		// print out true or false for password matching
+		System.out.println(passWordMatches);
 		User u = ud.validate(email, password);
 		if (u != null && passWordMatches) {
-
+			
+			
 			model.addAttribute("user", u);
 			model.addAttribute("rating", ud.getUserRating(u));
+			List<User> friends = ud.viewFriends(u);
+			model.addAttribute("friends", friends);
 
 			return "user.jsp";
 
@@ -238,7 +246,7 @@ public class SnowBroController {
 
 	@RequestMapping(path = "logOut.do", method = RequestMethod.GET)
 	public String logout(SessionStatus ss, Model model) {
-		
+
 		ss.setComplete();
 		return "index.jsp";
 	}
@@ -248,6 +256,8 @@ public class SnowBroController {
 			@RequestParam(name = "userId") int userId) {
 		model.addAttribute("user", ud.findUserById(userId)); // ud.findUserById(userId) returns a user object
 		model.addAttribute("rating", ud.getUserRating(user));
+		List<User> friends = ud.viewFriends(user);
+		model.addAttribute("friends", friends);
 		System.out.println(ud.getUserRating(user));
 		return "user.jsp";
 	}
@@ -293,6 +303,8 @@ public class SnowBroController {
 		td.deleteTrip(td.findTripById(tripId));
 		model.addAttribute("user", ud.findUserById(userId));
 		model.addAttribute("rating", ud.getUserRating(user));
+		List<User> friends = ud.viewFriends(user);
+		model.addAttribute("friends", friends);
 		return "user.jsp";
 	}
 
@@ -319,43 +331,48 @@ public class SnowBroController {
 		return "createTrip.jsp";
 	}
 
-
 	///////////////////////////////////////////////////
 	///////////// FRIEND STUFF ////////////////////////
 	//////////////////////////////////////////////////
-	
+
 	@RequestMapping(path = "addFriend.do", method = RequestMethod.POST)
-	public String addFriend(@ModelAttribute("user") User user, Model model,
-			@RequestParam(name = "friendId") int friendId) {
-		User friend = ud.findUserById(friendId);
+	public String addFriend(@ModelAttribute("user") User user, @RequestParam(name = "broId") int broId, Model model) {
+		User friend = ud.findUserById(broId);
 		user = ud.addFriend(user, friend);
-		
+
 		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));
-		return "user.jsp";
+		model.addAttribute("bro", friend);
+		model.addAttribute("brorating", ud.getUserRating(friend));
+		model.addAttribute("addFriend", false);
+		return "bro.jsp";
 	}
-	
-	@RequestMapping(path = "viewFriends.do", method = RequestMethod.GET)
-	public String viewFriends(@ModelAttribute("user") User user, Model model) {
-		
-		List<User> friends = ud.viewFriends(user);
-		model.addAttribute("allFriends", friends);
-		model.addAttribute("user", user);
-		model.addAttribute("rating", ud.getUserRating(user));
-		return "friendsList.jsp";
-	}
-	
+
 	@RequestMapping(path = "ViewUser.do", method = RequestMethod.GET)
 	public String goToBrosUserPage(@ModelAttribute("user") User user, Model model, @RequestParam("broId") int broId) {
 		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));
 		User u = ud.findUserById(broId);
+		List<User> friends;
+		if (ud.viewFriends(user) == null) {
+			friends = new ArrayList<>();
+		} else {
+			friends = ud.viewFriends(user);
+		}
+		boolean b = true;
+		for (User use : friends) {
+			if (use.getId() == u.getId()) {
+				b = false;
+				break;
+			}
+		}
+		model.addAttribute("addFriend", b);
 		model.addAttribute("brorating", ud.getUserRating(u));
 		model.addAttribute("bro", u);
-		
-		
+
 		return "bro.jsp";
 	}
+
 	@RequestMapping(path = "rate.do", method = RequestMethod.GET)
 	public String goToRate(@ModelAttribute("user") User user, Model model, @RequestParam("broId") int broId) {
 		model.addAttribute("user", user);
@@ -363,10 +380,8 @@ public class SnowBroController {
 		User u = ud.findUserById(broId);
 		model.addAttribute("brorating", ud.getUserRating(u));
 		model.addAttribute("bro", u);
-		
-		
+
 		return "rate.jsp";
 	}
-	
 
 }
