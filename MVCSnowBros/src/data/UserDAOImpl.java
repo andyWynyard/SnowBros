@@ -147,8 +147,8 @@ public class UserDAOImpl implements UserDAO {
 		String query = "SELECT u FROM User u WHERE u.firstName LIKE :search OR u.lastName LIKE :search1";
 		try {
 			userResults = em.createQuery(query, User.class)
-					      .setParameter("search",  name)
-					      .setParameter("search1", name)
+					      .setParameter("search",  "%" + name + "%")
+					      .setParameter("search1", "%" + name + "%")
 					      .getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
