@@ -84,7 +84,7 @@
 					
 					
 					<form action="viewUser.do" method="GET">
-    					<p><input type="submit" class="btn btn-success btn-block" value="${user.firstName} ${user.lastName}">
+    					<p><input type="submit" class="btn btn-success btn-block" value="${bro.firstName} ${bro.lastName}">
     					<input type="hidden" value="${bro.id}" name="broId">
     					<input type="hidden" value="${user.id}" name="userId">
   					</form>	
