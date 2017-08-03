@@ -5,37 +5,59 @@
     
 
 	<c:if test="${user.firstName != null}">
-  
-   <div class="well">
-  <img src="${user.picture}" alt="Your photo" height="42" width="42">
+  <div class="well">
+  <div class="row">
+ <div class="col-xs-3">
+  <img src="${user.picture}" alt="Your photo" height="100%" width="100%">
+  </div>
+  <div class="col-xs-6">
   <h1>${user.firstName} ${user.lastName}</h1>
   <h3>${user.email}</h3>
-  <h3>Your rating is: ${rating}</h3>
+  <h5>Your rating is: ${rating}</h5>
+  </div>
+  <div class="col-xs-3">
   
-   <form action="logOut.do" method="GET">
-  			<input type="submit" value="Log Out">
-  		</form>
+   
   
   <form action="getProfilePage.do" method="GET">
-  			<input type="submit" value="Profile Page">
+  			<input type="submit" class="btn btn-primary btn-lg btn-block" value="Profile Page">
   			<input type="hidden" value="${user.id}" name="userId">
   		</form>
+  		<form action="logOut.do" method="GET">
+  			<input type="submit" class="btn btn-secondary btn-lg btn-block" value="Log Out">
+  		</form>
+  		
+  			<form action="editUserPage.do" method="GET">
+    			<input type="submit" class="btn btn-warning btn-lg btn-block" value="Edit your Profile" name="${user.id}">
+    			<input type="hidden" value="${user.id}" name="userId">
+  		</form>
+  		
+  		<form action="deleteUser.do" method="POST">
+    			<input type="submit" class="btn btn-danger btn-lg btn-block" value="Delete your account">
+    			<input type="hidden" value="${user.id}" name="userId">
+  		</form>	
+  		
+  </div>
+  </div>
   
   </div>
 
 </c:if>
+
+
+
+
 <c:if test="${user.firstName == null}">
-  
+  <div class="well">
   <form action="getUser.do" method="POST">
-  
   	<p>Email
     <input type="email" name="email"/>
     Password
-    <input type="password" name="password"/></p>
-       
+    <input type="password" name="password"/></p>   
     		<br>
-      <input type="submit" value="Submit" name="submit" />
-
+      <input type="submit" class="btn btn-info" value="Submit" name="submit" />
   </form>
-  
+   </div>
   </c:if>
+  
+ 

@@ -20,15 +20,7 @@
  
   
   
-  		<form action="editUserPage.do" method="GET">
-    			<input type="submit" value="Edit your Profile" name="${user.id}">
-    			<input type="hidden" value="${user.id}" name="userId">
-  		</form>
-  		
-  		<form action="deleteUser.do" method="POST">
-    			<input type="submit" value="Delete your account">
-    			<input type="hidden" value="${user.id}" name="userId">
-  		</form>
+  
   		
   		<%-- <form action="viewFriends.do" method="GET">
   		<h3>Your Bros</h3>
