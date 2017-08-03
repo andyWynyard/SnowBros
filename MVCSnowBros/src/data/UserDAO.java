@@ -1,6 +1,7 @@
 package data;
 
 import java.util.List;
+import java.util.Set;
 
 import entities.Trip;
 import entities.User;
@@ -18,11 +19,13 @@ public interface UserDAO {
 	
 	public User deleteUser(User user);
 	
-	public User addFriends(User user);
+	public User addFriend(User user, User friend);
 
 	public User rateUser(User user, int rating);
 	
 	public User findUserById(int id);
 	
-
+	public Set<User> searchForUserByName(String name);
+	
+	public List<User> viewFriends(User user);
 }

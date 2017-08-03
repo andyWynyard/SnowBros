@@ -2,6 +2,7 @@ package data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -97,9 +98,15 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User addFriends(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public User addFriend(User user, User friend) {
+		User u = em.find(User.class, user.getId());
+		List<User> friends = u.getFriends();
+		if (friends == null) {
+			friends = new ArrayList<>();
+		}
+		friends.add(friend);
+		u.setFriends(friends);
+		return u;
 	}
 
 	@Override
@@ -126,6 +133,28 @@ public class UserDAOImpl implements UserDAO {
 	public User findUserById(int id) {
 		User u = em.find(User.class, id);
 		return u;
+	}
+	
+	@Override
+	public List<User> viewFriends(User user) {
+		User u = em.find(User.class, user.getId());
+		List<User> friends = u.getFriends();
+		return friends;
+	}
+	
+	@Override
+	public Set<User> searchForUserByName(String name) {
+		List<User> userResults = new ArrayList<>();
+		String query = "SELECT u FROM User u WHERE u.firstName LIKE :search OR u.lastName LIKE :search1";
+		try {
+			userResults = em.createQuery(query, User.class)
+					      .setParameter("search",  name)
+					      .setParameter("search1", name)
+					      .getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return (Set)(userResults);
 	}
 
 }

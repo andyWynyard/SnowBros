@@ -59,8 +59,6 @@ public class User {
 	
 //	GETTERS AND SETTERS (GET HER? I HARDLY KNOW HER!) BELOW.
 
-	
-	
 	public String getFirstName() {
 		return firstName;
 	}

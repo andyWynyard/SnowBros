@@ -46,7 +46,7 @@ public class SnowBroController {
 	//////////////////// SEARCH.JSP///////////////////////
 	//////////////////////////////////////////////////
 	@RequestMapping(path = "searchPage.do")
-	public String allTrips(@ModelAttribute("user")User user,Model model) {
+	public String allTrips(@ModelAttribute("user") User user, Model model) {
 		List<Trip> trips = td.allTrips();
 		model.addAttribute("searchResults", null);
 		model.addAttribute("allTrips", trips);
@@ -61,6 +61,15 @@ public class SnowBroController {
 		model.addAttribute("searchResults", trips);
 		model.addAttribute("user",user);
 		return "search.jsp";
+	}
+	
+	@RequestMapping(path = "searchUser.do", method = RequestMethod.GET)
+	public String searchUser(@ModelAttribute("user") User user, @RequestParam("serchUser") String search, Model model) {
+		Set<User> users = ud.searchForUserByName(search);
+		System.out.println(users);
+		model.addAttribute("searchResults", users);
+		model.addAttribute("user", user);
+		return "seach.jsp";
 	}
 
 	// @RequestMapping(path = "searchExtra.do")
@@ -277,13 +286,30 @@ public class SnowBroController {
 		return "createTrip.jsp";
 	}
 
-	@RequestMapping(path = "searchPage.jsp", method = RequestMethod.GET)
-	public String goToSearchPage(@ModelAttribute("user") User user, Model model,
-			@RequestParam(name = "userId") int userId) {
-		model.addAttribute("user", ud.findUserById(userId));
-		return "search.jsp";
-	}
 
-	// viewFriends.do
+	///////////////////////////////////////////////////
+	///////////// FRIEND STUFF ////////////////////////
+	//////////////////////////////////////////////////
+	
+	@RequestMapping(path = "addFriend.do", method = RequestMethod.POST)
+	public String addFriend(@ModelAttribute("user") User user, Model model,
+			@RequestParam(name = "friendId") int friendId) {
+		User friend = ud.findUserById(friendId);
+		user = ud.addFriend(user, friend);
+		
+		model.addAttribute("user", user);
+		return "user.jsp";
+	}
+	
+	@RequestMapping(path = "viewFriends.do", method = RequestMethod.GET)
+	public String viewFriends(@ModelAttribute("user") User user, Model model) {
+		
+		List<User> friends = ud.viewFriends(user);
+		model.addAttribute("allFriends", friends);
+		model.addAttribute("user", user);
+		return "friendsList.jsp";
+	}
+	
+	
 
 }
