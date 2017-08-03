@@ -151,7 +151,12 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<User> viewFriends(User user) {
 		String query = "SELECT u FROM User u JOIN FETCH u.friends WHERE u.id = :id";
-		User u = em.createQuery(query, User.class).setParameter("id", user.getId()).getResultList().get(0);
+		User u = new User();
+		try {
+		u = em.createQuery(query, User.class).setParameter("id", user.getId()).getResultList().get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		List<User> friends;
 		if (u.getFriends() == null) {
 			friends = new ArrayList<>();

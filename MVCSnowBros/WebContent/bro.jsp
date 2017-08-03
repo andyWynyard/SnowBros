@@ -41,7 +41,7 @@
 					
 					
 					
-					<form action="addFriend.do" method="GET">
+					<form action="addFriend.do" method="POST">
     					<p><input type="submit" class="btn btn-success btn-block" value="Add Friend">
     					<input type="hidden" value="${bro.id}" name="broId">
     					<input type="hidden" value="${user.id}" name="userId">
