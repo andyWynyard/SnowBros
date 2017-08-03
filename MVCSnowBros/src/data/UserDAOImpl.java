@@ -24,11 +24,10 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User create(User user) {
 		try {
-			
 			em.persist(user);
 			
 			em.flush();
-
+			
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
