@@ -204,6 +204,7 @@ public class SnowBroController {
 		if (u != null) {
 
 			model.addAttribute("user", u);
+			model.addAttribute("rating", ud.getUserRating(u));
 
 			return "user.jsp";
 

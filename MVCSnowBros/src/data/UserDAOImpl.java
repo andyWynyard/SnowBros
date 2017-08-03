@@ -158,16 +158,27 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public double getUserRating(User user) {
-		List<UserRating> ratings = user.getUserRating();
-		if (ratings == null) {
+		
+		String query = "SELECT u FROM User u JOIN FETCH u.userRating WHERE u.id = :id";
+		User u = em.createQuery(query, User.class)
+				      			  .setParameter("id", user.getId())
+				      			  .getResultList().get(0);
+		List<UserRating> ratings = new ArrayList<>();
+		try {
+		ratings = u.getUserRating();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if (ratings.size() == 0 || ratings == null) {
 			return 0;
 		}
-		int total = 0;
-		int counter = ratings.size();
+		double total = 0;
+		double counter = ratings.size();
 		for (UserRating rating : ratings) {
 			total += rating.getValue();
 		}
-		double rating = total / counter;
+		double rating = total/counter;
 		return rating;
 	}
 
