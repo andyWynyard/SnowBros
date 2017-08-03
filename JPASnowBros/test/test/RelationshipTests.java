@@ -21,7 +21,6 @@ import entities.Return;
 import entities.Trip;
 import entities.User;
 import entities.UserRating;
-import entities.UserType;
 
 public class RelationshipTests {
 	
@@ -63,15 +62,15 @@ public class RelationshipTests {
 		assertNotNull(u2);
 		assertEquals(u2.getFirstName(), "Charlie");
 	}
-	
-	@Test
-	public void test_that_userType_has_list_of_users_and_user_has_a_type() {
-		User u = em.find(User.class, 1);
-		UserType ut = u.getUserType();
-		assertNotNull(ut);
-		assertEquals(ut.getUsers().size(), 4);
-	}
-	
+//	
+//	@Test
+//	public void test_that_userType_has_list_of_users_and_user_has_a_type() {
+//		User u = em.find(User.class, 1);
+////		UserType ut = u.getUserType();
+//		assertNotNull(ut);
+//		assertEquals(ut.getUsers().size(), 4);
+//	}
+//	
 	@Test
 	public void test_that_trip_has_many_users_and_users_have_many_trips() {
 		User u = em.find(User.class, 1);
