@@ -1,6 +1,7 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -152,7 +153,11 @@ public class UserDAOImpl implements UserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return (Set)(userResults);
+		Set<User> users = new HashSet<>();
+		for (User user : userResults) {
+			users.add(user);
+		}
+		return users;
 	}
 	
 	@Override
