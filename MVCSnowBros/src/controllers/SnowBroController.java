@@ -286,12 +286,7 @@ public class SnowBroController {
 		return "createTrip.jsp";
 	}
 
-	@RequestMapping(path = "searchPage.do", method = RequestMethod.GET)
-	public String goToSearchPage(@ModelAttribute("user") User user, Model model,
-			@RequestParam(name = "userId") int userId) {
-		model.addAttribute("user", ud.findUserById(userId));
-		return "search.jsp";
-	}
+
 
 	///////////////////////////////////////////////////
 	///////////// FRIEND STUFF ////////////////////////
