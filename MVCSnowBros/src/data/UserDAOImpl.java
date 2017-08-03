@@ -97,9 +97,15 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User addFriends(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public User addFriend(User user, User friend) {
+		User u = em.find(User.class, user.getId());
+		List<User> friends = u.getFriends();
+		if (friends == null) {
+			friends = new ArrayList<>();
+		}
+		friends.add(friend);
+		u.setFriends(friends);
+		return u;
 	}
 
 	@Override
@@ -126,6 +132,13 @@ public class UserDAOImpl implements UserDAO {
 	public User findUserById(int id) {
 		User u = em.find(User.class, id);
 		return u;
+	}
+	
+	@Override
+	public List<User> viewFriends(User user) {
+		User u = em.find(User.class, user.getId());
+		List<User> friends = u.getFriends();
+		return friends;
 	}
 
 }

@@ -18,11 +18,11 @@ public interface UserDAO {
 	
 	public User deleteUser(User user);
 	
-	public User addFriends(User user);
+	public User addFriend(User user, User friend);
 
 	public User rateUser(User user, int rating);
 	
 	public User findUserById(int id);
 	
-
+	public List<User> viewFriends(User user);
 }
