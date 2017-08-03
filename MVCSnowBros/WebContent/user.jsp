@@ -31,7 +31,7 @@
   		<h3>Your Trips</h3>
   			<c:forEach items = "${user.trips}" var = "trips">
   		<form action="viewTrip.do" method="GET">
-         		<input type="submit" class="btn btn-info btn-block" value="${trips.destination.name} on ${trips.date}">
+         		<input type="submit" class="btn btn-info btn-block btn-lg" value="${trips.destination.name} on ${trips.date}">
     				<input type="hidden" value="${trips.id}" name="tripId">
   		</form>
   		<br>
@@ -50,6 +50,7 @@
          </c:forEach> --%>	
 
   
+  </div>
   </div>
   </div>
  

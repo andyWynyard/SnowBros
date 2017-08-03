@@ -21,18 +21,31 @@
   
    <h1>Edit your profile here</h1>
     <form action="editProfile.do" method="POST">
-       <h5>First Name</h5>
-       <input type="text" name="firstName" value="${user.firstName}"/>
-       <h5>Last Name</h5>
-       <input type="text" name="lastName" value="${user.lastName}"/>
-       <h5>email (this will be your username)</h5>
-       <input type="text" name="email" value="${user.email}"/>
-       <h5>HTML link to a picture you want</h5>
-       <input type="text" name="picture" value="${user.picture}">
-       <input type="hidden" name="password" value="${user.password}">
+    
+     <div class="row">
+    <div class="col-xs-6">
+    <h4>First Name</h4>
+       <input type="text" class="form-control input-lg" name="firstName" value="${user.firstName}"/>
+       </div>
+     <div class="col-xs-6">  
+   <h4>Last Name</h4>
+       <input type="text" class="form-control input-lg" name="lastName" value="${user.lastName}"/>
+    </div> 
+    </div> 
+    
+     <div class="row">
+    <div class="col-xs-6">
+ <h4>email (this is your username)</h4>
+       <input type="text" class="form-control input-lg" name="email" value="${user.email}"/>
+       </div>
+     <div class="col-xs-6">  
+     <h4>HTML link to a picture you want</h4>
+       <input type="text" class="form-control input-lg" name="picture" value="${user.picture}">
+    </div> 
+    </div> 
+    
     		<br>
-    		<br>
-      <input type="submit" value="Submit" name="submit" />
+      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit" name="submit" />
       </form>
    
    

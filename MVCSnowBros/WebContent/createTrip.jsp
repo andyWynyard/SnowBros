@@ -22,37 +22,54 @@
    
    <h1>Create your trip here</h1>
     <form action="createTrip.do" method="POST">
+    <div class="row">
+    <div class="col-xs-4"><h4>Title</h4><input type="text" class="form-control input-lg" name="title"/>
+       </div>
+     <div class="col-xs-8">  
+       <h4>Destination</h4><input type="text" class="form-control input-lg" name="destination"/>
+    </div> 
+    </div>  
     
-       <h5>Title</h5>
-       <input type="text" name="title"/>
-       <h5>Destination</h5>
-       <input type="text" name="destination"/>
-       <h5>Description</h5>
-       <input type="text" name="description"/>
-       <h5>Leaving from</h5>
-       <input type="text" name="pointOfOrigin"/>
-       <h5>Date/Time</h5>
-       <input type="datetime-local" name="date"/>
-       
-       <h5>Returning to</h5>
-       <input type="text" name="pointOfReturn"/>
-       
-       <p>Places</p>
-    		<select name="numberSeats">
-  			<option value="1">1</option>
-  			<option value="2">2</option>
-  			<option value="3">3</option>
-  			<option value="4">4</option>
-  			<option value="5">5</option>
-  			<option value="6">6</option>
+    <div class="row">
+    <div class="col-xs-12">
+    	<h4>Description</h4>
+       <input type="text" class="form-control input-lg" name="description"/>
+    	</div>   
+    </div>
+    
+    <div class="row">
+    <div class="col-xs-6">
+    <h4>Leaving from</h4><input type="text" class="form-control input-lg" name="pointOfOrigin"/>
+       </div>
+     <div class="col-xs-6">  
+     <h4>Returning to</h4><input type="text" class="form-control input-lg" name="pointOfReturn"/>
+    </div> 
+    </div> 
+    
+    <div class="row">
+    <div class="col-xs-3">
+    <h4>Date/Time</h4><input type="datetime-local" class="form-control input-lg" name="date"/>
+       </div>
+     <div class="col-xs-4">  
+     <h4>How many SnowBros can you take?</h4>
+    		<select name="numberSeats" class="form-control input-lg">
+  			<option value="1">1 SnowBro</option>
+  			<option value="2">2 SnowBros</option>
+  			<option value="3">3 SnowBros</option>
+  			<option value="4">4 SnowBros</option>
+  			<option value="5">5 SnowBros (I have a van)</option>
+  			<option value="6">6 SnowBros (I have a bus)</option>
 		</select>
-		<p>Scooby Snax</p>	
-		<input type="textarea" name="extraCurrs"/>
- 		
-    		<br>
+    </div> 
+     <div class="col-xs-5">  
+    
+     <h4>Scooby Snax</h4><input type="text" class="form-control input-lg" name="extraCurrs"/>
+    </div> 
+    </div>
+    
     		<br>
     		<input type="hidden" name="userId" value="${user.id}">
-      <input type="submit" value="Submit" name="submit" />
+      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Create Trip" name="submit" />
       </form>
  
    </div>

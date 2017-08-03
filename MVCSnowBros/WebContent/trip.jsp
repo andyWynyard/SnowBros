@@ -62,8 +62,15 @@
     			<input type="hidden" value="${trip.id}" name="tripId">
     			<input type="hidden" value="${user.id}" name="userId">
   		</form>
-  		
   		</c:if>
+  		
+  		 		<form action="getProfilePage.do" method="GET">
+  		<h3>Current Passengers</h3>
+  			<c:forEach items = "${tripPassengers}" var = "bros">
+         		<input type="submit" value="${bros.firstName} ${bros.lastName}">
+    				<input type="hidden" value="${bros.id}" name="userId">
+         </c:forEach>	
+  		</form>
   
   </div>
   <div class="col-xs-6">
@@ -79,18 +86,6 @@
   </div>
   </div>
   </div>
-  
-  		
-  		
-  		
-  		<form action="getProfilePage.do" method="GET">
-  		<h3>Your Bros</h3>
-  			<c:forEach items = "${tripPassengers}" var = "bros">
-         		<input type="submit" value="${bros.firstName} ${bros.lastName}">
-    				<input type="hidden" value="${bros.id}" name="userId">
-         </c:forEach>	
-  		</form>
-
   
   </div>
   

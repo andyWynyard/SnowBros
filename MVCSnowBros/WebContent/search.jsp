@@ -26,7 +26,7 @@
 			<div class="input-group">
       			<input type="text" class="form-control" placeholder="Search for..." name="searchTitle">
       				<span class="input-group-btn">
-        					<button class="btn btn-default" type="submit">Go!</button>
+        					<button class="btn btn-default btn-block" type="submit">Go!</button>
       				</span>
     			</div><!-- /input-group -->
 			
@@ -38,7 +38,7 @@
 					<c:forEach items="${searchResults}" var="trip">
 					
 					<form action="viewTrip.do" method="GET">
-    					<p><input type="submit" class="btn btn-info btn-block" value="${trip.destination.name} on ${trip.date}">
+    					<p><input type="submit" class="btn btn-info btn-block btn-lg" value="${trip.destination.name} on ${trip.date}">
     					<input type="hidden" value="${trip.id}" name="tripId">
   					</form>	
 					<br>
@@ -49,7 +49,7 @@
 
 					<c:forEach items="${allTrips}" var="trip">
     						<form action="viewTrip.do" method="GET">
-    					<p><input type="submit" class="btn btn-info btn-block" value="${trip.destination.name} on ${trip.date}">
+    					<p><input type="submit" class="btn btn-info btn-block btn-lg" value="${trip.destination.name} on ${trip.date}">
     					<input type="hidden" value="${trip.id}" name="tripId">
   					</form>	
   					<br>
@@ -70,13 +70,11 @@
 			<div class="input-group">
       			<input type="text" class="form-control" placeholder="Search for..." name="searchUser">
       				<span class="input-group-btn">
-        					<button class="btn btn-default" type="submit">Go!</button>
+        					<button class="btn btn-default btn-block" type="submit">Go!</button>
       				</span>
     			</div><!-- /input-group -->		
 					<br>
 			</form>
-
-    		
 
 	<c:choose>
     						<c:when test="${searchResultsUsers != null}">
@@ -84,7 +82,7 @@
 					
 					
 					<form action="viewUser.do" method="GET">
-    					<p><input type="submit" class="btn btn-success btn-block" value="${user.firstName} ${user.lastName}">
+    					<p><input type="submit" class="btn btn-success btn-block btn-lg" value="${user.firstName} ${user.lastName}">
     					<input type="hidden" value="${bro.id}" name="broId">
     					<input type="hidden" value="${user.id}" name="userId">
   					</form>	
