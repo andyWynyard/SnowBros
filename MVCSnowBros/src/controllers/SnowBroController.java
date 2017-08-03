@@ -67,7 +67,7 @@ public class SnowBroController {
 	public String searchUser(@ModelAttribute("user") User user, @RequestParam("searchUser") String search, Model model) {
 		Set<User> users = ud.searchForUserByName(search);
 		System.out.println(users);
-		model.addAttribute("searchBros", users);
+		model.addAttribute("searchResults", users);
 		model.addAttribute("user", user);
 		return "search.jsp";
 	}
