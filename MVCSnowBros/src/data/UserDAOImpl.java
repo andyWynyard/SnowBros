@@ -74,6 +74,7 @@ public class UserDAOImpl implements UserDAO {
 			u.setTrips(user.getTrips());
 			u.setUserRating(user.getUserRating());
 			u.setUserType(user.isUserType());
+			u.setPicture(user.getPicture());
 			return u;
 		} catch (Exception e) {
 			e.printStackTrace();
