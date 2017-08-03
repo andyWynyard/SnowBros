@@ -1,5 +1,6 @@
 package controllers;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import data.EncryptionDAO;
 import data.TripDAO;
 import data.UserDAO;
 import entities.Destination;
@@ -32,6 +34,8 @@ public class SnowBroController {
 	private TripDAO td;
 	@Autowired
 	private UserDAO ud;
+	@Autowired
+	private EncryptionDAO ed;
 
 	@ModelAttribute("user")
 	public User initSessionUser() {
@@ -90,12 +94,14 @@ public class SnowBroController {
 	@RequestMapping(path = "createProfile.do")
 	public String CreateProfile(Model model, @RequestParam("firstName") String fName,
 			@RequestParam("lastName") String lName, @RequestParam("email") String email,
-			@RequestParam("picture") String picture, @RequestParam("password") String password) {
+			@RequestParam("picture") String picture, @RequestParam("password") String password) throws NoSuchAlgorithmException {
 		User user = new User();
 		user.setFirstName(fName);
 		user.setLastName(lName);
 		user.setEmail(email);
-		user.setPassword(password);
+		// i need to encrypt the password rt here
+		user.setPassword(ed.encrypt(password));
+		//.setPassword(password);
 		user.setPicture(picture);
 		user.setUserType(false);
 		ud.create(user);
@@ -188,8 +194,15 @@ public class SnowBroController {
 	@RequestMapping(path = "getUser.do")
 	public String validate(@ModelAttribute("user") User user, Model model, @RequestParam("email") String email,
 			@RequestParam("password") String password) {
+	//********* testing encryption ************************************	
+		//validate password
+		System.out.println(ud.findUserPasswordByEmail(email) + " from database");
+		System.out.println(password + " from user");
+		boolean passWordMatches  = ed.matches(password, ud.findUserPasswordByEmail(email));
+		//print out true or false for password matching
+		System.out.println(passWordMatches);		 
 		User u = ud.validate(email, password);
-		if (u != null) {
+		if (u != null && passWordMatches) {
 
 			model.addAttribute("user", u);
 

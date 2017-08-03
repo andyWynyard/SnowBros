@@ -47,6 +47,20 @@ public class UserDAOImpl implements UserDAO {
 			return user;
 		}
 	}
+	
+	//public User findUserByEmail(String email);
+	@Override
+	public String findUserPasswordByEmail(String email) {
+		String query = "SELECT u FROM User u WHERE u.email = :email";
+		User user = null;
+		try { 
+			 User u = em.createQuery(query, User.class).setParameter("email", email).getSingleResult();
+			 String passWord = u.getPassword();
+			 return passWord;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	@Override
 	public List<Trip> userTrips(User user) {

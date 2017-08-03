@@ -24,5 +24,7 @@ public interface UserDAO {
 	
 	public User findUserById(int id);
 	
+	public String findUserPasswordByEmail(String email);
+	
 
 }
