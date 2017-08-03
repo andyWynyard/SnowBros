@@ -64,35 +64,11 @@
 				<input type="submit" value="Search"> <input type="text"
 					name="searchUser">
 			</form>
-			
-
-
-			<br><br>
-			<c:choose>
-				<c:when test="${searchBros != null}">
-					<c:forEach items="${searchBros}" var="user">
-    						${user.firstName}<br>
-    						${user.lastName}<br>
-    						${user.date}<br>
-    					
-					</c:forEach>
-				</c:when>
-
-				<c:otherwise>
-
-					<c:forEach items="${allUsers}" var="user">
+	
+						<br><br>
     						${user.firstName}<br>
     						${user.lastName}<br>
     						<br><br>
-					</c:forEach>
-
-				</c:otherwise>
-
-			</c:choose>
-		
-		
-		
-		
 		
 		</div>
 		
