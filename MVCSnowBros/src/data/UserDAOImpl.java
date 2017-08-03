@@ -122,7 +122,6 @@ public class UserDAOImpl implements UserDAO {
 			em.flush();
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			return u;
 		}
 
@@ -155,6 +154,18 @@ public class UserDAOImpl implements UserDAO {
 			e.printStackTrace();
 		}
 		return (Set)(userResults);
+	}
+	
+	@Override
+	public double getUserRating(User user) {
+		List<UserRating> ratings = user.getUserRating();
+		int total = 0;
+		int counter = ratings.size();
+		for (UserRating rating : ratings) {
+			total += rating.getValue();
+		}
+		double rating = total / counter;
+		return rating;
 	}
 
 }

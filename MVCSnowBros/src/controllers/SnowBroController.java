@@ -109,6 +109,7 @@ public class SnowBroController {
 		user.setUserType(false);
 		ud.create(user);
 		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
 		return "index.jsp";
 	}
 
@@ -124,6 +125,7 @@ public class SnowBroController {
 		user1.setPicture(picture);
 		ud.updateUser(user1);
 		model.addAttribute("user", user1);
+		model.addAttribute("rating", ud.getUserRating(user1));
 		return "user.jsp";
 	}
 
@@ -225,6 +227,7 @@ public class SnowBroController {
 	public String goToProfile(@ModelAttribute("user") User user, Model model,
 			@RequestParam(name = "userId") int userId) {
 		model.addAttribute("user", ud.findUserById(userId)); // ud.findUserById(userId) returns a user object
+		model.addAttribute("rating", ud.getUserRating(user));
 		return "user.jsp";
 	}
 
@@ -263,6 +266,7 @@ public class SnowBroController {
 			@RequestParam("userId") int userId) {
 		td.deleteTrip(td.findTripById(tripId));
 		model.addAttribute("user", ud.findUserById(userId));
+		model.addAttribute("rating", ud.getUserRating(user));
 		return "user.jsp";
 	}
 
@@ -298,6 +302,7 @@ public class SnowBroController {
 		user = ud.addFriend(user, friend);
 		
 		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
 		return "user.jsp";
 	}
 	

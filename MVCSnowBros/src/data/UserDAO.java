@@ -28,4 +28,7 @@ public interface UserDAO {
 	public Set<User> searchForUserByName(String name);
 	
 	public List<User> viewFriends(User user);
+	
+	public double getUserRating(User user);
+	
 }
