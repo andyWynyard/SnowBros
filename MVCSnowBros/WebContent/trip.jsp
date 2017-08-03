@@ -18,19 +18,25 @@
   <div class="well">
   <div class="row">
   <div class="col-xs-6">
-  <div class="panel panel-success">
-  <div class="panel panel-heading">
-  <div class="panel panel-title">
-  	Trip: ${trip.title}
-  	</div>
-  	  </div>
-  	<div class="panel panel-body">
-  	<p>Destination: ${trip.destination.name}</p>
+  
+  <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Trip: ${trip.title}</h3>
+  </div>
+  <div class="panel-body">
+    <p>Destination: ${trip.destination.name}</p>
   	<p>Description: ${trip.description}</p>
   	<p> Seats available: ${trip.numberSeats}</p>
   <%-- <p>${trip.extraCurr}</p> --%>
   	<p>Leaving from: ${trip.pointOfOrigin}</p>
   	<p>Return point: ${trip.pointOfReturn}</p>
+  </div>
+</div>
+  
+ 
+ 
+  	<div class="panel panel-body">
+  	
   	</div>
   </div>
   
