@@ -64,12 +64,12 @@ public class SnowBroController {
 	}
 	
 	@RequestMapping(path = "searchUser.do", method = RequestMethod.GET)
-	public String searchUser(@ModelAttribute("user") User user, @RequestParam("serchUser") String search, Model model) {
+	public String searchUser(@ModelAttribute("user") User user, @RequestParam("searchUser") String search, Model model) {
 		Set<User> users = ud.searchForUserByName(search);
 		System.out.println(users);
-		model.addAttribute("searchResults", users);
+		model.addAttribute("searchBros", users);
 		model.addAttribute("user", user);
-		return "seach.jsp";
+		return "search.jsp";
 	}
 
 	// @RequestMapping(path = "searchExtra.do")
