@@ -325,14 +325,16 @@ public class SnowBroController {
 	//////////////////////////////////////////////////
 	
 	@RequestMapping(path = "addFriend.do", method = RequestMethod.POST)
-	public String addFriend(@ModelAttribute("user") User user, Model model,
-			@RequestParam(name = "friendId") int friendId) {
-		User friend = ud.findUserById(friendId);
+	public String addFriend(@ModelAttribute("user") User user, @RequestParam(name = "broId") int broId, Model model) {
+		User friend = ud.findUserById(broId);
 		user = ud.addFriend(user, friend);
 		
 		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));
-		return "user.jsp";
+		model.addAttribute("bro", friend);
+		model.addAttribute("brorating", ud.getUserRating(friend));
+		model.addAttribute("addFriend", false);
+		return "bro.jsp";
 	}
 	
 	@RequestMapping(path = "viewFriends.do", method = RequestMethod.GET)
@@ -350,6 +352,12 @@ public class SnowBroController {
 		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));
 		User u = ud.findUserById(broId);
+		if (user.getFriends().contains(u)) {
+			model.addAttribute("addFriend", false);
+		}
+		else {
+			model.addAttribute("addFriend", true);
+		}
 		model.addAttribute("brorating", ud.getUserRating(u));
 		model.addAttribute("bro", u);
 		
