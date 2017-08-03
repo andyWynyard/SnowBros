@@ -26,9 +26,9 @@ public class UserDAOImpl implements UserDAO {
 	public User create(User user) {
 		try {
 			em.persist(user);
-			
+
 			em.flush();
-			
+
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,16 +48,16 @@ public class UserDAOImpl implements UserDAO {
 			return user;
 		}
 	}
-	
-	//public User findUserByEmail(String email);
+
+	// public User findUserByEmail(String email);
 	@Override
 	public String findUserPasswordByEmail(String email) {
 		String query = "SELECT u FROM User u WHERE u.email = :email";
 		User user = null;
-		try { 
-			 User u = em.createQuery(query, User.class).setParameter("email", email).getSingleResult();
-			 String passWord = u.getPassword();
-			 return passWord;
+		try {
+			User u = em.createQuery(query, User.class).setParameter("email", email).getSingleResult();
+			String passWord = u.getPassword();
+			return passWord;
 		} catch (Exception e) {
 			return null;
 		}
@@ -141,29 +141,33 @@ public class UserDAOImpl implements UserDAO {
 
 		return u;
 	}
-	
+
 	@Override
 	public User findUserById(int id) {
 		User u = em.find(User.class, id);
 		return u;
 	}
-	
+
 	@Override
 	public List<User> viewFriends(User user) {
-		User u = em.find(User.class, user.getId());
-		List<User> friends = u.getFriends();
+		String query = "SELECT u FROM User u JOIN FETCH u.friends WHERE u.id = :id";
+		User u = em.createQuery(query, User.class).setParameter("id", user.getId()).getResultList().get(0);
+		List<User> friends;
+		if (u.getFriends() == null) {
+			friends = new ArrayList<>();
+		} else {
+			friends = u.getFriends();
+		}
 		return friends;
 	}
-	
+
 	@Override
 	public Set<User> searchForUserByName(String name) {
 		List<User> userResults = new ArrayList<>();
 		String query = "SELECT u FROM User u WHERE u.firstName LIKE :search OR u.lastName LIKE :search1";
 		try {
-			userResults = em.createQuery(query, User.class)
-					      .setParameter("search",  "%" + name + "%")
-					      .setParameter("search1", "%" + name + "%")
-					      .getResultList();
+			userResults = em.createQuery(query, User.class).setParameter("search", "%" + name + "%")
+					.setParameter("search1", "%" + name + "%").getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -173,26 +177,24 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return users;
 	}
-	
+
 	@Override
 	public double getUserRating(User user) {
-		
+
 		String query = "SELECT u FROM User u JOIN FETCH u.userRating WHERE u.id = :id";
 		User u = user;
 		try {
-		u = em.createQuery(query, User.class)
-				      			  .setParameter("id", user.getId())
-				      			  .getResultList().get(0);
+			u = em.createQuery(query, User.class).setParameter("id", user.getId()).getResultList().get(0);
 		} catch (Exception e) {
 			return 0;
 		}
 		List<UserRating> ratings = new ArrayList<>();
 		try {
-		ratings = u.getUserRating();
+			ratings = u.getUserRating();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		if (ratings.size() == 0 || ratings == null) {
 			return 0;
 		}
@@ -201,7 +203,7 @@ public class UserDAOImpl implements UserDAO {
 		for (UserRating rating : ratings) {
 			total += rating.getValue();
 		}
-		double rating = total/counter;
+		double rating = total / counter;
 		return rating;
 	}
 

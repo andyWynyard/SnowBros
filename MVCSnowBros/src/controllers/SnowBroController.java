@@ -352,7 +352,8 @@ public class SnowBroController {
 		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));
 		User u = ud.findUserById(broId);
-		if (user.getFriends().contains(u)) {
+		List<User> friends = ud.viewFriends(user);
+		if (friends.contains(u)) {
 			model.addAttribute("addFriend", false);
 		}
 		else {
