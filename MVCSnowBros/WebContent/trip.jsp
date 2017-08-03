@@ -18,14 +18,21 @@
   <div class="well">
   <div class="row">
   <div class="col-xs-6">
-  
-  <p>Trip: ${trip.title}</p>
-  <p>Destination: ${trip.destination.name}</p>
-  <p>Description: ${trip.description}</p>
-  <p> Seats available: ${trip.numberSeats}</p>
+  <div class="panel panel-success">
+  <div class="panel panel-heading">
+  <div class="panel panel-title">
+  	Trip: ${trip.title}
+  	</div>
+  	  </div>
+  	<div class="panel panel-body">
+  	<p>Destination: ${trip.destination.name}</p>
+  	<p>Description: ${trip.description}</p>
+  	<p> Seats available: ${trip.numberSeats}</p>
   <%-- <p>${trip.extraCurr}</p> --%>
-  <p>Leaving from: ${trip.pointOfOrigin}</p>
-  <p>Return point: ${trip.pointOfReturn}</p>
+  	<p>Leaving from: ${trip.pointOfOrigin}</p>
+  	<p>Return point: ${trip.pointOfReturn}</p>
+  	</div>
+  </div>
   
    <c:choose>
    <c:when test="${user.id == trip.ownerId}">
