@@ -126,6 +126,7 @@ public class SnowBroController {
 		ud.updateUser(user1);
 		model.addAttribute("user", user1);
 		model.addAttribute("rating", ud.getUserRating(user1));
+		System.out.println(ud.getUserRating(user1));
 		return "user.jsp";
 	}
 
@@ -228,6 +229,7 @@ public class SnowBroController {
 			@RequestParam(name = "userId") int userId) {
 		model.addAttribute("user", ud.findUserById(userId)); // ud.findUserById(userId) returns a user object
 		model.addAttribute("rating", ud.getUserRating(user));
+		System.out.println(ud.getUserRating(user));
 		return "user.jsp";
 	}
 

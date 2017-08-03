@@ -22,8 +22,6 @@ public class UserRating {
     @JoinColumn(name="user_id")
     private User user;
     
-    @Min(1)
-    @Max(5)
     private int value;
     
     public User getUser() {
