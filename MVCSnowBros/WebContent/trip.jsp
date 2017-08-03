@@ -16,33 +16,60 @@
 	<jsp:include page="partials/_navProfile.jsp"></jsp:include>
   
   <div class="well">
-  <p>Trip: ${trip.title}</p>
-  <p>Destination: ${trip.destination.name}</p>
-  <p>Description: ${trip.description}</p>
-  <p> Seats available: ${trip.numberSeats}</p>
+  <div class="row">
+  <div class="col-xs-6">
+  
+  <div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">Trip: ${trip.title}</h3>
+  </div>
+  <div class="panel-body">
+    <p>Destination: ${trip.destination.name}</p>
+  	<p>Description: ${trip.description}</p>
+  	<p> Seats available: ${trip.numberSeats}</p>
   <%-- <p>${trip.extraCurr}</p> --%>
-  <p>Leaving from: ${trip.pointOfOrigin}</p>
-  <p>Return point: ${trip.pointOfReturn}</p>
+  	<p>Leaving from: ${trip.pointOfOrigin}</p>
+  	<p>Return point: ${trip.pointOfReturn}</p>
+  </div>
+</div>
+  
+ 
+ 
+  	
+  
   
    <c:choose>
-   <c:when test="${user.id} == ${trip.ownerId}">
+   <c:when test="${user.id == trip.ownerId}">
   		<form action="editTripPage.do" method="GET">
-    			<input type="submit" value="Edit this Trip!">
+    			<input type="submit" class="btn btn-warning" value="Edit this Trip!">
     			<input type="hidden" value="${trip.id}" name="tripId">
   		</form>
   </c:when>
   
-  <c:when test="${user.id} != ${trip.ownerId}">
+  <c:when test="${user.id != trip.ownerId}">
    		<form action="addMeToTrip.do" method="POST">
-    			<input type="submit" value="Add me to Trip!">
+    			<input type="submit" class="btn btn-primary" value="Add me to Trip!">
     			<input type="hidden" value="${user.id}" name="userId">
     			<input type="hidden" value="${trip.id}" name="tripId">
   		</form>
   	</c:when>
   </c:choose>
   
+  <c:if test="${user.id == trip.ownerId}">
+  		
+  		<form action="deleteTrip.do" method="POST">
+    			<input type="submit" class="btn btn-danger" value="Delete this trip">
+    			<input type="hidden" value="${trip.id}" name="tripId">
+    			<input type="hidden" value="${user.id}" name="userId">
+  		</form>
+  		
+  		</c:if>
+  
+  </div>
+  <div class="col-xs-6">
+  
   	<iframe
-  		width="300"
+  		width="100%"
   		height="450"
   		frameborder="0" style="border:0"
   		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyASJj0SjYy3dfJWAm53SUPlIlqOXclJEWk
@@ -50,23 +77,11 @@
 	</iframe>
   
   </div>
+  </div>
+  </div>
   
-  
-  
-  		<form action="editUserPage.do" method="GET">
-    			<input type="submit" value="Edit profile" name="${user.id}">
-    			<input type="hidden" value="${user.id}" name="userId">
-  		</form>
   		
-  		<c:if test="${user.id} == ${trip.ownerId}">
   		
-  		<form action="deleteTrip.do" method="POST">
-    			<input type="submit" value="Delete this trip">
-    			<input type="hidden" value="${trip.id}" name="tripId">
-    			<input type="hidden" value="${user.id}" name="userId">
-  		</form>
-  		
-  		</c:if>
   		
   		<form action="getProfilePage.do" method="GET">
   		<h3>Your Bros</h3>

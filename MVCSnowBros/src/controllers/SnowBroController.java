@@ -50,11 +50,12 @@ public class SnowBroController {
 	//////////////////// SEARCH.JSP///////////////////////
 	//////////////////////////////////////////////////
 	@RequestMapping(path = "searchPage.do")
-	public String allTrips(@ModelAttribute("user")User user,Model model) {
+	public String allTrips(@ModelAttribute("user") User user, Model model) {
 		List<Trip> trips = td.allTrips();
 		model.addAttribute("searchResults", null);
 		model.addAttribute("allTrips", trips);
 		model.addAttribute("user",user);
+		model.addAttribute("rating", ud.getUserRating(user));
 		return "search.jsp";
 	}
 
@@ -64,6 +65,17 @@ public class SnowBroController {
 		System.out.println("controller......." + trips);
 		model.addAttribute("searchResults", trips);
 		model.addAttribute("user",user);
+		model.addAttribute("rating", ud.getUserRating(user));
+		return "search.jsp";
+	}
+	
+	@RequestMapping(path = "searchUser.do", method = RequestMethod.GET)
+	public String searchUser(@ModelAttribute("user") User user, @RequestParam("searchUser") String search, Model model) {
+		Set<User> users = ud.searchForUserByName(search);
+		System.out.println(users);
+		model.addAttribute("searchResultsUsers", users);
+		model.addAttribute("rating", ud.getUserRating(user));
+		model.addAttribute("user", user);
 		return "search.jsp";
 	}
 
@@ -106,6 +118,7 @@ public class SnowBroController {
 		user.setUserType(false);
 		ud.create(user);
 		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
 		return "index.jsp";
 	}
 
@@ -121,6 +134,8 @@ public class SnowBroController {
 		user1.setPicture(picture);
 		ud.updateUser(user1);
 		model.addAttribute("user", user1);
+		model.addAttribute("rating", ud.getUserRating(user1));
+		System.out.println(ud.getUserRating(user1));
 		return "user.jsp";
 	}
 
@@ -162,6 +177,7 @@ public class SnowBroController {
 		System.out.println(user.getTrips());
 		System.out.println(trip.getUsers());
 		model.addAttribute("trip", t);
+		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("user",user);
 		return "trip.jsp";
 	}
@@ -183,6 +199,7 @@ public class SnowBroController {
 		trip.setOwnerId(userId);
 		// trip.setExtraCurrs(ec);
 		model.addAttribute("user",user);
+		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("trip", trip);
 		return "trip.jsp";
 	}
@@ -205,6 +222,7 @@ public class SnowBroController {
 		if (u != null && passWordMatches) {
 
 			model.addAttribute("user", u);
+			model.addAttribute("rating", ud.getUserRating(u));
 
 			return "user.jsp";
 
@@ -229,6 +247,8 @@ public class SnowBroController {
 	public String goToProfile(@ModelAttribute("user") User user, Model model,
 			@RequestParam(name = "userId") int userId) {
 		model.addAttribute("user", ud.findUserById(userId)); // ud.findUserById(userId) returns a user object
+		model.addAttribute("rating", ud.getUserRating(user));
+		System.out.println(ud.getUserRating(user));
 		return "user.jsp";
 	}
 
@@ -236,6 +256,8 @@ public class SnowBroController {
 	public String goToEditTrip(@ModelAttribute("user") User user, Model model,
 			@RequestParam(name = "tripId") int tripId) {
 		model.addAttribute("trip", td.findTripById(tripId));
+		model.addAttribute("rating", ud.getUserRating(user));
+		model.addAttribute("user", user);
 		return "editTrip.jsp";
 	}
 
@@ -253,12 +275,15 @@ public class SnowBroController {
 		td.updateTrip(t);
 
 		model.addAttribute("trip", t);
+		model.addAttribute("rating", ud.getUserRating(user));
+		model.addAttribute("user", user);
 		return "trip.jsp";
 	}
 
 	@RequestMapping(path = "editUserPage.do", method = RequestMethod.GET)
 	public String goToEditUserPage(@ModelAttribute("user") User user, Model model, @RequestParam("userId") int userId) {
 		model.addAttribute("user", ud.findUserById(userId));
+		model.addAttribute("rating", ud.getUserRating(user));
 		return "editProfile.jsp";
 	}
 
@@ -267,6 +292,7 @@ public class SnowBroController {
 			@RequestParam("userId") int userId) {
 		td.deleteTrip(td.findTripById(tripId));
 		model.addAttribute("user", ud.findUserById(userId));
+		model.addAttribute("rating", ud.getUserRating(user));
 		return "user.jsp";
 	}
 
@@ -280,6 +306,8 @@ public class SnowBroController {
 	@RequestMapping(path = "viewTrip.do", method = RequestMethod.GET)
 	public String viewTrip(@ModelAttribute("user") User user, Model model, @RequestParam(name = "tripId") int tripId) {
 		model.addAttribute("trip", td.findTripById(tripId));
+		model.addAttribute("rating", ud.getUserRating(user));
+		model.addAttribute("user", user);
 		return "trip.jsp";
 	}
 
@@ -287,16 +315,58 @@ public class SnowBroController {
 	public String goToCreateTripPage(@ModelAttribute("user") User user, Model model,
 			@RequestParam(name = "userId") int userId) {
 		model.addAttribute("user", ud.findUserById(userId));
+		model.addAttribute("rating", ud.getUserRating(user));
 		return "createTrip.jsp";
 	}
 
-	@RequestMapping(path = "searchPage.jsp", method = RequestMethod.GET)
-	public String goToSearchPage(@ModelAttribute("user") User user, Model model,
-			@RequestParam(name = "userId") int userId) {
-		model.addAttribute("user", ud.findUserById(userId));
-		return "search.jsp";
-	}
 
-	// viewFriends.do
+	///////////////////////////////////////////////////
+	///////////// FRIEND STUFF ////////////////////////
+	//////////////////////////////////////////////////
+	
+	@RequestMapping(path = "addFriend.do", method = RequestMethod.POST)
+	public String addFriend(@ModelAttribute("user") User user, Model model,
+			@RequestParam(name = "friendId") int friendId) {
+		User friend = ud.findUserById(friendId);
+		user = ud.addFriend(user, friend);
+		
+		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
+		return "user.jsp";
+	}
+	
+	@RequestMapping(path = "viewFriends.do", method = RequestMethod.GET)
+	public String viewFriends(@ModelAttribute("user") User user, Model model) {
+		
+		List<User> friends = ud.viewFriends(user);
+		model.addAttribute("allFriends", friends);
+		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
+		return "friendsList.jsp";
+	}
+	
+	@RequestMapping(path = "ViewUser.do", method = RequestMethod.GET)
+	public String goToBrosUserPage(@ModelAttribute("user") User user, Model model, @RequestParam("broId") int broId) {
+		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
+		User u = ud.findUserById(broId);
+		model.addAttribute("brorating", ud.getUserRating(u));
+		model.addAttribute("bro", u);
+		
+		
+		return "bro.jsp";
+	}
+	@RequestMapping(path = "rate.do", method = RequestMethod.GET)
+	public String goToRate(@ModelAttribute("user") User user, Model model, @RequestParam("broId") int broId) {
+		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
+		User u = ud.findUserById(broId);
+		model.addAttribute("brorating", ud.getUserRating(u));
+		model.addAttribute("bro", u);
+		
+		
+		return "rate.jsp";
+	}
+	
 
 }

@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `picture` VARCHAR(300) NULL,
   `password` VARCHAR(45) NULL,
   `admin` TINYINT(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -182,6 +182,31 @@ CREATE TABLE IF NOT EXISTS `trip_ec` (
   CONSTRAINT `ec`
     FOREIGN KEY (`ec_id`)
     REFERENCES `extra_curr` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user_friend`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_friend` ;
+
+CREATE TABLE IF NOT EXISTS `user_friend` (
+  `friend_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  INDEX `fk_user_friend_user1_idx` (`user_id` ASC),
+  PRIMARY KEY (`id`),
+  INDEX `fk_friend_user_idx` (`friend_id` ASC),
+  CONSTRAINT `fk_user_friend_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_friend_user`
+    FOREIGN KEY (`friend_id`)
+    REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

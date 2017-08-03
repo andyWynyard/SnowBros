@@ -1,7 +1,9 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,11 +25,10 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User create(User user) {
 		try {
-			
 			em.persist(user);
 			
 			em.flush();
-
+			
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -111,9 +112,15 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User addFriends(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public User addFriend(User user, User friend) {
+		User u = em.find(User.class, user.getId());
+		List<User> friends = u.getFriends();
+		if (friends == null) {
+			friends = new ArrayList<>();
+		}
+		friends.add(friend);
+		u.setFriends(friends);
+		return u;
 	}
 
 	@Override
@@ -129,7 +136,6 @@ public class UserDAOImpl implements UserDAO {
 			em.flush();
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			return u;
 		}
 
@@ -140,6 +146,63 @@ public class UserDAOImpl implements UserDAO {
 	public User findUserById(int id) {
 		User u = em.find(User.class, id);
 		return u;
+	}
+	
+	@Override
+	public List<User> viewFriends(User user) {
+		User u = em.find(User.class, user.getId());
+		List<User> friends = u.getFriends();
+		return friends;
+	}
+	
+	@Override
+	public Set<User> searchForUserByName(String name) {
+		List<User> userResults = new ArrayList<>();
+		String query = "SELECT u FROM User u WHERE u.firstName LIKE :search OR u.lastName LIKE :search1";
+		try {
+			userResults = em.createQuery(query, User.class)
+					      .setParameter("search",  "%" + name + "%")
+					      .setParameter("search1", "%" + name + "%")
+					      .getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Set<User> users = new HashSet<>();
+		for (User user : userResults) {
+			users.add(user);
+		}
+		return users;
+	}
+	
+	@Override
+	public double getUserRating(User user) {
+		
+		String query = "SELECT u FROM User u JOIN FETCH u.userRating WHERE u.id = :id";
+		User u = user;
+		try {
+		u = em.createQuery(query, User.class)
+				      			  .setParameter("id", user.getId())
+				      			  .getResultList().get(0);
+		} catch (Exception e) {
+			return 0;
+		}
+		List<UserRating> ratings = new ArrayList<>();
+		try {
+		ratings = u.getUserRating();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if (ratings.size() == 0 || ratings == null) {
+			return 0;
+		}
+		double total = 0;
+		double counter = ratings.size();
+		for (UserRating rating : ratings) {
+			total += rating.getValue();
+		}
+		double rating = total/counter;
+		return rating;
 	}
 
 }
