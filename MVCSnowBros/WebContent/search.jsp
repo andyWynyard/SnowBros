@@ -75,14 +75,28 @@
     			</div><!-- /input-group -->		
 					<br>
 			</form>
-		
-			<form action="viewUser.do" method="GET">
+
+    		
+
+	<c:choose>
+    						<c:when test="${searchResultsUsers != null}">
+					<c:forEach items="${searchResultsUsers}" var="bro">
+					
+					
+					<form action="viewUser.do" method="GET">
     					<p><input type="submit" class="btn btn-success btn-block" value="${user.firstName} ${user.lastName}">
+    					<input type="hidden" value="${bro.id}" name="broId">
     					<input type="hidden" value="${user.id}" name="userId">
   					</form>	
 	
 						<br>
-    		
+					
+					
+    						
+					</c:forEach>
+				</c:when>
+		</c:choose>
+
 		</div>
 		</div>
 	</div>

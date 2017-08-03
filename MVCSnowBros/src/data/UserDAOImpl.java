@@ -1,6 +1,7 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -146,13 +147,17 @@ public class UserDAOImpl implements UserDAO {
 		String query = "SELECT u FROM User u WHERE u.firstName LIKE :search OR u.lastName LIKE :search1";
 		try {
 			userResults = em.createQuery(query, User.class)
-					      .setParameter("search",  name)
-					      .setParameter("search1", name)
+					      .setParameter("search",  "%" + name + "%")
+					      .setParameter("search1", "%" + name + "%")
 					      .getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return (Set)(userResults);
+		Set<User> users = new HashSet<>();
+		for (User user : userResults) {
+			users.add(user);
+		}
+		return users;
 	}
 	
 	@Override
