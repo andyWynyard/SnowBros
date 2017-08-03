@@ -163,7 +163,7 @@ public class Trip {
 
 	@Override
 	public String toString() {
-		return "Trip [id=" + id + ", ownerId=" + ownerId + ", extraCurrs=" + extraCurrs + ", title=" + title
+		return "Trip [id=" + id + ", ownerId=" + ownerId + ", title=" + title
 				+ ", destination=" + destination + ", users=" + users + ", numberSeats=" + numberSeats
 				+ ", pointOfOrigin=" + pointOfOrigin + ", date=" + date + ", pointOfReturn=" + pointOfReturn
 				+ ", description=" + description + ", roundtrip=" + roundtrip + "]";
