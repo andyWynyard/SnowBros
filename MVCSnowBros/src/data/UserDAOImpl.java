@@ -90,6 +90,7 @@ public class UserDAOImpl implements UserDAO {
 			u.setUserRating(user.getUserRating());
 			u.setUserType(user.isUserType());
 			u.setPicture(user.getPicture());
+			u.setFriends(user.getFriends());
 			return u;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -210,7 +211,7 @@ public class UserDAOImpl implements UserDAO {
 			total += rating.getValue();
 		}
 		double rating = total / counter;
-		rating  = Double.parseDouble(new DecimalFormat("#.##").format(rating));
+		rating = Double.parseDouble(new DecimalFormat("#.##").format(rating));
 		return rating;
 	}
 
@@ -232,19 +233,27 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return ratings;
 	}
-	
+
 	@Override
 	public boolean deleteFriend(User user, User bro) {
-		UserDAOImpl ud = new UserDAOImpl();
-		List<User> friends = ud.viewFriends(user);
+		List<User> friends = user.getFriends();
 		System.out.println(friends);
-		if (friends.contains(bro)) {
-			friends.remove(bro);
-			user.setFriends(friends);
-			return true;
+		boolean remove = false;
+		try {
+			for (User friend : friends) {
+				if (friend.getId() == bro.getId()) {
+					friends.remove(friend);
+					user.setFriends(friends);
+					remove = true;
+					break;
+				} else {
+					remove = false;
+					continue;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		else {
-			return false;
-		}
+		return remove;
 	}
 }
