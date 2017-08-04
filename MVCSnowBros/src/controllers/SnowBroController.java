@@ -378,6 +378,20 @@ public class SnowBroController {
 		model.addAttribute("user", user);
 		ud.rateUser(ud.findUserById(broId), rating);
 		User u = ud.findUserById(broId);
+		List<User> friends;
+		if (ud.viewFriends(user) == null) {
+			friends = new ArrayList<>();
+		} else {
+			friends = ud.viewFriends(user);
+		}
+		boolean b = true;
+		for (User use : friends) {
+			if (use.getId() == u.getId()) {
+				b = false;
+				break;
+			}
+		}
+		model.addAttribute("addFriend", b);
 		model.addAttribute("brorating", ud.getUserRating(u));
 		model.addAttribute("bro", u);
 
