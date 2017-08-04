@@ -360,10 +360,10 @@ public class SnowBroController {
 			friends = ud.viewFriends(user);
 		}
 		List<UserRating> ratings;
-		if (u.getUserRating() == null) {
+		if (ud.viewUserRating(u) == null) {
 			ratings = new ArrayList<>();
 		} else {
-			ratings = u.getUserRating();
+			ratings = ud.viewUserRating(u);
 		}
 		boolean b = true;
 		boolean previousRater = true;
