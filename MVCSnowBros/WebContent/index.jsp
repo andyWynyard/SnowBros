@@ -23,7 +23,7 @@
   
   
   <div class="col-xs-4">
-  <form action="getUser.do" method="POST">
+  <form action="getUser.do" method="GET">
   
   	<h4>Email</h4>
     <input type="email" class="form-control input-lg" name="email"/>
