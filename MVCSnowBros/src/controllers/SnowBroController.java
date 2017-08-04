@@ -285,7 +285,15 @@ public class SnowBroController {
 		t.setUsers(users);
 		System.out.println(t.getUsers().toString());
 		td.updateTrip(t);
+		List<User> riders = td.findTripById(tripId).getUsers();
+		boolean riderCheck = false;
+		for (User user2 : riders) {
+			if (user2.getId() == user.getId()) {
+				riderCheck = true;
+				}
+		}
 
+		model.addAttribute("rider", riderCheck);
 		model.addAttribute("trip", t);
 		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("user", user);
@@ -322,6 +330,16 @@ public class SnowBroController {
 		model.addAttribute("trip", td.findTripById(tripId));
 		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("user", user);
+		
+		List<User> riders = td.findTripById(tripId).getUsers();
+		boolean riderCheck = false;
+		for (User user2 : riders) {
+			if (user2.getId() == user.getId()) {
+				riderCheck = true;
+				}
+		}
+		model.addAttribute("rider", riderCheck);
+		
 		return "trip.jsp";
 	}
 
