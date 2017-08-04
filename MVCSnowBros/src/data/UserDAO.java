@@ -21,7 +21,7 @@ public interface UserDAO {
 	
 	public User addFriend(User user, User friend);
 
-	public User rateUser(User user, int rating);
+	public User rateUser(User user, int raterId, int rating);
 	
 	public User findUserById(int id);
 	

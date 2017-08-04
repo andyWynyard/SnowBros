@@ -124,7 +124,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User rateUser(User user, int rating) {
+	public User rateUser(User user, int raterId, int rating) {
 		User u = null;
 
 		try {
@@ -132,6 +132,7 @@ public class UserDAOImpl implements UserDAO {
 			UserRating ur = new UserRating();
 			ur.setUser(user);
 			ur.setValue(rating);
+			ur.setRateId(raterId);
 			em.persist(ur);
 			em.flush();
 
