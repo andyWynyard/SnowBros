@@ -74,7 +74,9 @@
   			<form action="ViewUser.do" method="GET">
          		<input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}">
     				<input type="hidden" value="${bro.id}" name="broId">
+   				<input type="hidden" value="${user.id}" name="userId">
     			</form>
+    			
     			<c:if test="${user.id == trip.ownerId}">
     			<form action="removeBroFromTrip.do" method="POST">
     			<input type="submit" class="btn btn-danger btn-block" value="Remove from Trip">
