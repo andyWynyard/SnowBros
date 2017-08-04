@@ -432,11 +432,6 @@ public class SnowBroController {
 		model.addAttribute("previousRater", previousRater);
 		model.addAttribute("brorating", ud.getUserRating(u));
 		model.addAttribute("bro", u);
-		
-		if (broId == user.getId()) {
-			return "user.jsp";
-		}
-			
 
 		return "bro.jsp";
 	}
