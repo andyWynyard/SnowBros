@@ -6,6 +6,11 @@ body {
     background-position: center;
 
 }
+
+.hide {
+	display: none;
+}
+
 .bg {
   
   position: fixed;

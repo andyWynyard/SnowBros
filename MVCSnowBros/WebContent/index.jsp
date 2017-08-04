@@ -19,10 +19,10 @@
   
   <div class="well">
   <div class="row">
-  <div class="col-xs-4"></div>
+  <div class="col-sm-4"></div>
   
   
-  <div class="col-xs-4">
+  <div class="col-sm-4">
   <form action="getUser.do" method="GET">
   
   	<h4>Email</h4>
@@ -41,7 +41,7 @@
   		</form>
   		
   		</div>
-  <div class="col-xs-4"></div>
+  <div class="col-sm-4"></div>
   </div>
   
   </div>
