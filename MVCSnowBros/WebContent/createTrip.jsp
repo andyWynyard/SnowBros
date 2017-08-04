@@ -23,34 +23,37 @@
    <h1>Create your trip here</h1>
     <form action="createTrip.do" method="POST">
     <div class="row">
-    <div class="col-xs-4"><h4>Title</h4><input type="text" class="form-control input-lg" name="title"/>
+    <div class="col-sm-4"><h4>Title</h4><input type="text" class="form-control input-lg" name="title"/>
        </div>
-     <div class="col-xs-8">  
+     <div class="col-sm-8">  
        <h4>Destination</h4><input type="text" class="form-control input-lg" name="destination"/>
     </div> 
     </div>  
     
     <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
     	<h4>Description</h4>
        <input type="text" class="form-control input-lg" name="description"/>
     	</div>   
     </div>
     
     <div class="row">
-    <div class="col-xs-6">
+    <div class="col-sm-6">
     <h4>Leaving from</h4><input type="text" class="form-control input-lg" name="pointOfOrigin"/>
        </div>
-     <div class="col-xs-6">  
+     <div class="col-sm-6">  
      <h4>Returning to</h4><input type="text" class="form-control input-lg" name="pointOfReturn"/>
     </div> 
     </div> 
     
     <div class="row">
-    <div class="col-xs-6">
+
+    <div class="col-sm-6">
     <h4>Date/Time</h4><input type="datetime-local" class="form-control input-lg" name="tripdate"/>
+
+
        </div>
-     <div class="col-xs-6">  
+     <div class="col-sm-6">  
      <h4>How many SnowBros can you take?</h4>
     		<select name="numberSeats" class="form-control input-lg">
   			<option value="1">1 SnowBro</option>

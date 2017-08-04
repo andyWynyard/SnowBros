@@ -21,20 +21,46 @@
    
    <h1>Edit your trip here</h1>
     <form action="editTrip.do" method="POST">
-    
-       <h5>Title</h5>
-       <input type="text" name="title" value="${trip.title}"/>
-       <h5>Destination</h5>
-       <input type="text" name="destination" value="${trip.destination.name}"/>
-       <h5>Description</h5>
-       <input type="text" name="description" value="${trip.description}"/>
-       <h5>Leaving from</h5>
-       <input type="text" name="pointOfOrigin" value="${trip.pointOfOrigin}"/>
-       <h5>Date/Time</h5>
-       <input type="datetime-local" name="date" value="${trip.date}"/>
+    <div class="row">
+    <div class="col-sm-4">
+       <h4>Title</h4>
+       <input type="text" class="form-control input-lg" name="title" value="${trip.title}"/>
+       </div>
+       <div class="col-sm-8">
+       <h4>Destination</h4>
+       <input type="text" class="form-control input-lg" name="destination" value="${trip.destination.name}"/>
+       </div>
+       </div>
+    <div class="row">
+    <div class="col-sm-12">
+       <h4>Description</h4>
+       <input type="text" class="form-control input-lg" name="description" value="${trip.description}"/>
+       </div>
+    </div>
+    <div class="row">
+    <div class="col-sm-6">
+       <h4>Leaving from</h4>
+       <input type="text" class="form-control input-lg" name="pointOfOrigin" value="${trip.pointOfOrigin}"/>
+       </div>
+     <div class="col-sm-6">
+     <h4>Returning to</h4>
+       <input type="text" class="form-control input-lg" name="pointOfReturn" value="${trip.pointOfReturn}"/>
+     
+     </div>
+     </div>
+     <div class="row">
+       <div class="col-sm-6">
+       <h4>Date/Time</h4>
+       <input type="datetime-local" class="form-control input-lg" name="date" value="${trip.date}"/>
+      </div>
+       <div class="col-sm-6">
        
-       <h5>Returning to</h5>
-       <input type="text" name="pointOfReturn" value="${trip.pointOfReturn}"/>
+       <div class="invisible"><h4>Submit</h4></div>
+       <input type="hidden" name="userId" value="${user.id}">
+      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit" name="submit" />
+       
+       </div>
+       </div>
        <input type="hidden" name="numberSeats" value="${trip.numberSeats}">
        <%-- <p>Places</p>
        
@@ -49,10 +75,8 @@
 	<%-- 	<p>Scooby Snax</p>	
 		<input type="textarea" name="extraCurr" value="${trip.extraCurr}"/>
  		 --%>
-    		<br>
-    		<br>
-    		<input type="hidden" name="userId" value="${user.id}">
-      <input type="submit" value="Submit" name="submit" />
+    		
+    		
       </form>
 
   

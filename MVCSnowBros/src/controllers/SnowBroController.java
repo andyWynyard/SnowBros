@@ -467,5 +467,30 @@ public class SnowBroController {
 		model.addAttribute("addFriend", true);
 		return "bro.jsp";
 	}
+	
+	@RequestMapping(path = "removeBroFromTrip.do", method = RequestMethod.POST)
+	public String removeBroFromTrip(@RequestParam(name = "broId") int broId, @RequestParam(name = "userId") int userId,
+									@RequestParam(name = "tripId") int tripId, Model model) {
+		User user = ud.findUserById(userId);
+		User bro = ud.findUserById(broId);
+		Trip trip = td.findTripById(tripId);
+		trip.setUsers(td.getAllUsersOnTrip(tripId));  
+		
+		trip = td.removeBroFromTrip(trip, bro);
+		td.updateTrip(trip);
+		
+		model.addAttribute("trip", td.findTripById(tripId));
+		model.addAttribute("rating", ud.getUserRating(user));
+		model.addAttribute("user", user);
+		List<User> riders = td.findTripById(tripId).getUsers();
+		boolean riderCheck = false;
+		for (User user2 : riders) {
+			if (user2.getId() == user.getId()) {
+				riderCheck = true;
+				}
+		}
+		model.addAttribute("rider", riderCheck);
+		return "trip.jsp";
+	}
 
 }

@@ -23,22 +23,22 @@
     <form action="createProfile.do" method="POST">
 
 <div class="row">
-    <div class="col-xs-6">
+    <div class="col-sm-6">
        <h4>First Name</h4>
        <input type="text" class="form-control input-lg" name="firstName"/>
           </div>
-     <div class="col-xs-6">  
+     <div class="col-sm-6">  
        <h4>Last Name</h4>
        <input type="text" class="form-control input-lg" name="lastName"/>
        </div>
        </div>
        
        <div class="row">
-    <div class="col-xs-6">
+    <div class="col-sm-6">
        <h4>Email (this will be your username)</h4>
        <input type="text" class="form-control input-lg" name="email"/>
        </div>
-       <div class="col-xs-6">
+       <div class="col-sm-6">
        <h4>Password</h4>
        <input type="password" class="form-control input-lg" name="password"/>
        
@@ -46,7 +46,7 @@
        </div>
        
        <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
        <h4>HTML link to a picture you want</h4>
        <input type="text" class="form-control input-lg" name="picture">
        </div>
