@@ -1,5 +1,6 @@
 package data;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -210,6 +211,7 @@ public class UserDAOImpl implements UserDAO {
 			total += rating.getValue();
 		}
 		double rating = total / counter;
+		rating  = Double.parseDouble(new DecimalFormat("#.##").format(rating));
 		return rating;
 	}
 

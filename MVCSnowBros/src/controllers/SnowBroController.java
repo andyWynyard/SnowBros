@@ -214,7 +214,7 @@ public class SnowBroController {
 
 	// User validate(String email, String password)
 
-	@RequestMapping(path = "getUser.do")
+	@RequestMapping(path = "getUser.do" )
 	public String validate(@ModelAttribute("user") User user, Model model, @RequestParam("email") String email,
 			@RequestParam("password") String password) {
 		// ************* testing encryption ************************************
