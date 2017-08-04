@@ -374,14 +374,14 @@ public class SnowBroController {
 	}
 
 	@RequestMapping(path = "rate.do", method = RequestMethod.GET)
-	public String goToRate(@ModelAttribute("user") User user, Model model, @RequestParam("broId") int broId) {
+	public String goToRate(@ModelAttribute("user") User user, Model model, @RequestParam("broId") int broId, @RequestParam("rating") int rating) {
 		model.addAttribute("user", user);
-		model.addAttribute("rating", ud.getUserRating(user));
+		ud.rateUser(ud.findUserById(broId), rating);
 		User u = ud.findUserById(broId);
 		model.addAttribute("brorating", ud.getUserRating(u));
 		model.addAttribute("bro", u);
 
-		return "rate.jsp";
+		return "bro.jsp";
 	}
 
 }
