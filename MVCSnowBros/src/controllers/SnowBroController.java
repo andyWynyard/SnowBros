@@ -214,7 +214,9 @@ public class SnowBroController {
 
 	// User validate(String email, String password)
 
-	@RequestMapping(path = "getUser.do")
+
+	@RequestMapping(path = "getUser.do" )
+
 	public String validate(@ModelAttribute("user") User user, Model model, @RequestParam("email") String email,
 			@RequestParam("password") String password) {
 		// ************* testing encryption ************************************
@@ -360,10 +362,10 @@ public class SnowBroController {
 			friends = ud.viewFriends(user);
 		}
 		List<UserRating> ratings;
-		if (u.getUserRating() == null) {
+		if (ud.viewUserRating(u) == null) {
 			ratings = new ArrayList<>();
 		} else {
-			ratings = u.getUserRating();
+			ratings = ud.viewUserRating(u);
 		}
 		boolean b = true;
 		boolean previousRater = true;

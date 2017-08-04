@@ -1,5 +1,6 @@
 package data;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -154,7 +155,7 @@ public class UserDAOImpl implements UserDAO {
 		String query = "SELECT u FROM User u JOIN FETCH u.friends WHERE u.id = :id";
 		User u = new User();
 		try {
-		u = em.createQuery(query, User.class).setParameter("id", user.getId()).getResultList().get(0);
+			u = em.createQuery(query, User.class).setParameter("id", user.getId()).getResultList().get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -210,7 +211,26 @@ public class UserDAOImpl implements UserDAO {
 			total += rating.getValue();
 		}
 		double rating = total / counter;
+		rating  = Double.parseDouble(new DecimalFormat("#.##").format(rating));
 		return rating;
 	}
 
+	@Override
+	public List<UserRating> viewUserRating(User user) {
+
+		String query = "SELECT u FROM User u JOIN FETCH u.userRating WHERE u.id = :id";
+		User u = user;
+		try {
+			u = em.createQuery(query, User.class).setParameter("id", user.getId()).getResultList().get(0);
+		} catch (Exception e) {
+
+		}
+		List<UserRating> ratings = new ArrayList<>();
+		try {
+			ratings = u.getUserRating();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ratings;
+	}
 }
