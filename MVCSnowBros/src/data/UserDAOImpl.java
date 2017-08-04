@@ -54,7 +54,6 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public String findUserPasswordByEmail(String email) {
 		String query = "SELECT u FROM User u WHERE u.email = :email";
-		User user = null;
 		try {
 			User u = em.createQuery(query, User.class).setParameter("email", email).getSingleResult();
 			String passWord = u.getPassword();
@@ -232,5 +231,20 @@ public class UserDAOImpl implements UserDAO {
 			e.printStackTrace();
 		}
 		return ratings;
+	}
+	
+	@Override
+	public boolean deleteFriend(User user, User bro) {
+		UserDAOImpl ud = new UserDAOImpl();
+		List<User> friends = ud.viewFriends(user);
+		System.out.println(friends);
+		if (friends.contains(bro)) {
+			friends.remove(bro);
+			user.setFriends(friends);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

@@ -36,4 +36,6 @@ public interface UserDAO {
 
 	public List<UserRating> viewUserRating(User user);
 	
+	public boolean deleteFriend(User user, User bro);
+	
 }
