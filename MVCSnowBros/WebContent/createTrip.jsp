@@ -48,7 +48,7 @@
     
     <div class="row">
     <div class="col-xs-6">
-    <h4>Date/Time</h4><input type="datetime-local" class="form-control input-lg" name="date"/>
+    <h4>Date/Time</h4><input type="datetime-local" class="form-control input-lg" name="tripdate"/>
        </div>
      <div class="col-xs-6">  
      <h4>How many SnowBros can you take?</h4>

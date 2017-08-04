@@ -151,13 +151,18 @@ public class SnowBroController {
 	@RequestMapping(path = "createTrip.do")
 	public String CreateTrip(@ModelAttribute("user") User user, Model model, @RequestParam("title") String title,
 			@RequestParam("destination") String dest, @RequestParam("description") String desc,
-			@RequestParam("pointOfOrigin") String pO, @RequestParam("date") String date,
+			@RequestParam("pointOfOrigin") String pO, @RequestParam("tripdate") String date,
 			@RequestParam("pointOfReturn") String pR, @RequestParam("numberSeats") int seats,
 			/*@RequestParam("extraCurrs") String ec,*/ @RequestParam("userId") int userId) {
 		Trip trip = new Trip();
+		
+		System.out.println("what is given" + date);
+		date = date.replaceAll("T"," ");
+		System.out.println("what is given" + date);
 		Destination d = td.findDestinationByNameOrCreateNewDestination(dest);
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm a");
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date datey = new Date();
+		
 		try {
 			datey = format.parse(date);
 		} catch (ParseException e) {
@@ -168,6 +173,7 @@ public class SnowBroController {
 		trip.setDescription(desc);
 		trip.setPointOfOrigin(pO);
 		trip.setDate(datey);
+		System.out.println(datey);
 		trip.setPointOfReturn(pR);
 		trip.setNumberSeats(seats);
 		List<User> users = new ArrayList<>();
@@ -179,8 +185,7 @@ public class SnowBroController {
 		List<Trip> trips = user.getTrips();
 		trips.add(trip);
 		user.setTrips(trips);
-		System.out.println(user.getTrips());
-		System.out.println(trip.getUsers());
+		
 		model.addAttribute("trip", t);
 		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("user", user);
@@ -195,10 +200,15 @@ public class SnowBroController {
 			/* @RequestParam("extraCurr") ExtraCurr ec,*/ @RequestParam("userId") int userId) {
 		Trip trip = new Trip();
 		Destination d = td.findDestinationByNameOrCreateNewDestination(dest);
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm a");
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
+		System.out.println("what is given" + date);
+		date = date.replaceAll("T"," ");
+		System.out.println("what is given" + date);
 		Date datey = new Date();
 		try {
 			datey = format.parse(date);
+			System.out.println(datey);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
