@@ -68,28 +68,54 @@
   		</form>
   		</c:if>
   		
-  		 		
+ <c:if test="${user.id == trip.ownerId}"> 		 		
   		<h3>Current Passengers</h3>
+  		
+  		<div class="row">
+  		
   			<c:forEach items = "${trip.users}" var = "bros">
+  			<div class="col-sm-8">
   			<form action="ViewUser.do" method="GET">
-         		<input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}">
+         		<p><input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}"></p>
     				<input type="hidden" value="${bros.id}" name="broId">
-
     			</form>
-    			
+    		</div>
+    		<div class="col-sm-4">	
     			<c:if test="${user.id == trip.ownerId}">
     			<form action="removeBroFromTrip.do" method="POST">
-    			<input type="submit" class="btn btn-danger btn-block" value="Remove from Trip">
+    			<p><input type="submit" class="btn btn-danger btn-block" value="Remove from Trip"></p>
     				<input type="hidden" value="${bros.id}" name="broId">
     				<input type="hidden" value="${user.id}" name="userId">
     				<input type="hidden" value="${trip.id}" name="tripId">
     			</form>
     			</c:if>
-    		
-    			
-    			
+  		</div>
     				<br>
          </c:forEach>	
+         </div>	
+     </c:if> 	     
+         
+      
+      
+      <c:if test="${user.id != trip.ownerId}"> 		 		
+  		<h3>Current Passengers</h3>
+  		
+  		<div class="row">
+  		
+  			<c:forEach items = "${trip.users}" var = "bros">
+  			<div class="col-sm-12">
+  			<form action="ViewUser.do" method="GET">
+         		<p><input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}"></p>
+    				<input type="hidden" value="${bros.id}" name="broId">
+    			</form>
+    		</div>
+    		
+    				<br>
+         </c:forEach>	
+         </div>	
+     </c:if>    
+         
+         
          <c:if test="${user.id != trip.ownerId && rider}">	
     		<form action="removeBroFromTrip.do" method="POST">	
     		<input type="submit" class="btn btn-danger btn-block" value="Remove me from Trip">
