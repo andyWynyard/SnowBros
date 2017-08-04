@@ -23,7 +23,6 @@ import data.EncryptionDAO;
 import data.TripDAO;
 import data.UserDAO;
 import entities.Destination;
-import entities.ExtraCurr;
 import entities.Trip;
 import entities.User;
 import entities.UserRating;
@@ -190,16 +189,24 @@ public class SnowBroController {
 
 	@RequestMapping(path = "editTrip.do")
 	public String editTrip(@ModelAttribute("user") User user, Model model, @RequestParam("title") String title,
-			@RequestParam("destination") Destination dest, @RequestParam("description") String desc,
-			@RequestParam("pointOfOrigin") String pO, @RequestParam("date") Date date,
+			@RequestParam("destination") String dest, @RequestParam("description") String desc,
+			@RequestParam("pointOfOrigin") String pO, @RequestParam("date") String date,
 			@RequestParam("pointOfReturn") String pR, @RequestParam("numberSeats") int seats,
 			/* @RequestParam("extraCurr") ExtraCurr ec,*/ @RequestParam("userId") int userId) {
 		Trip trip = new Trip();
+		Destination d = td.findDestinationByNameOrCreateNewDestination(dest);
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm a");
+		Date datey = new Date();
+		try {
+			datey = format.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		trip.setTitle(title);
-		trip.setDestination(dest);
+		trip.setDestination(d);
 		trip.setDescription(desc);
 		trip.setPointOfOrigin(pO);
-		trip.setDate(date);
+		trip.setDate(datey);
 		trip.setPointOfReturn(pR);
 		trip.setNumberSeats(seats);
 		trip.setOwnerId(userId);

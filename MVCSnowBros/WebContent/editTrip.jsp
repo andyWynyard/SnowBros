@@ -25,7 +25,7 @@
        <h5>Title</h5>
        <input type="text" name="title" value="${trip.title}"/>
        <h5>Destination</h5>
-       <input type="text" name="destination" value="${trip.destination}"/>
+       <input type="text" name="destination" value="${trip.destination.name}"/>
        <h5>Description</h5>
        <input type="text" name="description" value="${trip.description}"/>
        <h5>Leaving from</h5>
@@ -35,8 +35,9 @@
        
        <h5>Returning to</h5>
        <input type="text" name="pointOfReturn" value="${trip.pointOfReturn}"/>
+       <input type="hidden" name="numberSeats" value="${trip.numberSeats}">
+       <%-- <p>Places</p>
        
-       <p>Places</p>
     		<select name="numberSeats" value="${trip.numberSeats}">
   			<option value="1">1</option>
   			<option value="2">2</option>
@@ -44,7 +45,7 @@
   			<option value="4">4</option>
   			<option value="5">5</option>
   			<option value="6">6</option>
-		</select>
+		</select> --%>
 	<%-- 	<p>Scooby Snax</p>	
 		<input type="textarea" name="extraCurr" value="${trip.extraCurr}"/>
  		 --%>

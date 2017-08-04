@@ -27,6 +27,7 @@
     <p>Destination: ${trip.destination.name}</p>
   	<p>Description: ${trip.description}</p>
   	<p> Seats available: ${trip.numberSeats}</p>
+  	<p> Date: ${trip.date}</p>
   <%-- <p>${trip.extraCurr}</p> --%>
   	<p>Leaving from: ${trip.pointOfOrigin}</p>
   	<p>Return point: ${trip.pointOfReturn}</p>
