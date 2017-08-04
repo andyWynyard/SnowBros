@@ -32,6 +32,8 @@
   		
   		<h4>${bro.firstName}</h4>
   			Rating: ${brorating}	
+  			<c:choose>
+  				<c:when test "${previousRater}>
   			<form action="rate.do" method="GET">
   			<input type="hidden" value="${bro.id}" name="broId">
   			<select name = "rating">
@@ -44,6 +46,8 @@
 
 			<input type="submit" value="Rate">
   			</form>
+  		</c:when>
+		</c:choose>
   			<c:choose>
     						<c:when test="${addFriend}">
 					
