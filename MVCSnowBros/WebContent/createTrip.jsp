@@ -47,10 +47,10 @@
     </div> 
     
     <div class="row">
-    <div class="col-xs-4">
+    <div class="col-xs-6">
     <h4>Date/Time</h4><input type="datetime-local" class="form-control input-lg" name="date"/>
        </div>
-     <div class="col-xs-4">  
+     <div class="col-xs-6">  
      <h4>How many SnowBros can you take?</h4>
     		<select name="numberSeats" class="form-control input-lg">
   			<option value="1">1 SnowBro</option>
@@ -61,10 +61,8 @@
   			<option value="6">6 SnowBros (I have a bus)</option>
 		</select>
     </div> 
-     <div class="col-xs-4">  
     
-     <h4>Scooby Snax</h4><input type="text" class="form-control input-lg" name="extraCurrs"/>
-    </div> 
+ 
     </div>
     
     		<br>
