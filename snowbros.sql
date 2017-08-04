@@ -16,25 +16,6 @@ CREATE SCHEMA IF NOT EXISTS `snowbros` DEFAULT CHARACTER SET utf8 ;
 USE `snowbros` ;
 
 -- -----------------------------------------------------
--- Table `user_friend`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_friend` ;
-
-CREATE TABLE IF NOT EXISTS `user_friend` (
-  `friend_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  `id` INT NOT NULL AUTO_INCREMENT,
-  INDEX `fk_user_friend_user1_idx` (`user_id` ASC),
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_user_friend_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `user`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `user` ;
@@ -48,13 +29,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `picture` VARCHAR(300) NULL,
   `password` VARCHAR(45) NULL,
   `admin` TINYINT(1) NOT NULL,
-  PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
-  CONSTRAINT `fk_user_user_friend1`
-    FOREIGN KEY (`id`)
-    REFERENCES `user_friend` (`friend_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -211,6 +187,31 @@ CREATE TABLE IF NOT EXISTS `trip_ec` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `user_friend`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_friend` ;
+
+CREATE TABLE IF NOT EXISTS `user_friend` (
+  `friend_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  INDEX `fk_user_friend_user1_idx` (`user_id` ASC),
+  PRIMARY KEY (`id`),
+  INDEX `fk_friend_user_idx` (`friend_id` ASC),
+  CONSTRAINT `fk_user_friend_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_friend_user`
+    FOREIGN KEY (`friend_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE = '';
 GRANT USAGE ON *.* TO user9;
  DROP USER user9;
@@ -222,21 +223,6 @@ GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'user9';
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
--- -----------------------------------------------------
--- Data for table `user_friend`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `snowbros`;
-INSERT INTO `user_friend` (`friend_id`, `user_id`, `id`) VALUES (1, DEFAULT, DEFAULT);
-INSERT INTO `user_friend` (`friend_id`, `user_id`, `id`) VALUES (2, DEFAULT, DEFAULT);
-INSERT INTO `user_friend` (`friend_id`, `user_id`, `id`) VALUES (3, DEFAULT, DEFAULT);
-INSERT INTO `user_friend` (`friend_id`, `user_id`, `id`) VALUES (4, DEFAULT, DEFAULT);
-INSERT INTO `user_friend` (`friend_id`, `user_id`, `id`) VALUES (5, DEFAULT, DEFAULT);
-INSERT INTO `user_friend` (`friend_id`, `user_id`, `id`) VALUES (6, DEFAULT, DEFAULT);
-
-COMMIT;
-
 
 -- -----------------------------------------------------
 -- Data for table `user`
