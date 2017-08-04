@@ -154,7 +154,7 @@ public class SnowBroController {
 			@RequestParam("destination") String dest, @RequestParam("description") String desc,
 			@RequestParam("pointOfOrigin") String pO, @RequestParam("date") String date,
 			@RequestParam("pointOfReturn") String pR, @RequestParam("numberSeats") int seats,
-			@RequestParam("extraCurrs") String ec, @RequestParam("userId") int userId) {
+			/*@RequestParam("extraCurrs") String ec,*/ @RequestParam("userId") int userId) {
 		Trip trip = new Trip();
 		Destination d = td.findDestinationByNameOrCreateNewDestination(dest);
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm a");
@@ -193,7 +193,7 @@ public class SnowBroController {
 			@RequestParam("destination") Destination dest, @RequestParam("description") String desc,
 			@RequestParam("pointOfOrigin") String pO, @RequestParam("date") Date date,
 			@RequestParam("pointOfReturn") String pR, @RequestParam("numberSeats") int seats,
-			@RequestParam("extraCurr") ExtraCurr ec, @RequestParam("userId") int userId) {
+			/* @RequestParam("extraCurr") ExtraCurr ec,*/ @RequestParam("userId") int userId) {
 		Trip trip = new Trip();
 		trip.setTitle(title);
 		trip.setDestination(dest);

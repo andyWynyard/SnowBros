@@ -43,6 +43,7 @@
   		<form action="editTripPage.do" method="GET">
     			<input type="submit" class="btn btn-warning" value="Edit this Trip!">
     			<input type="hidden" value="${trip.id}" name="tripId">
+    			<input type="hidden" value="${user}" name="user">
   		</form>
   </c:when>
   
