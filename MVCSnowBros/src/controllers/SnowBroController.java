@@ -215,8 +215,8 @@ public class SnowBroController {
 	// User validate(String email, String password)
 
 	@RequestMapping(path = "getUser.do")
-	public String validate(@ModelAttribute("user") User user, Model model, @RequestParam("email") String email,
-			@RequestParam("password") String password) {
+	public String validate(@ModelAttribute("user") User user, Model model, @RequestParam("email") String email, @RequestParam("password") String password) 
+	{
 		// ************* testing encryption ************************************
 		// validate password
 		System.out.println(ud.findUserPasswordByEmail(email) + " from database");
@@ -225,19 +225,29 @@ public class SnowBroController {
 		// print out true or false for password matching
 		System.out.println(passWordMatches);
 		User u = ud.validate(email, password);
-		if (u != null && passWordMatches) {
-
-			model.addAttribute("user", u);
-			model.addAttribute("rating", ud.getUserRating(u));
-			List<User> friends = ud.viewFriends(u);
-			model.addAttribute("friends", friends);
-
-			return "user.jsp";
-
-		} else {
+		if (u != null && passWordMatches)
+		{
+			if(u.isUserType() == true)
+			{
+				model.addAttribute("user", u);
+				model.addAttribute("allUsers", ud.getAllUsers());
+				model.addAttribute("allTrips", td.allTrips());
+				return "admin.jsp";
+			}
+			else if (u.isUserType() == false)
+			{
+				model.addAttribute("user", u);
+				model.addAttribute("rating", ud.getUserRating(u));
+				List<User> friends = ud.viewFriends(u);
+				model.addAttribute("friends", friends);
+				return "user.jsp";
+			} 
 			return "index.jsp";
-
+		
 		}
+		else 
+			return "index.jsp";
+			
 
 	}
 

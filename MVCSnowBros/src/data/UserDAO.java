@@ -11,6 +11,9 @@ public interface UserDAO {
 	
 	public User create(User user);
 	
+	//testing need to add a method for getting all users
+	public List<User> getAllUsers();
+	
 	public User validate(String email, String password);
 	
 	public List<Trip> userTrips(User user);
