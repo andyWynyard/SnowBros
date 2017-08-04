@@ -23,22 +23,22 @@
     <form action="editProfile.do" method="POST">
     
      <div class="row">
-    <div class="col-xs-6">
+    <div class="col-sm-6">
     <h4>First Name</h4>
        <input type="text" class="form-control input-lg" name="firstName" value="${user.firstName}"/>
        </div>
-     <div class="col-xs-6">  
+     <div class="col-sm-6">  
    <h4>Last Name</h4>
        <input type="text" class="form-control input-lg" name="lastName" value="${user.lastName}"/>
     </div> 
     </div> 
     
      <div class="row">
-    <div class="col-xs-6">
+    <div class="col-sm-6">
  <h4>email (this is your username)</h4>
        <input type="text" class="form-control input-lg" name="email" value="${user.email}"/>
        </div>
-     <div class="col-xs-6">  
+     <div class="col-sm-6">  
      <h4>HTML link to a picture you want</h4>
        <input type="text" class="form-control input-lg" name="picture" value="${user.picture}">
     </div> 

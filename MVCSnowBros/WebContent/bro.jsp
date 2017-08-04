@@ -33,7 +33,7 @@
   		<h4>${bro.firstName}</h4>
   			Rating: ${brorating}	
   			<c:choose>
-  				<c:when test "${previousRater}>
+  				<c:when test = "${previousRater}">
   			<form action="rate.do" method="GET">
   			<input type="hidden" value="${bro.id}" name="broId">
   			<select name = "rating">
@@ -62,6 +62,15 @@
 						<br>
 				
 				</c:when>
+				<c:otherwise>
+					<form action="deleteFriend.do" method="POST">
+    					<p><input type="submit" class="btn btn-danger btn-block" value="Delete Friend">
+    					<input type="hidden" value="${bro.id}" name="broId">
+    					<input type="hidden" value="${user.id}" name="userId">
+  					</form>	
+	
+						<br>
+				</c:otherwise>
 		</c:choose>
   			<br><br>
   			<c:forEach items = "${bro.trips}" var = "trips">

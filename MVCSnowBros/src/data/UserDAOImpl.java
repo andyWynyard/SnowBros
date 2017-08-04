@@ -1,5 +1,6 @@
 package data;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -53,7 +54,6 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public String findUserPasswordByEmail(String email) {
 		String query = "SELECT u FROM User u WHERE u.email = :email";
-		User user = null;
 		try {
 			User u = em.createQuery(query, User.class).setParameter("email", email).getSingleResult();
 			String passWord = u.getPassword();
@@ -107,6 +107,7 @@ public class UserDAOImpl implements UserDAO {
 			u.setUserRating(user.getUserRating());
 			u.setUserType(user.isUserType());
 			u.setPicture(user.getPicture());
+			u.setFriends(user.getFriends());
 			return u;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -171,7 +172,7 @@ public class UserDAOImpl implements UserDAO {
 		String query = "SELECT u FROM User u JOIN FETCH u.friends WHERE u.id = :id";
 		User u = new User();
 		try {
-		u = em.createQuery(query, User.class).setParameter("id", user.getId()).getResultList().get(0);
+			u = em.createQuery(query, User.class).setParameter("id", user.getId()).getResultList().get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -227,7 +228,49 @@ public class UserDAOImpl implements UserDAO {
 			total += rating.getValue();
 		}
 		double rating = total / counter;
+		rating = Double.parseDouble(new DecimalFormat("#.##").format(rating));
 		return rating;
 	}
 
+	@Override
+	public List<UserRating> viewUserRating(User user) {
+
+		String query = "SELECT u FROM User u JOIN FETCH u.userRating WHERE u.id = :id";
+		User u = user;
+		try {
+			u = em.createQuery(query, User.class).setParameter("id", user.getId()).getResultList().get(0);
+		} catch (Exception e) {
+
+		}
+		List<UserRating> ratings = new ArrayList<>();
+		try {
+			ratings = u.getUserRating();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ratings;
+	}
+
+	@Override
+	public boolean deleteFriend(User user, User bro) {
+		List<User> friends = user.getFriends();
+		System.out.println(friends);
+		boolean remove = false;
+		try {
+			for (User friend : friends) {
+				if (friend.getId() == bro.getId()) {
+					friends.remove(friend);
+					user.setFriends(friends);
+					remove = true;
+					break;
+				} else {
+					remove = false;
+					continue;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return remove;
+	}
 }

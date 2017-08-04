@@ -5,6 +5,7 @@ import java.util.Set;
 
 import entities.Trip;
 import entities.User;
+import entities.UserRating;
 
 public interface UserDAO {
 
@@ -35,5 +36,9 @@ public interface UserDAO {
 	public List<User> viewFriends(User user);
 	
 	public double getUserRating(User user);
+
+	public List<UserRating> viewUserRating(User user);
+	
+	public boolean deleteFriend(User user, User bro);
 	
 }

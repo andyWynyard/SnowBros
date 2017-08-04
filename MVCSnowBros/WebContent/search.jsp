@@ -17,7 +17,7 @@
 <jsp:include page="partials/_navProfile.jsp"></jsp:include>
 <div class="well">
 <div class="row">
-<div class="col-xs-6">
+<div class="col-sm-6">
 		
 			<h3>Search for Trip</h3>
 			<form action="searchTrip.do" method="GET">
@@ -62,7 +62,7 @@
 		
 		
 		
-		<div class="col-xs-6">
+		<div class="col-sm-6">
 		
 		<h3>Search for Bros</h3>
 			<form action="searchUser.do" method="GET">

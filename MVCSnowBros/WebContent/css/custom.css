@@ -1,11 +1,16 @@
 body {
-    background: url('./../images/ice-waves-background.jpeg');
+    background: url('./../images/mountain_background.jpeg');
     -webkit-background-size: 100% 100%;
-   /*  background-repeat: no-repeat;
+   	background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: center;  */
+    background-position: center;
 
 }
+
+.hide {
+	display: none;
+}
+
 .bg {
   
   position: fixed;
