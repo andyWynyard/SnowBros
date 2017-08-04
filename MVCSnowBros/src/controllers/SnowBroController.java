@@ -463,17 +463,17 @@ public class SnowBroController {
 	}
 	
 	@RequestMapping(path = "deleteFriend.do", method = RequestMethod.POST)
-	public String deleteFriend(@RequestParam(name = "broId") int broId, @RequestParam(name = "userId") int userId,
+	public String deleteFriend(@ModelAttribute("user") User user, @RequestParam(name = "broId") int broId, @RequestParam(name = "userId") int userId,
 							  Model model) {
 		User bro = ud.findUserById(broId);
-		User user = ud.findUserById(userId);
-		user.setFriends(ud.viewFriends(user));
+		User user1 = ud.findUserById(userId);
+		user.setFriends(ud.viewFriends(user1));
 		
-		ud.deleteFriend(user, bro);
-		ud.updateUser(user);
+		ud.deleteFriend(user1, bro);
+		ud.updateUser(user1);
 
-		model.addAttribute("user", user);
-		model.addAttribute("rating", ud.getUserRating(user));
+		model.addAttribute("user", user1);
+		model.addAttribute("rating", ud.getUserRating(user1));
 		model.addAttribute("bro", bro);
 		model.addAttribute("brorating", ud.getUserRating(bro));
 		model.addAttribute("addFriend", true);
@@ -481,9 +481,9 @@ public class SnowBroController {
 	}
 	
 	@RequestMapping(path = "removeBroFromTrip.do", method = RequestMethod.POST)
-	public String removeBroFromTrip(@RequestParam(name = "broId") int broId, @RequestParam(name = "userId") int userId,
+	public String removeBroFromTrip(@ModelAttribute("user") User user,@RequestParam(name = "broId") int broId, @RequestParam(name = "userId") int userId,
 									@RequestParam(name = "tripId") int tripId, Model model) {
-		User user = ud.findUserById(userId);
+		User user1 = ud.findUserById(userId);
 		User bro = ud.findUserById(broId);
 		Trip trip = td.findTripById(tripId);
 		trip.setUsers(td.getAllUsersOnTrip(tripId));  
@@ -492,12 +492,12 @@ public class SnowBroController {
 		td.updateTrip(trip);
 		
 		model.addAttribute("trip", td.findTripById(tripId));
-		model.addAttribute("rating", ud.getUserRating(user));
-		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user1));
+		model.addAttribute("user", user1);
 		List<User> riders = td.findTripById(tripId).getUsers();
 		boolean riderCheck = false;
 		for (User user2 : riders) {
-			if (user2.getId() == user.getId()) {
+			if (user2.getId() == user1.getId()) {
 				riderCheck = true;
 				}
 		}
