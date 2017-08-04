@@ -17,5 +17,5 @@
     
  
     </style>
-<link rel="shortcut icon" href="https://www.shareicon.net/data/128x128/2016/01/18/704925_letter_512x512.png" type="image/x-icon" />
+<link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Sport_records_icon_SB.svg/180px-Sport_records_icon_SB.svg.png" type="image/x-icon" />
  

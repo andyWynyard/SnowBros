@@ -136,6 +136,7 @@ CREATE TABLE IF NOT EXISTS `user_rating` (
   `value` INT NOT NULL,
   `user_id` INT NOT NULL,
   `id` INT NOT NULL AUTO_INCREMENT,
+  `rate_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `rating`
     FOREIGN KEY (`user_id`)
@@ -306,14 +307,14 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `snowbros`;
-INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (4, 1, 1);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (5, 1, 2);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (4, 2, 3);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (3, 2, 4);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (5, 4, 5);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (3, 3, 6);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (2, 4, 7);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`) VALUES (4, 3, 8);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (4, 1, 1, DEFAULT);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (5, 1, 2, DEFAULT);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (4, 2, 3, DEFAULT);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (3, 2, 4, DEFAULT);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (5, 4, 5, DEFAULT);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (3, 3, 6, DEFAULT);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (2, 4, 7, DEFAULT);
+INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (4, 3, 8, DEFAULT);
 
 COMMIT;
 
