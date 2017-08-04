@@ -42,7 +42,7 @@
    <c:choose>
    <c:when test="${user.id == trip.ownerId}">
   		<form action="editTripPage.do" method="GET">
-    			<input type="submit" class="btn btn-warning btn-block" value="Edit this Trip!">
+    			<p><input type="submit" class="btn btn-warning btn-block" value="Edit this Trip!"></p>
     			<input type="hidden" value="${trip.id}" name="tripId">
     			<input type="hidden" value="${user}" name="user">
   		</form>
@@ -51,7 +51,7 @@
   <c:when test="${user.id != trip.ownerId && trip.numberSeats > 0 && !rider }">
 
    		<form action="addMeToTrip.do" method="POST">
-    			<input type="submit" class="btn btn-primary btn-block" value="Add me to Trip!">
+    			<p><input type="submit" class="btn btn-primary btn-block" value="Add me to Trip!"></p>
     			<input type="hidden" value="${user.id}" name="userId">
     			<input type="hidden" value="${trip.id}" name="tripId">
   		</form>
@@ -62,7 +62,7 @@
   <c:if test="${user.id == trip.ownerId}">
   		
   		<form action="deleteTrip.do" method="POST">
-    			<input type="submit" class="btn btn-danger btn-block" value="Delete this trip">
+    			<p><input type="submit" class="btn btn-danger btn-block" value="Delete this trip"></p>
     			<input type="hidden" value="${trip.id}" name="tripId">
     			<input type="hidden" value="${user.id}" name="userId">
   		</form>
