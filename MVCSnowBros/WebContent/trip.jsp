@@ -46,12 +46,14 @@
   		</form>
   </c:when>
   
-  <c:when test="${user.id != trip.ownerId}">
+  <c:when test="${user.id != trip.ownerId && trip.numberSeats > 0 && !rider }">
+
    		<form action="addMeToTrip.do" method="POST">
-    			<input type="submit" class="btn btn-primary" value="Add me to Trip!">
+    			<input type="submit" class="btn btn-primary btn-block" value="Add me to Trip!">
     			<input type="hidden" value="${user.id}" name="userId">
     			<input type="hidden" value="${trip.id}" name="tripId">
   		</form>
+  	
   	</c:when>
   </c:choose>
   
@@ -64,20 +66,23 @@
   		</form>
   		</c:if>
   		
-  		 		<form action="getProfilePage.do" method="GET">
+  		 		
   		<h3>Current Passengers</h3>
-  			<c:forEach items = "${tripPassengers}" var = "bros">
-         		<input type="submit" value="${bros.firstName} ${bros.lastName}">
-    				<input type="hidden" value="${bros.id}" name="userId">
+  			<c:forEach items = "${trip.users}" var = "bros">
+  			<form action="ViewUser.do" method="GET">
+         		<input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}">
+    				<input type="hidden" value="${bro.id}" name="broId">
+    			</form>
+    				<br>
          </c:forEach>	
-  		</form>
+  		
   
   </div>
   <div class="col-xs-6">
   
   	<iframe
   		width="100%"
-  		height="450"
+  		height="450px"
   		frameborder="0" style="border:0"
   		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyASJj0SjYy3dfJWAm53SUPlIlqOXclJEWk
     		&q=${trip.destination.name}" allowfullscreen>
