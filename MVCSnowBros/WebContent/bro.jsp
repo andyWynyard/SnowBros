@@ -34,7 +34,15 @@
   			Rating: ${brorating}	
   			<form action="rate.do" method="GET">
   			<input type="hidden" value="${bro.id}" name="broId">
-  			<input type="submit" value="Rate User" name="Rate" />
+  			<select name = "rating">
+  				<option value="1">1</option>
+ 				 <option value="2">2</option>
+ 				 <option value="3">3</option>
+ 				 <option value="4">4</option>
+ 				 <option value="5">5</option>
+</select>
+
+			<input type="submit" value="Rate">
   			</form>
   			<c:choose>
     						<c:when test="${addFriend}">

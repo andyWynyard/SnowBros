@@ -4,7 +4,7 @@
     
     
 
-	<c:if test="${user.email != null}">
+	<c:if test="${user.firstName != null}">
   <div class="well">
   <div class="row">
  <div class="col-xs-3">
@@ -58,7 +58,7 @@
 
 
 
-<c:if test="${user.email == null}">
+<c:if test="${user.firstName == null}">
   <div class="well">
   <form action="getUser.do" method="GET">
   	<p>Email
