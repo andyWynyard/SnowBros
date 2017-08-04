@@ -62,6 +62,23 @@ public class UserDAOImpl implements UserDAO {
 			return null;
 		}
 	}
+	
+	//********* testing adding a method that retrieves all users from the database
+
+		@Override
+		public List<User> getAllUsers() {
+			List<User> allUsers = new ArrayList<>();
+			String query = "SELECT u FROM User u";
+			try {
+				allUsers = em.createQuery(query, User.class).getResultList();
+				return allUsers;
+
+			} catch (Exception e) {
+				return allUsers;
+			}
+		}
+		
+		//_______________________________________________________
 
 	@Override
 	public List<Trip> userTrips(User user) {
