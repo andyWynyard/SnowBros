@@ -42,16 +42,14 @@
  				 <option value="3">3</option>
  				 <option value="4">4</option>
  				 <option value="5">5</option>
-</select>
+			</select>
 
 			<input type="submit" value="Rate">
   			</form>
   		</c:when>
 		</c:choose>
   			<c:choose>
-    						<c:when test="${addFriend}">
-					
-					
+    				<c:when test="${addFriend}">
 					
 					<form action="addFriend.do" method="POST">
     					<p><input type="submit" class="btn btn-success btn-block" value="Add Friend">

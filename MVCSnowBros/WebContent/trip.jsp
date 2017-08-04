@@ -42,7 +42,7 @@
    <c:choose>
    <c:when test="${user.id == trip.ownerId}">
   		<form action="editTripPage.do" method="GET">
-    			<input type="submit" class="btn btn-warning btn-block" value="Edit this Trip!">
+    			<p><input type="submit" class="btn btn-warning btn-block" value="Edit this Trip!"></p>
     			<input type="hidden" value="${trip.id}" name="tripId">
     			<input type="hidden" value="${user}" name="user">
   		</form>
@@ -51,7 +51,7 @@
   <c:when test="${user.id != trip.ownerId && trip.numberSeats > 0 && !rider }">
 
    		<form action="addMeToTrip.do" method="POST">
-    			<input type="submit" class="btn btn-primary btn-block" value="Add me to Trip!">
+    			<p><input type="submit" class="btn btn-primary btn-block" value="Add me to Trip!"></p>
     			<input type="hidden" value="${user.id}" name="userId">
     			<input type="hidden" value="${trip.id}" name="tripId">
   		</form>
@@ -62,32 +62,60 @@
   <c:if test="${user.id == trip.ownerId}">
   		
   		<form action="deleteTrip.do" method="POST">
-    			<input type="submit" class="btn btn-danger btn-block" value="Delete this trip">
+    			<p><input type="submit" class="btn btn-danger btn-block" value="Delete this trip"></p>
     			<input type="hidden" value="${trip.id}" name="tripId">
     			<input type="hidden" value="${user.id}" name="userId">
   		</form>
   		</c:if>
   		
-  		 		
+ <c:if test="${user.id == trip.ownerId}"> 		 		
   		<h3>Current Passengers</h3>
+  		
+  		<div class="row">
+  		
   			<c:forEach items = "${trip.users}" var = "bros">
+  			<div class="col-sm-8">
   			<form action="ViewUser.do" method="GET">
-         		<input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}">
-    				<input type="hidden" value="${bro.id}" name="broId">
+         		<p><input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}"></p>
+    				<input type="hidden" value="${bros.id}" name="broId">
     			</form>
+    		</div>
+    		<div class="col-sm-4">	
     			<c:if test="${user.id == trip.ownerId}">
     			<form action="removeBroFromTrip.do" method="POST">
-    			<input type="submit" class="btn btn-danger btn-block" value="Remove from Trip">
-    				<input type="hidden" value="${bro.id}" name="broId">
+    			<p><input type="submit" class="btn btn-danger btn-block" value="Remove from Trip"></p>
+    				<input type="hidden" value="${bros.id}" name="broId">
     				<input type="hidden" value="${user.id}" name="userId">
     				<input type="hidden" value="${trip.id}" name="tripId">
     			</form>
     			</c:if>
-    		
-    			
-    			
+  		</div>
     				<br>
          </c:forEach>	
+         </div>	
+     </c:if> 	     
+         
+      
+      
+      <c:if test="${user.id != trip.ownerId}"> 		 		
+  		<h3>Current Passengers</h3>
+  		
+  		<div class="row">
+  		
+  			<c:forEach items = "${trip.users}" var = "bros">
+  			<div class="col-sm-12">
+  			<form action="ViewUser.do" method="GET">
+         		<p><input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}"></p>
+    				<input type="hidden" value="${bros.id}" name="broId">
+    			</form>
+    		</div>
+    		
+    				<br>
+         </c:forEach>	
+         </div>	
+     </c:if>    
+         
+         
          <c:if test="${user.id != trip.ownerId && rider}">	
     		<form action="removeBroFromTrip.do" method="POST">	
     		<input type="submit" class="btn btn-danger btn-block" value="Remove me from Trip">
