@@ -31,12 +31,13 @@
     <input type="password" class="form-control input-lg" name="password"/>
        
     		<br>
-      <input type="submit" class="btn btn-block btn-primary" value="Submit" name="submit" />
+      <input type="submit" class="btn btn-block btn-lg btn-primary" value="Submit" name="submit" />
 
   </form>
+  <br>
   
   <form action="createProfile1.do" method="GET">
-    			<input type="submit" class="btn btn-block btn-warning" value="Create new account">
+    			<input type="submit" class="btn btn-block btn-lg btn-warning" value="Create new account">
   		</form>
   		
   		</div>
