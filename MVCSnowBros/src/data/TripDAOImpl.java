@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -166,6 +167,44 @@ public class TripDAOImpl implements TripDAO {
 			em.flush();
 			return d;
 		}
+	}
+	
+	@Override
+	public Trip removeBroFromTrip(Trip trip, User bro) {
+		List<User> usersOnTrip = trip.getUsers();
+		for (User user : usersOnTrip) {
+			if (user.getId() == bro.getId()) {
+				usersOnTrip.remove(user);
+				trip.setNumberSeats(trip.getNumberSeats() + 1);
+				List<Trip> brosTrips = bro.getTrips();
+				for (Trip broTrip : brosTrips) {
+					if (broTrip.getId() == trip.getId()) {
+						brosTrips.remove(broTrip);
+						bro.setTrips(brosTrips);
+						UserDAOImpl ud = new UserDAOImpl();
+						ud.updateUser(bro);
+						break;
+					}
+				}
+				break;
+			}
+		}
+		trip.setUsers(usersOnTrip);
+		return trip;
+	}
+	
+	@Override
+	public List<User> getAllUsersOnTrip(int tripId) {
+		List<User> usersOnTrip = new ArrayList<>();
+		String query = "SELECT t FROM Trip t JOIN FETCH t.users WHERE t.id = :id";
+		try {
+			Trip thisTrip = em.createQuery(query, Trip.class).setParameter("id", tripId)
+						  .getResultList().get(0);
+			usersOnTrip = thisTrip.getUsers();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return usersOnTrip;
 	}
 
 }
