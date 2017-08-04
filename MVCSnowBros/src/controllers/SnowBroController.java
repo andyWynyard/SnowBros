@@ -432,5 +432,21 @@ public class SnowBroController {
 
 		return "bro.jsp";
 	}
+	
+	@RequestMapping(path = "deleteFriend.do", method = RequestMethod.POST)
+	public String deleteFriend(@RequestParam(name = "broId") int broId, @RequestParam(name = "userId") int userId,
+							  Model model) {
+		User bro = ud.findUserById(broId);
+		User user = ud.findUserById(userId);
+		
+		ud.deleteFriend(user, bro);
+
+		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
+		model.addAttribute("bro", bro);
+		model.addAttribute("brorating", ud.getUserRating(bro));
+		model.addAttribute("addFriend", true);
+		return "bro.jsp";
+	}
 
 }

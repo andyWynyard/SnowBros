@@ -45,9 +45,9 @@
   			<option value="5">5</option>
   			<option value="6">6</option>
 		</select>
-		<p>Scooby Snax</p>	
+	<%-- 	<p>Scooby Snax</p>	
 		<input type="textarea" name="extraCurr" value="${trip.extraCurr}"/>
- 		
+ 		 --%>
     		<br>
     		<br>
     		<input type="hidden" name="userId" value="${user.id}">
