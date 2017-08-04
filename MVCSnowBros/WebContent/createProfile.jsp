@@ -21,30 +21,19 @@
    
    <h1>Create your profile here</h1>
     <form action="createProfile.do" method="POST">
-     <div class="row">
-    <div class="col-xs-6">
-    <h4>First Name</h4>
-       <input type="text" class="form-control input-lg" name="firstName"/>
-       </div>
-     <div class="col-xs-6">  
-   <h4>Last Name</h4>
-       <input type="text" class="form-control input-lg" name="lastName"/>
-    </div> 
-    </div> 
-    
-     <div class="row">
-    <div class="col-xs-6">
- <h4>email (this is your username)</h4>
-       <input type="text" class="form-control input-lg" name="email"/>
-       </div>
-     <div class="col-xs-6">  
-     <h4>Password</h4>
-       <input type="password" class="form-control input-lg" name="password">
-    </div> 
-    </div> 
-    
+       <h5>First Name</h5>
+       <input type="text" name="firstName"/>
+       <h5>Last Name</h5>
+       <input type="text" name="lastName"/>
+       <h5>email (this will be your username)</h5>
+       <input type="text" name="email"/>
+       <h5>password </h5>
+       <input type="password" name="password"/>
+       <h5>HTML link to a picture you want</h5>
+       <input type="text" name="picture">
     		<br>
-      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit" name="submit" />
+    		<br>
+      <input type="submit" value="Submit" name="submit" />
       </form>
    
    
