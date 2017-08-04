@@ -1,5 +1,6 @@
 package entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "user_rating")
@@ -23,6 +22,9 @@ public class UserRating {
     private User user;
     
     private int value;
+    
+    @Column(name = "rate_id")
+    private int rateId;
     
     public User getUser() {
         return user;
@@ -45,6 +47,14 @@ public class UserRating {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public int getRateId() {
+		return rateId;
+	}
+
+	public void setRateId(int rateId) {
+		this.rateId = rateId;
 	}
 
 	@Override

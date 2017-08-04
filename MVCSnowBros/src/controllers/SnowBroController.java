@@ -26,6 +26,7 @@ import entities.Destination;
 import entities.ExtraCurr;
 import entities.Trip;
 import entities.User;
+import entities.UserRating;
 
 @Controller
 @SessionAttributes("user")
@@ -225,8 +226,7 @@ public class SnowBroController {
 		System.out.println(passWordMatches);
 		User u = ud.validate(email, password);
 		if (u != null && passWordMatches) {
-			
-			
+
 			model.addAttribute("user", u);
 			model.addAttribute("rating", ud.getUserRating(u));
 			List<User> friends = ud.viewFriends(u);
@@ -359,14 +359,28 @@ public class SnowBroController {
 		} else {
 			friends = ud.viewFriends(user);
 		}
+		List<UserRating> ratings;
+		if (u.getUserRating() == null) {
+			ratings = new ArrayList<>();
+		} else {
+			ratings = u.getUserRating();
+		}
 		boolean b = true;
+		boolean previousRater = true;
 		for (User use : friends) {
 			if (use.getId() == u.getId()) {
 				b = false;
 				break;
 			}
 		}
+		for (UserRating ur : ratings) {
+			if (ur.getRateId() == user.getId()) {
+				previousRater = false;
+				break;
+			}
+		}
 		model.addAttribute("addFriend", b);
+		model.addAttribute("previousRater", previousRater);
 		model.addAttribute("brorating", ud.getUserRating(u));
 		model.addAttribute("bro", u);
 
@@ -374,9 +388,10 @@ public class SnowBroController {
 	}
 
 	@RequestMapping(path = "rate.do", method = RequestMethod.GET)
-	public String goToRate(@ModelAttribute("user") User user, Model model, @RequestParam("broId") int broId, @RequestParam("rating") int rating) {
+	public String goToRate(@ModelAttribute("user") User user, Model model, @RequestParam("broId") int broId,
+			@RequestParam("rating") int rating) {
 		model.addAttribute("user", user);
-		ud.rateUser(ud.findUserById(broId), rating);
+		ud.rateUser(ud.findUserById(broId), user.getId(), rating);
 		User u = ud.findUserById(broId);
 		List<User> friends;
 		if (ud.viewFriends(user) == null) {
