@@ -7,17 +7,17 @@
 	<c:if test="${user.firstName != null}">
   <div class="well">
   <div class="row">
- <div class="col-xs-3">
+ <div class="col-sm-3">
   <img src="${user.picture}" alt="Your photo" height="100%" width="100%">
   </div>
-   <div class="col-xs-1">
+   <div class="col-sm-1">
    </div>
-  <div class="col-xs-5">
+  <div class="col-sm-5">
   <h1>${user.firstName} ${user.lastName}</h1>
   <h3>${user.email}</h3>
   <h5>Your rating is: ${rating}</h5>
   </div>
-  <div class="col-xs-3">
+  <div class="col-sm-3">
   
    
   
