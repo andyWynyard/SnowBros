@@ -1,5 +1,6 @@
 package entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+
+
 
 @Entity
 public class Activity {
@@ -24,7 +27,7 @@ public class Activity {
 	@Max(5)
 	private int experenice;
 
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "user_id")
 	private User user;
 
