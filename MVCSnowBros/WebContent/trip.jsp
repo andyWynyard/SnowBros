@@ -165,8 +165,24 @@
   </div>
   </div>
   </div>
+  <div class="well">
+	  <!--MESSAGE BOARD-->
+	  <c:forEach items="${messages}" var="message">
+	  	<h3>${message.ownerName} at ${message.ldt}</h3>
+	  	<h4>${message.message}</h4>
+	  	<br>
+	  </c:forEach>
+	  <form action="postMessage.do" method="POST">
+	  	<input type="text" name="message" placeholder="Enter a message here!">
+	  	<input type="hidden" name="tripId" value="${trip.id}">
+	  	<fmt:formatDate type="both" value="${now}" name="date"/>
+	  	<input type="submit" value="Post this message!">
+	  </form>
   
   </div>
+  </div>
+  
+  
   
  
   

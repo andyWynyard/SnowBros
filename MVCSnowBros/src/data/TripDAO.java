@@ -1,5 +1,6 @@
 package data;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -27,6 +28,8 @@ public interface TripDAO {
 	public Destination findDestinationByNameOrCreateNewDestination(String name);
 	
 	public Trip removeBroFromTrip(Trip trip, User bro);
+	
+	public Trip addMessage(User user, Trip trip, String message, String date);
 	
 	public List<Message> getMessagesByTripId(int tripId);
 }
