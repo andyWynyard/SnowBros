@@ -74,12 +74,24 @@
   		<div class="row">
   		
   			<c:forEach items = "${trip.users}" var = "bros">
-  			<div class="col-sm-8">
-  			<form action="ViewUser.do" method="GET">
-         		<p><input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}"></p>
-    				<input type="hidden" value="${bros.id}" name="broId">
-    			</form>
-    		</div>
+  			<c:choose>
+	  			<c:when test="${bros.id == user.id}">
+	  			<div class="col-sm-8">
+	  				<form action="getProfilePage.do" method="GET">
+	  				<p><input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}"></p>
+	  				<input type="hidden" name="userId" value="${bros.id}">
+	  				</form>
+	  				</div>
+	  			</c:when>
+	  			<c:otherwise>
+	  			<div class="col-sm-8">
+	  			<form action="ViewUser.do" method="GET">
+	         		<p><input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}"></p>
+	    				<input type="hidden" value="${bros.id}" name="broId">
+	    			</form>
+	    		</div>
+	    			</c:otherwise>
+    			</c:choose>
     		<div class="col-sm-4">	
     			<c:if test="${user.id == trip.ownerId}">
     			<form action="removeBroFromTrip.do" method="POST">
@@ -103,12 +115,24 @@
   		<div class="row">
   		
   			<c:forEach items = "${trip.users}" var = "bros">
+  			<c:choose>
+  			<c:when test="${bros.id == user.id}">
+  			<div class="col-sm-12">
+  				<form action="getProfilePage.do" method="GET">
+  				<p><input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}"></p>
+  				<input type="hidden" name="userId" value="${bros.id}">
+  				</form>
+  				</div>
+  			</c:when>
+  			<c:otherwise>
   			<div class="col-sm-12">
   			<form action="ViewUser.do" method="GET">
          		<p><input type="submit" class="btn btn-success btn-block" value="${bros.firstName} ${bros.lastName}"></p>
     				<input type="hidden" value="${bros.id}" name="broId">
     			</form>
     		</div>
+    		</c:otherwise>
+    		</c:choose>
     		
     				<br>
          </c:forEach>	
