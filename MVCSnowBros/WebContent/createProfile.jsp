@@ -47,7 +47,7 @@
        
        <div class="row">
     <div class="col-sm-12">
-       <h4>HTML link to a picture you want</h4>
+       <h4>URL link to a picture you want</h4>
        <input type="text" class="form-control input-lg" name="picture">
        </div>
        </div>
