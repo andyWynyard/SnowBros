@@ -172,7 +172,7 @@
   <div class="col-sm-4">
    <form action="postMessage.do" method="POST">
    <div class="form-group">
-   <label for="message"></label>
+   
    <textarea class="form-control" rows="7" id="message" name="message" placeholder="Enter a message here!"></textarea>
 	  	<input type="hidden" name="tripId" value="${trip.id}">
 	  	</div>
