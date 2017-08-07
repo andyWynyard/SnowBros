@@ -1,7 +1,5 @@
 package entities;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 public class Message {
@@ -28,8 +24,8 @@ public class Message {
 	@Column(name = "owner_name")
 	private String ownerName;
 	
-	@Temporal(TemporalType.DATE)
-	private Date date;
+	
+	private String date;
 	
 	public String getOwnerName() {
 		return ownerName;
@@ -60,11 +56,12 @@ public class Message {
 		return id;
 	}
 
-	public Date getDate() {
+
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

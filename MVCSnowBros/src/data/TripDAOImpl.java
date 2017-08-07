@@ -230,7 +230,8 @@ public class TripDAOImpl implements TripDAO {
 		m.setOwnerName(user.getFirstName() + " " + user.getLastName());
 		m.setMessage(message);
 		m.setTrip(trip);
-		m.setDate(date);
+		String datey = date.toString();
+		m.setDate(datey);
 		
 		em.persist(m);
 		em.flush();

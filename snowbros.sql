@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `message` VARCHAR(160) NULL,
   `trip_id` INT NOT NULL,
-  `date` DATETIME NOT NULL,
+  `date` VARCHAR(100) NOT NULL,
   `owner_name` VARCHAR(100) NULL,
   PRIMARY KEY (`id`),
   INDEX `trip_idx` (`trip_id` ASC),
