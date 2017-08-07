@@ -155,16 +155,16 @@ public class SnowBroController {
 			@RequestParam("destination") String dest, @RequestParam("description") String desc,
 			@RequestParam("pointOfOrigin") String pO, @RequestParam("tripdate") String date,
 			@RequestParam("pointOfReturn") String pR, @RequestParam("numberSeats") int seats,
-			/*@RequestParam("extraCurrs") String ec,*/ @RequestParam("userId") int userId) {
+			/* @RequestParam("extraCurrs") String ec, */ @RequestParam("userId") int userId) {
 		Trip trip = new Trip();
-		
+
 		System.out.println("what is given" + date);
-		date = date.replaceAll("T"," ");
+		date = date.replaceAll("T", " ");
 		System.out.println("what is given" + date);
 		Destination d = td.findDestinationByNameOrCreateNewDestination(dest);
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date datey = new Date();
-		
+
 		try {
 			datey = format.parse(date);
 		} catch (ParseException e) {
@@ -187,7 +187,7 @@ public class SnowBroController {
 		List<Trip> trips = user.getTrips();
 		trips.add(trip);
 		user.setTrips(trips);
-		
+
 		model.addAttribute("trip", t);
 		List<Message> messages = td.getMessagesByTripId(t.getId());
 		model.addAttribute("messages", messages);
@@ -201,13 +201,13 @@ public class SnowBroController {
 			@RequestParam("destination") String dest, @RequestParam("description") String desc,
 			@RequestParam("pointOfOrigin") String pO, @RequestParam("date") String date,
 			@RequestParam("pointOfReturn") String pR, @RequestParam("numberSeats") int seats,
-			/* @RequestParam("extraCurr") ExtraCurr ec,*/ @RequestParam("userId") int userId) {
+			/* @RequestParam("extraCurr") ExtraCurr ec, */ @RequestParam("userId") int userId) {
 		Trip trip = new Trip();
 		Destination d = td.findDestinationByNameOrCreateNewDestination(dest);
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		
+
 		System.out.println("what is given" + date);
-		date = date.replaceAll("T"," ");
+		date = date.replaceAll("T", " ");
 		System.out.println("what is given" + date);
 		Date datey = new Date();
 		try {
@@ -237,13 +237,10 @@ public class SnowBroController {
 
 	// User validate(String email, String password)
 
-
 	@RequestMapping(path = "getUser.do")
-	public String validate(@ModelAttribute("user") User user, Model model, @RequestParam("email") String email, @RequestParam("password") String password) 
-	{
+	public String validate(@ModelAttribute("user") User user, Model model, @RequestParam("email") String email,
+			@RequestParam("password") String password) {
 
-
-	
 		// ************* testing encryption ************************************
 		// validate password
 		System.out.println(ud.findUserPasswordByEmail(email) + " from database");
@@ -252,29 +249,23 @@ public class SnowBroController {
 		// print out true or false for password matching
 		System.out.println(passWordMatches);
 		User u = ud.validate(email, password);
-		if (u != null && passWordMatches)
-		{
-			if(u.isUserType() == true)
-			{
+		if (u != null && passWordMatches) {
+			if (u.isUserType() == true) {
 				model.addAttribute("user", u);
 				model.addAttribute("allUsers", ud.getAllUsers());
 				model.addAttribute("allTrips", td.allTrips());
 				return "admin.jsp";
-			}
-			else if (u.isUserType() == false)
-			{
+			} else if (u.isUserType() == false) {
 				model.addAttribute("user", u);
 				model.addAttribute("rating", ud.getUserRating(u));
 				List<User> friends = ud.viewFriends(u);
 				model.addAttribute("friends", friends);
 				return "user.jsp";
-			} 
+			}
 			return "index.jsp";
-		
-		}
-		else 
+
+		} else
 			return "index.jsp";
-			
 
 	}
 
@@ -325,7 +316,7 @@ public class SnowBroController {
 		for (User user2 : riders) {
 			if (user2.getId() == user.getId()) {
 				riderCheck = true;
-				}
+			}
 		}
 		List<Message> messages = td.getMessagesByTripId(t.getId());
 		model.addAttribute("messages", messages);
@@ -361,6 +352,7 @@ public class SnowBroController {
 		model.addAttribute("allTrips", td.allTrips());
 		return "admin.jsp";
 	}
+
 	@RequestMapping(path = "deleteUserAdmin.do", method = RequestMethod.POST)
 	public String deleteUserAdmin(@ModelAttribute("user") User user, Model model,
 			@RequestParam(name = "deleteId") int userId) {
@@ -369,6 +361,7 @@ public class SnowBroController {
 		model.addAttribute("allTrips", td.allTrips());
 		return "admin.jsp";
 	}
+
 	@RequestMapping(path = "deleteUser.do", method = RequestMethod.POST)
 	public String deleteUser(@ModelAttribute("user") User user, Model model,
 			@RequestParam(name = "userId") int userId) {
@@ -381,45 +374,45 @@ public class SnowBroController {
 		model.addAttribute("trip", td.findTripById(tripId));
 		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("user", user);
-		
+
 		List<User> riders = td.findTripById(tripId).getUsers();
 		boolean riderCheck = false;
 		for (User user2 : riders) {
 			if (user2.getId() == user.getId()) {
 				riderCheck = true;
-				}
+			}
 		}
 		model.addAttribute("rider", riderCheck);
 		List<Message> messages = td.getMessagesByTripId(tripId);
 		model.addAttribute("messages", messages);
-		
+
 		return "trip.jsp";
 	}
-	
+
 	@RequestMapping(path = "postMessage.do", method = RequestMethod.POST)
-	public String postMessageToTrip(@ModelAttribute("user") User user, Model model, 
-								   @RequestParam("tripId") int tripId, @RequestParam("message") String message) {
+	public String postMessageToTrip(@ModelAttribute("user") User user, Model model, @RequestParam("tripId") int tripId,
+			@RequestParam("message") String message) {
 		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("user", user);
-		
+
 		List<User> riders = td.findTripById(tripId).getUsers();
 		boolean riderCheck = false;
 		for (User user2 : riders) {
 			if (user2.getId() == user.getId()) {
 				riderCheck = true;
-				}
+			}
 		}
 		Trip trip = td.findTripById(tripId);
-		
+
 		Date date = new Date();
-		
+
 		trip = td.addMessage(user, trip, message, date);
-		
+
 		List<Message> messages = td.getMessagesByTripId(tripId);
 		model.addAttribute("trip", trip);
 		model.addAttribute("messages", messages);
 		model.addAttribute("rider", riderCheck);
-		
+
 		return "trip.jsp";
 	}
 
@@ -472,24 +465,19 @@ public class SnowBroController {
 			}
 		}
 		
-		float avgRating = 0.0f;
-		if (ratings.size() > 0) {
 			for (UserRating ur : ratings) {
 				if (ur.getRateId() == user.getId()) {
 					previousRater = false;
 					break;
 				}
-				avgRating += ur.getValue();
+				 else {
+					previousRater = true;
+				}
 			}
-			avgRating = avgRating / ratings.size();
-		} else {
-			previousRater = true;
-		}
 		
-		avgRating = Float.parseFloat(new DecimalFormat("#.##").format(avgRating));
 		model.addAttribute("addFriend", b);
 		model.addAttribute("previousRater", previousRater);
-		model.addAttribute("brorating", avgRating);
+		model.addAttribute("brorating", ud.getUserRating(u));
 		model.addAttribute("bro", u);
 
 		return "bro.jsp";
@@ -520,14 +508,14 @@ public class SnowBroController {
 
 		return "bro.jsp";
 	}
-	
+
 	@RequestMapping(path = "deleteFriend.do", method = RequestMethod.POST)
-	public String deleteFriend(@ModelAttribute("user") User user, @RequestParam(name = "broId") int broId, @RequestParam(name = "userId") int userId,
-							  Model model) {
+	public String deleteFriend(@ModelAttribute("user") User user, @RequestParam(name = "broId") int broId,
+			@RequestParam(name = "userId") int userId, Model model) {
 		User bro = ud.findUserById(broId);
 		User user1 = ud.findUserById(userId);
 		user.setFriends(ud.viewFriends(user1));
-		
+
 		ud.deleteFriend(user1, bro);
 		ud.updateUser(user1);
 
@@ -538,18 +526,18 @@ public class SnowBroController {
 		model.addAttribute("addFriend", true);
 		return "bro.jsp";
 	}
-	
+
 	@RequestMapping(path = "removeBroFromTrip.do", method = RequestMethod.POST)
-	public String removeBroFromTrip(@ModelAttribute("user") User user,@RequestParam(name = "broId") int broId, @RequestParam(name = "userId") int userId,
-									@RequestParam(name = "tripId") int tripId, Model model) {
+	public String removeBroFromTrip(@ModelAttribute("user") User user, @RequestParam(name = "broId") int broId,
+			@RequestParam(name = "userId") int userId, @RequestParam(name = "tripId") int tripId, Model model) {
 		User user1 = ud.findUserById(userId);
 		User bro = ud.findUserById(broId);
 		Trip trip = td.findTripById(tripId);
-		trip.setUsers(td.getAllUsersOnTrip(tripId));  
-		
+		trip.setUsers(td.getAllUsersOnTrip(tripId));
+
 		trip = td.removeBroFromTrip(trip, bro);
 		td.updateTrip(trip);
-		
+
 		model.addAttribute("trip", td.findTripById(tripId));
 		model.addAttribute("rating", ud.getUserRating(user1));
 		model.addAttribute("user", user1);
@@ -558,7 +546,7 @@ public class SnowBroController {
 		for (User user2 : riders) {
 			if (user2.getId() == user1.getId()) {
 				riderCheck = true;
-				}
+			}
 		}
 		model.addAttribute("rider", riderCheck);
 		List<Message> messages = td.getMessagesByTripId(trip.getId());
