@@ -2,7 +2,6 @@ package controllers;
 
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -435,10 +434,8 @@ public class SnowBroController {
 
 		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));
-		model.addAttribute("bro", friend);
-		model.addAttribute("brorating", ud.getUserRating(friend));
-		model.addAttribute("addFriend", false);
-		return "bro.jsp";
+		model.addAttribute("friend", ud.viewFriends(user));
+		return "user.jsp";
 	}
 
 	@RequestMapping(path = "ViewUser.do", method = RequestMethod.GET)
