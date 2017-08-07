@@ -27,7 +27,6 @@ body {
     color: white;
     text-shadow: black 0.3em 0.3em 0.3em;
     display: flex;
-    text-align: right;
     overflow: hidden;
     /* background: transparent; */
 }
