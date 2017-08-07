@@ -225,13 +225,12 @@ public class TripDAOImpl implements TripDAO {
 	}
 	
 	@Override
-	public Trip addMessage(User user, Trip trip, String message, String date) {
+	public Trip addMessage(User user, Trip trip, String message, Date date) {
 		Message m = new Message();
 		m.setOwnerName(user.getFirstName() + " " + user.getLastName());
 		m.setMessage(message);
 		m.setTrip(trip);
-		Date d = Date.parse(date);
-		m.setDate(d);
+		m.setDate(date);
 		
 		List<Message> messages = new ArrayList<>();
 		String query = "SELECT t FROM Trip t JOIN FETCH t.messages WHERE t.id = :id";

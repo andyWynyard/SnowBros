@@ -391,8 +391,7 @@ public class SnowBroController {
 	
 	@RequestMapping(path = "postMessage.do", method = RequestMethod.POST)
 	public String postMessageToTrip(@ModelAttribute("user") User user, Model model, 
-								   @RequestParam("tripId") int tripId, @RequestParam("message") String message,
-								   @RequestParam("date") String date) {
+								   @RequestParam("tripId") int tripId, @RequestParam("message") String message) {
 		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("user", user);
 		
@@ -404,6 +403,9 @@ public class SnowBroController {
 				}
 		}
 		Trip trip = td.findTripById(tripId);
+		
+		Date date = new Date();
+		
 		trip = td.addMessage(user, trip, message, date);
 		
 		List<Message> messages = td.getMessagesByTripId(tripId);

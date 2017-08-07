@@ -29,7 +29,7 @@ public interface TripDAO {
 	
 	public Trip removeBroFromTrip(Trip trip, User bro);
 	
-	public Trip addMessage(User user, Trip trip, String message, String date);
+	public Trip addMessage(User user, Trip trip, String message, Date date);
 	
 	public List<Message> getMessagesByTripId(int tripId);
 }
