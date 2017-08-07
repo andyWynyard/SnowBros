@@ -524,9 +524,8 @@ public class SnowBroController {
 
 		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));
-		model.addAttribute("bro", bro);
-		model.addAttribute("brorating", ud.getUserRating(bro));
-		model.addAttribute("addFriend", true);
+
+		model.addAttribute("friends", ud.viewFriends(user));
 		return "user.jsp";
 	}
 
