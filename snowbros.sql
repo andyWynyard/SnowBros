@@ -246,20 +246,6 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `user`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `snowbros`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `admin`) VALUES (1, 'Charlie', 'Actor', 'charlie@sd.com', '3333333333', 'images/charlie.jpg', 'password', 0);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `admin`) VALUES (2, 'Travis', 'Way', 'travis@sd.com', '2222222222', 'images/travis.jpg', 'password', 0);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `admin`) VALUES (3, 'Michael', 'Maldonado', 'michael@sd.com', '7777777777', 'images/mike.jpg', 'password', 0);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `admin`) VALUES (4, 'Andy', 'BeerFoot', 'Andy@s.com', '010101010101', 'images/andy.jpg', 'passworde', 0);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `picture`, `password`, `admin`) VALUES (5, 'Admin', 'Admin', 'admin@sd.com', '11111111111', 'images/admin.jpg', 'admin', 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `destination`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -284,22 +270,6 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `user_trip`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `snowbros`;
-INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (1, 3);
-INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (5, 2);
-INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (2, 1);
-INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (3, 1);
-INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (4, 1);
-INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (1, 2);
-INSERT INTO `user_trip` (`user_id`, `trip_id`) VALUES (5, 3);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `extra_curr`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -319,37 +289,6 @@ USE `snowbros`;
 INSERT INTO `return1` (`id`, `trip_id`, `return`, `return_time`) VALUES (1, 1, true, '2017-12-12 14:30:00');
 INSERT INTO `return1` (`id`, `trip_id`, `return`, `return_time`) VALUES (2, 2, true, '2017-12-13 15:00:00');
 INSERT INTO `return1` (`id`, `trip_id`, `return`, `return_time`) VALUES (3, 3, true, '2018-01-12 15:30:00');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `user_rating`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `snowbros`;
-INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (4, 1, 1, DEFAULT);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (5, 1, 2, DEFAULT);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (4, 2, 3, DEFAULT);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (3, 2, 4, DEFAULT);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (5, 4, 5, DEFAULT);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (3, 3, 6, DEFAULT);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (2, 4, 7, DEFAULT);
-INSERT INTO `user_rating` (`value`, `user_id`, `id`, `rate_id`) VALUES (4, 3, 8, DEFAULT);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `activity`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `snowbros`;
-INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (1, 'Skiing', 5, 1);
-INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (2, 'Snowboarding', 2, 1);
-INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (3, 'Skiing', 1, 3);
-INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (4, 'Skiing', 1, 2);
-INSERT INTO `activity` (`id`, `name`, `exp`, `user_id`) VALUES (5, 'Skiing', 4, 4);
 
 COMMIT;
 
