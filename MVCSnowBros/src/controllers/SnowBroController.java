@@ -55,6 +55,7 @@ public class SnowBroController {
 		List<Trip> trips = td.allTrips();
 		model.addAttribute("searchResults", null);
 		model.addAttribute("allTrips", trips);
+		model.addAttribute("allBros", ud.getAllUsers());
 		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));
 		return "search.jsp";
