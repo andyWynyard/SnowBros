@@ -200,13 +200,7 @@
 	  </c:forEach>
   
   </div>
-  
   </div>
-  
-
-	  
-	 
-  
   </div> <!-- end of message well -->
   </div>
   
