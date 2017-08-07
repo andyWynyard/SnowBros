@@ -1,5 +1,6 @@
 package data;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -221,6 +222,32 @@ public class TripDAOImpl implements TripDAO {
 			e.printStackTrace();
 		}
 		return messages;
+	}
+	
+	@Override
+	public Trip addMessage(User user, Trip trip, String message, String date) {
+		Message m = new Message();
+		m.setOwnerName(user.getFirstName() + " " + user.getLastName());
+		m.setMessage(message);
+		m.setTrip(trip);
+		Date d = Date.parse(date);
+		m.setDate(d);
+		
+		List<Message> messages = new ArrayList<>();
+		String query = "SELECT t FROM Trip t JOIN FETCH t.messages WHERE t.id = :id";
+		try {
+			Trip thisTrip = em.createQuery(query, Trip.class)
+						      .setParameter("id", trip.getId())
+						      .getResultList().get(0);
+			messages = thisTrip.getMessages();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		messages.add(m);
+		trip.setMessages(messages);
+		
+		return trip;
 	}
 
 }

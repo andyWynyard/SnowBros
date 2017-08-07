@@ -1,11 +1,17 @@
 package entities;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Message {
@@ -18,7 +24,21 @@ public class Message {
 	@JoinColumn(name = "trip_id")
 	private Trip trip;
 	
-	private Message message;
+	private String message;
+	
+	@Column(name = "owner_name")
+	private String ownerName;
+	
+	@Temporal(TemporalType.DATE)
+	private Date date;
+	
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
 
 	public Trip getTrip() {
 		return trip;
@@ -28,11 +48,12 @@ public class Message {
 		this.trip = trip;
 	}
 
-	public Message getMessage() {
+
+	public String getMessage() {
 		return message;
 	}
 
-	public void setMessage(Message message) {
+	public void setMessage(String message) {
 		this.message = message;
 	}
 
@@ -40,11 +61,22 @@ public class Message {
 		return id;
 	}
 
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
 	@Override
 	public String toString() {
-		return "Message [id=" + id + ", trip=" + trip + ", message=" + message + "]";
+		return "Message [id=" + id + ", message=" + message + ", ownerName=" + ownerName + ", date="
+				+ date + "]";
 	}
 	
 	
 
+	
+	
 }
