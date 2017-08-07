@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import entities.Destination;
+import entities.Message;
 import entities.Trip;
 import entities.User;
 
@@ -205,6 +206,21 @@ public class TripDAOImpl implements TripDAO {
 			e.printStackTrace();
 		}
 		return usersOnTrip;
+	}
+	
+	@Override
+	public List<Message> getMessagesByTripId(int tripId) {
+		List<Message> messages = new ArrayList<>();
+		String query = "SELECT t FROM Trip t JOIN FETCH t.messages WHERE t.id = :id";
+		try {
+			Trip thisTrip = em.createQuery(query, Trip.class)
+						      .setParameter("id", tripId)
+						      .getResultList().get(0);
+			messages = thisTrip.getMessages();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return messages;
 	}
 
 }
