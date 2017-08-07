@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import entities.Destination;
+import entities.Message;
 import entities.Trip;
 import entities.User;
 
@@ -26,4 +27,6 @@ public interface TripDAO {
 	public Destination findDestinationByNameOrCreateNewDestination(String name);
 	
 	public Trip removeBroFromTrip(Trip trip, User bro);
+	
+	public List<Message> getMessagesByTripId(int tripId);
 }

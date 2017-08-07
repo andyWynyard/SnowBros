@@ -23,6 +23,7 @@ import data.EncryptionDAO;
 import data.TripDAO;
 import data.UserDAO;
 import entities.Destination;
+import entities.Message;
 import entities.Trip;
 import entities.User;
 import entities.UserRating;
@@ -367,6 +368,28 @@ public class SnowBroController {
 				riderCheck = true;
 				}
 		}
+		model.addAttribute("rider", riderCheck);
+		
+		return "trip.jsp";
+	}
+	
+	@RequestMapping(path = "postMessage.do", method = RequestMethod.POST)
+	public String postMessageToTrip(@ModelAttribute("user") User user, Model model, 
+								   @RequestParam("tripId") int tripId, @RequestParam("message") String message) {
+		model.addAttribute("trip", td.findTripById(tripId));
+		model.addAttribute("rating", ud.getUserRating(user));
+		model.addAttribute("user", user);
+		
+		List<User> riders = td.findTripById(tripId).getUsers();
+		boolean riderCheck = false;
+		for (User user2 : riders) {
+			if (user2.getId() == user.getId()) {
+				riderCheck = true;
+				}
+		}
+		List<Message> messages = td.getMessagesByTripId(tripId);
+		
+		model.addAttribute("messages", messages);
 		model.addAttribute("rider", riderCheck);
 		
 		return "trip.jsp";
