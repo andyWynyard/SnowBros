@@ -95,6 +95,23 @@
     						
 					</c:forEach>
 				</c:when>
+				
+				
+				
+				
+				<c:otherwise>
+
+					<c:forEach items="${allBros}" var="bro">
+    						<form action="ViewUser.do" method="GET">
+    					<p><input type="submit" class="btn btn-info btn-block btn-lg" value="${bro.firstName} on ${bro.lastName}">
+    					<input type="hidden" value="${bro.id}" name="broId">
+  					</form>	
+  					<br>
+					</c:forEach>
+
+				</c:otherwise>
+				
+				
 		</c:choose>
 
 		</div>
