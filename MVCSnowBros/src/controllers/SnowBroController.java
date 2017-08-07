@@ -487,6 +487,7 @@ public class SnowBroController {
 	public String goToRate(@ModelAttribute("user") User user, Model model, @RequestParam("broId") int broId,
 			@RequestParam("rating") int rating) {
 		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
 		ud.rateUser(ud.findUserById(broId), user.getId(), rating);
 		User u = ud.findUserById(broId);
 		List<User> friends;
