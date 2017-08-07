@@ -24,7 +24,7 @@
   			<c:forEach items ="${allUsers}" var = "user">
   				<c:out value="${user.firstName}"></c:out>
   				<c:out value="${user.lastName}"></c:out>	
-  				<form action="deleteUser.do" method="POST">
+  				<form action="deleteUserAdmin.do" method="POST">
     					<p><input type="submit" class="btn btn-danger btn-block" value="Delete Friend">
     					<input type="hidden" value="${user.id}" name="deleteId">
   					</form>	
@@ -34,7 +34,7 @@
          	<c:forEach items ="${allTrips}" var = "trip">
   				<c:out value="${trip.title}"></c:out>
   				<c:out value="${trip.description}"></c:out>
-  				<form action="deleteTrip.do" method="POST">
+  				<form action="deleteTripAdmin.do" method="POST">
     					<p><input type="submit" class="btn btn-danger btn-block" value="Delete Trip">
     					<input type="hidden" value="${trip.id}" name="tripId">
   					</form>

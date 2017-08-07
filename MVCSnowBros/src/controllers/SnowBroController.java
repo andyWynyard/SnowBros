@@ -348,6 +348,22 @@ public class SnowBroController {
 		return "user.jsp";
 	}
 
+	@RequestMapping(path = "deleteTripAdmin.do", method = RequestMethod.POST)
+	public String deleteTripadmin(@ModelAttribute("user") User user, Model model, @RequestParam("tripId") int tripId,
+			@RequestParam("userId") int userId) {
+		td.deleteTrip(td.findTripById(tripId));
+		model.addAttribute("user", ud.findUserById(userId));
+		model.addAttribute("rating", ud.getUserRating(user));
+		List<User> friends = ud.viewFriends(user);
+		model.addAttribute("friends", friends);
+		return "admin.jsp";
+	}
+	@RequestMapping(path = "deleteUserAdmin.do", method = RequestMethod.POST)
+	public String deleteUserAdmin(@ModelAttribute("user") User user, Model model,
+			@RequestParam(name = "userId") int userId) {
+		ud.deleteUser(ud.findUserById(userId));
+		return "admin.jsp";
+	}
 	@RequestMapping(path = "deleteUser.do", method = RequestMethod.POST)
 	public String deleteUser(@ModelAttribute("user") User user, Model model,
 			@RequestParam(name = "userId") int userId) {
