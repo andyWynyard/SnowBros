@@ -235,19 +235,17 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<UserRating> viewUserRating(User user) {
 
-		String query = "SELECT u FROM User u JOIN FETCH u.userRating WHERE u.id = :id";
-		User u = user;
+		String query = "SELECT r FROM UserRating r JOIN FETCH r.user WHERE r.user.id = :id";
+		List<UserRating> ratings = null;
 		try {
-			u = em.createQuery(query, User.class).setParameter("id", user.getId()).getResultList().get(0);
-		} catch (Exception e) {
-
-		}
-		List<UserRating> ratings = new ArrayList<>();
-		try {
-			ratings = u.getUserRating();
+			ratings = em.createQuery(query, UserRating.class)
+						.setParameter("id", user.getId())
+						.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
+			// TODO : Add exception handler?
 		}
+
 		return ratings;
 	}
 

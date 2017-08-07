@@ -454,11 +454,9 @@ public class SnowBroController {
 		} else {
 			friends = ud.viewFriends(user);
 		}
-		List<UserRating> ratings;
-		if (ud.viewUserRating(u) == null) {
+		List<UserRating> ratings = ud.viewUserRating(u);
+		if (ratings == null) {
 			ratings = new ArrayList<>();
-		} else {
-			ratings = ud.viewUserRating(u);
 		}
 		boolean b = true;
 		boolean previousRater = true;
@@ -468,15 +466,23 @@ public class SnowBroController {
 				break;
 			}
 		}
-		for (UserRating ur : ratings) {
-			if (ur.getRateId() == user.getId()) {
-				previousRater = false;
-				break;
+		
+		float avgRating = 0.0f;
+		if (ratings.size() > 0) {
+			for (UserRating ur : ratings) {
+				if (ur.getRateId() == user.getId()) {
+					previousRater = false;
+					break;
+				}
+				avgRating += ur.getValue();
 			}
+			avgRating = avgRating / ratings.size();
+		} else {
+			previousRater = true;
 		}
 		model.addAttribute("addFriend", b);
 		model.addAttribute("previousRater", previousRater);
-		model.addAttribute("brorating", ud.getUserRating(u));
+		model.addAttribute("brorating", avgRating);
 		model.addAttribute("bro", u);
 
 		return "bro.jsp";
