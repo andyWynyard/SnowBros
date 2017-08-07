@@ -176,12 +176,10 @@ public class UserDAOImpl implements UserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		List<User> friends;
-		if (u.getFriends() == null) {
+		List<User> friends = u.getFriends();
+		if (friends == null) {
 			friends = new ArrayList<>();
-		} else {
-			friends = u.getFriends();
-		}
+		} 
 		return friends;
 	}
 

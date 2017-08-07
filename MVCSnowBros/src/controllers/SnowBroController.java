@@ -528,15 +528,15 @@ public class SnowBroController {
 		User user1 = ud.findUserById(userId);
 		user.setFriends(ud.viewFriends(user1));
 		
-		ud.deleteFriend(user1, bro);
-		ud.updateUser(user1);
+		ud.deleteFriend(user, bro);
+		ud.updateUser(user);
 
-		model.addAttribute("user", user1);
-		model.addAttribute("rating", ud.getUserRating(user1));
+		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("bro", bro);
 		model.addAttribute("brorating", ud.getUserRating(bro));
 		model.addAttribute("addFriend", true);
-		return "bro.jsp";
+		return "user.jsp";
 	}
 	
 	@RequestMapping(path = "removeBroFromTrip.do", method = RequestMethod.POST)
