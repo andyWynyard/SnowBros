@@ -517,10 +517,8 @@ public class SnowBroController {
 		User user1 = ud.findUserById(userId);
 		user.setFriends(ud.viewFriends(user1));
 
-		
 		ud.deleteFriend(user, bro);
 		ud.updateUser(user);
-
 
 		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));

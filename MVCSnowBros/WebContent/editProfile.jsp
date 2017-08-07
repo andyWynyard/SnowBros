@@ -41,7 +41,7 @@
        <input type="text" class="form-control input-lg" name="email" value="${user.email}"/>
        </div>
      <div class="col-sm-6">  
-     <h4>HTML link to a picture you want</h4>
+     <h4>URL link to a picture you want</h4>
        <input type="text" class="form-control input-lg" name="picture" value="${user.picture}">
     </div> 
     </div> 
