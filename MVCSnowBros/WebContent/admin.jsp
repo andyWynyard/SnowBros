@@ -25,10 +25,10 @@
   				<c:out value="${user.firstName}"></c:out>
   				<c:out value="${user.lastName}"></c:out>	
   				<form action="deleteUserAdmin.do" method="POST">
-    					<p><input type="submit" class="btn btn-danger btn-block" value="Delete Friend">
+    					<p><input type="submit" class="btn btn-danger btn-block" value="Delete User">
     					<input type="hidden" value="${user.id}" name="deleteId">
   					</form>	
-  				<br>
+  				
          	</c:forEach>
          <h4>All trips:</h4>
          	<c:forEach items ="${allTrips}" var = "trip">
@@ -38,7 +38,7 @@
     					<p><input type="submit" class="btn btn-danger btn-block" value="Delete Trip">
     					<input type="hidden" value="${trip.id}" name="tripId">
   					</form>
-  				<br>	
+  				
   		    </c:forEach>
      </div>
   </div>
