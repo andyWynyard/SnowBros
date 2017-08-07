@@ -29,30 +29,54 @@
     				<input type="hidden" value="${friends.id}" name="friendId">
          </c:forEach>	
   		</form> --%>
-  		
-  		<h4>${bro.firstName}</h4>
-  			Rating: ${brorating}	
+  	<div class="row">
+  		<div class="col-sm-6">
+  	
+  	
+  	<div class="row">
+  	<div class="col-sm-6">
+  	${bro.picture}
+  	</div>
+  	<div class="col-sm-6">
+  	
+  		<h2>${bro.firstName} ${bro.lastName}</h2>
+  		<h4>${bro.email}</h4>
+  		<h4>${bro.phoneNumber}</h4>
+  		<h4>Rating: ${brorating}</h4>
+	</div>
+  		<div class="row">
+  		<div class="col-sm-3">
+  		<h3>Rate this Bro: </h3>
+  		</div>
+  		<div class="col-sm-4">
   			<c:choose>
   				<c:when test = "${previousRater}">
   			<form action="rate.do" method="GET">
   			<input type="hidden" value="${bro.id}" name="broId">
-  			<select name = "rating">
+  			<p><select name = "rating" class="form-control input-lg">
   				<option value="1">1</option>
  				 <option value="2">2</option>
  				 <option value="3">3</option>
  				 <option value="4">4</option>
  				 <option value="5">5</option>
-			</select>
+			</select></p>
+			
+			</div>
+			<div class="col-sm-5">
 
-			<input type="submit" value="Rate">
+			<p><input type="submit" class="btn btn-primary btn-lg btn-block" value="Rate"></p>
+  			</div>
   			</form>
+  			
+  			
   		</c:when>
 		</c:choose>
+		</div>
   			<c:choose>
     				<c:when test="${addFriend}">
 					
 					<form action="addFriend.do" method="POST">
-    					<p><input type="submit" class="btn btn-success btn-block" value="Add Friend">
+    					<p><input type="submit" class="btn btn-success btn-lg btn-block" value="Add Friend">
     					<input type="hidden" value="${bro.id}" name="broId">
     					<input type="hidden" value="${user.id}" name="userId">
   					</form>	
@@ -70,19 +94,24 @@
 						<br>
 				</c:otherwise>
 		</c:choose>
+		</div>
+		</div>
+		<div class="col-sm-6">
+		
+		
   			<br><br>
   			<c:forEach items = "${bro.trips}" var = "trips">
   			<form action="viewTrip.do" method="GET">
-         		<input type="submit" class="btn btn-primary btn-lg active" value="${trips.destination.name} on ${trips.date}">
+         		<p><input type="submit" class="btn btn-info btn-lg btn-block" value="${trips.destination.name} on ${trips.date}"></p>
     				<input type="hidden" value="${trips.id}" name="tripId">
   		</form>
          </c:forEach>	
   		
   		
-
+</div>	
   
   </div>
-  
+  </div>
  
     </div> <!-- end of opening container -->
   
