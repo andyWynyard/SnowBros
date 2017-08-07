@@ -7,13 +7,15 @@
   <head>    
     
     <meta charset="UTF-8">
-    <title>adminView</title>
-    
+    <title>View</title>
+    <jsp:include page="partials/_resources.jsp"></jsp:include>
      </head>
   <body>
   <div class="container">
- <%-- <jsp:include page="partials/_title.jsp"></jsp:include> 
- <jsp:include page="partials/_navProfile.jsp"></jsp:include> --%> 
+  
+ <jsp:include page="partials/_title.jsp"></jsp:include> 
+ <jsp:include page="partials/_navProfile.jsp"></jsp:include>
+  
   <div class="well">
   <div class="row">
  	<div class="col-xs-6">
@@ -21,13 +23,21 @@
   		<h4>All users:</h4>
   			<c:forEach items ="${allUsers}" var = "user">
   				<c:out value="${user.firstName}"></c:out>
-  				<c:out value="${user.lastName}"></c:out>		
+  				<c:out value="${user.lastName}"></c:out>	
+  				<form action="deleteUser.do" method="POST">
+    					<p><input type="submit" class="btn btn-danger btn-block" value="Delete Friend">
+    					<input type="hidden" value="${user.id}" name="deleteId">
+  					</form>	
   				<br>
          	</c:forEach>
          <h4>All trips:</h4>
          	<c:forEach items ="${allTrips}" var = "trip">
   				<c:out value="${trip.title}"></c:out>
   				<c:out value="${trip.description}"></c:out>
+  				<form action="deleteTrip.do" method="POST">
+    					<p><input type="submit" class="btn btn-danger btn-block" value="Delete Trip">
+    					<input type="hidden" value="${trip.id}" name="tripId">
+  					</form>
   				<br>	
   		    </c:forEach>
      </div>
