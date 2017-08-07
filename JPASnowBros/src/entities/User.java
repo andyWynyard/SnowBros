@@ -2,6 +2,7 @@ package entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +23,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.REMOVE)
 	@JoinTable(name = "user_friend",
 	joinColumns = @JoinColumn(name = "user_id"),
 	inverseJoinColumns = @JoinColumn(name = "friend_id")
@@ -36,16 +37,16 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = "user")
 	private List<UserRating> userRating;
 	
 	@Column(name="admin")
 	private boolean userType;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(cascade=CascadeType.REMOVE,mappedBy = "user")
 	private List<Activity> activities;
 	
-	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.REMOVE,mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Trip> trips;
 	
 	private String email;
