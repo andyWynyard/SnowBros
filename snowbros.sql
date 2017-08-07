@@ -223,6 +223,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   `message` VARCHAR(160) NULL,
   `trip_id` INT NOT NULL,
   `date` DATETIME NOT NULL,
+  `owner name` VARCHAR(100) NULL,
   PRIMARY KEY (`id`),
   INDEX `trip_idx` (`trip_id` ASC),
   CONSTRAINT `trip1`
