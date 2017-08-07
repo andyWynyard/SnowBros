@@ -35,7 +35,7 @@
   	
   	<div class="row">
   	<div class="col-sm-6">
-  	${bro.picture}
+  	<p><img src="${user.picture}" alt="Your photo" height="100%" width="100%"></p>
   	</div>
   	<div class="col-sm-6">
   	
