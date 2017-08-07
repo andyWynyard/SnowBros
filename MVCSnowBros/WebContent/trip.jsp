@@ -171,13 +171,15 @@
   <div class="row">
   <div class="col-sm-4">
    <form action="postMessage.do" method="POST">
-	  	<input type="text" class="form-control input-lg" name="message" placeholder="Enter a message here!">
+   <div class="form-group">
+   <label for="message"></label>
+   <textarea class="form-control" rows="7" id="message" name="message" placeholder="Enter a message here!"></textarea>
 	  	<input type="hidden" name="tripId" value="${trip.id}">
-	  	<input type="submit" value="Post this message!">
+	  	</div>
+	  	<input type="submit" class="btn btn-success btn-block" value="Post this message!">
 	  </form>
+	  </div>
   
-  
-  </div>
   
   <div class="col-sm-8">
   
@@ -185,14 +187,16 @@
 	  <c:forEach items="${messages}" var="message">
 	  <div class="panel panel-success">
   <div class="panel-heading">
+
     <h3 class="panel-title">${message.ownerName} at ${message.date}</h3>
+
     </div>
   <div class="panel-body">
 	  	
-	  	<h4>${message.message}</h4>
+	  	<p>${message.message}</p>
 	  	</div>
 	  	</div>
-	  	<br>
+	  	
 	  </c:forEach>
   
   </div>
