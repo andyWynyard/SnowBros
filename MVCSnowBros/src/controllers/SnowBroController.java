@@ -2,6 +2,7 @@ package controllers;
 
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -484,6 +485,8 @@ public class SnowBroController {
 		} else {
 			previousRater = true;
 		}
+		
+		avgRating = Float.parseFloat(new DecimalFormat("#.##").format(avgRating));
 		model.addAttribute("addFriend", b);
 		model.addAttribute("previousRater", previousRater);
 		model.addAttribute("brorating", avgRating);
