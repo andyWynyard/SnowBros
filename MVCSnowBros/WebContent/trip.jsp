@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> --%> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -187,7 +187,9 @@
 	  <c:forEach items="${messages}" var="message">
 	  <div class="panel panel-success">
   <div class="panel-heading">
-    <h3 class="panel-title">Posted by: ${message.ownerName} at <fmt:formatDate value="${message.date}" pattern="yyyy-MM-dd HH:mm:ss" /></h3>
+
+    <h3 class="panel-title">${message.ownerName} at ${message.date}</h3>
+
     </div>
   <div class="panel-body">
 	  	
