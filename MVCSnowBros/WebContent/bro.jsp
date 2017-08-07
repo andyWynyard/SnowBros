@@ -41,7 +41,6 @@
   	
   		<h2>${bro.firstName} ${bro.lastName}</h2>
   		<h4>${bro.email}</h4>
-  		<h4>${bro.phoneNumber}</h4>
   		<h4>Rating: ${brorating}</h4>
 	</div>
 	</div>
@@ -92,7 +91,7 @@
 				</c:when>
 				<c:otherwise>
 					<form action="deleteFriend.do" method="POST">
-    					<p><input type="submit" class="btn btn-danger btn-block" value="Delete Friend">
+    					<p><input type="submit" class="btn btn-danger btn-lg btn-block" value="Delete Friend">
     					<input type="hidden" value="${bro.id}" name="broId">
     					<input type="hidden" value="${user.id}" name="userId">
   					</form>	

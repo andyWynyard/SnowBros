@@ -188,6 +188,8 @@ public class SnowBroController {
 		user.setTrips(trips);
 		
 		model.addAttribute("trip", t);
+		List<Message> messages = td.getMessagesByTripId(t.getId());
+		model.addAttribute("messages", messages);
 		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("user", user);
 		return "trip.jsp";
@@ -225,6 +227,8 @@ public class SnowBroController {
 		model.addAttribute("user", user);
 		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("trip", trip);
+		List<Message> messages = td.getMessagesByTripId(trip.getId());
+		model.addAttribute("messages", messages);
 		return "trip.jsp";
 	}
 
@@ -322,7 +326,8 @@ public class SnowBroController {
 				riderCheck = true;
 				}
 		}
-
+		List<Message> messages = td.getMessagesByTripId(t.getId());
+		model.addAttribute("messages", messages);
 		model.addAttribute("rider", riderCheck);
 		model.addAttribute("trip", t);
 		model.addAttribute("rating", ud.getUserRating(user));
@@ -380,6 +385,8 @@ public class SnowBroController {
 				}
 		}
 		model.addAttribute("rider", riderCheck);
+		List<Message> messages = td.getMessagesByTripId(tripId);
+		model.addAttribute("messages", messages);
 		
 		return "trip.jsp";
 	}
@@ -541,6 +548,8 @@ public class SnowBroController {
 				}
 		}
 		model.addAttribute("rider", riderCheck);
+		List<Message> messages = td.getMessagesByTripId(trip.getId());
+		model.addAttribute("messages", messages);
 		return "trip.jsp";
 	}
 
