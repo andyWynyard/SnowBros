@@ -212,6 +212,25 @@ CREATE TABLE IF NOT EXISTS `user_friend` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `message`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `message` ;
+
+CREATE TABLE IF NOT EXISTS `message` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `message` VARCHAR(160) NULL,
+  `trip_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `trip_idx` (`trip_id` ASC),
+  CONSTRAINT `trip1`
+    FOREIGN KEY (`trip_id`)
+    REFERENCES `trip` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE = '';
 GRANT USAGE ON *.* TO user9;
  DROP USER user9;
