@@ -518,8 +518,6 @@ public class SnowBroController {
 		user.setFriends(ud.viewFriends(user1));
 
 		ud.deleteFriend(user, bro);
-		System.out.println(user.toString());
-		System.out.println(bro.toString());
 		ud.updateUser(user);
 
 		model.addAttribute("user", user);
