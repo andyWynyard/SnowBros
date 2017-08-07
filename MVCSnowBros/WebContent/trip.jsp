@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>    
@@ -166,12 +168,24 @@
   </div>
   </div>
   <div class="well">
+  <div class="row">
+  <div class="col-sm-4">
+   <form action="postMessage.do" method="POST">
+	  	<input type="text" class="form-control input-lg" name="message" placeholder="Enter a message here!">
+	  	<input type="hidden" name="tripId" value="${trip.id}">
+	  	<input type="submit" value="Post this message!">
+	  </form>
   
-	  <!--MESSAGE BOARD-->
+  
+  </div>
+  
+  <div class="col-sm-8">
+  
+  	  <!--MESSAGE BOARD-->
 	  <c:forEach items="${messages}" var="message">
 	  <div class="panel panel-success">
   <div class="panel-heading">
-    <h3 class="panel-title">${message.ownerName} at ${message.date}</h3>
+    <h3 class="panel-title">${message.ownerName} at <fmt:formatDate value="${message.date}" pattern="yyyy-MM-dd HH:mm:ss" /></h3>
     </div>
   <div class="panel-body">
 	  	
@@ -180,14 +194,16 @@
 	  	</div>
 	  	<br>
 	  </c:forEach>
-	  
-	  <form action="postMessage.do" method="POST">
-	  	<input type="text" class="form-control input-lg" name="message" placeholder="Enter a message here!">
-	  	<input type="hidden" name="tripId" value="${trip.id}">
-	  	<input type="submit" value="Post this message!">
-	  </form>
   
   </div>
+  
+  </div>
+  
+
+	  
+	 
+  
+  </div> <!-- end of message well -->
   </div>
   
   
