@@ -34,6 +34,8 @@
     </div> 
     
      <div class="row">
+     
+    
     <div class="col-sm-6">
  <h4>email (this is your username)</h4>
        <input type="text" class="form-control input-lg" name="email" value="${user.email}"/>

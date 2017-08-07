@@ -15,6 +15,8 @@
   <div class="col-sm-5">
   <h1>${user.firstName} ${user.lastName}</h1>
   <h3>${user.email}</h3>
+  <h3>${user.phoneNumber}</h3>
+  
   <h5>Your rating is: ${rating}</h5>
   </div>
   <div class="col-sm-3">
