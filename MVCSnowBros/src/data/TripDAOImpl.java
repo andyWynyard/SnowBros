@@ -232,6 +232,9 @@ public class TripDAOImpl implements TripDAO {
 		m.setTrip(trip);
 		m.setDate(date);
 		
+		em.persist(m);
+		em.flush();
+		
 		List<Message> messages = new ArrayList<>();
 		String query = "SELECT t FROM Trip t JOIN FETCH t.messages WHERE t.id = :id";
 		try {
