@@ -100,7 +100,7 @@
 
 					<c:forEach items="${allBros}" var="bro">
     						<form action="ViewUser.do" method="GET">
-    					<p><input type="submit" class="btn btn-success btn-block btn-lg" value="${bro.firstName} on ${bro.lastName}">
+    					<p><input type="submit" class="btn btn-success btn-block btn-lg" value="${bro.firstName} ${bro.lastName}">
     					<input type="hidden" value="${bro.id}" name="broId">
   					</form>	
   					
