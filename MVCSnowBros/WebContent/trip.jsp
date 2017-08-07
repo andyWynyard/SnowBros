@@ -136,7 +136,7 @@
     		</c:otherwise>
     		</c:choose>
     		
-    				<br>
+    			
          </c:forEach>	
          </div>	
      </c:if>    
@@ -144,7 +144,7 @@
          
          <c:if test="${user.id != trip.ownerId && rider}">	
     		<form action="removeBroFromTrip.do" method="POST">	
-    		<input type="submit" class="btn btn-danger btn-block" value="Remove me from Trip">
+    		<p><input type="submit" class="btn btn-danger btn-block" value="Remove me from Trip"></p>
     				<input type="hidden" value="${user.id}" name="broId">
     				<input type="hidden" value="${user.id}" name="userId">
     				<input type="hidden" value="${trip.id}" name="tripId">
@@ -167,6 +167,7 @@
   </div>
   </div>
   </div>
+  <c:if test="${user.id == trip.ownerId || rider}">
   <div class="well">
   <div class="row">
   <div class="col-sm-4">
@@ -176,7 +177,7 @@
    <textarea class="form-control" rows="7" id="message" name="message" placeholder="Enter a message here!"></textarea>
 	  	<input type="hidden" name="tripId" value="${trip.id}">
 	  	</div>
-	  	<input type="submit" class="btn btn-success btn-block" value="Post this message!">
+	  	<p><input type="submit" class="btn btn-success btn-block" value="Post this message!"></p>
 	  </form>
 	  </div>
   
@@ -202,11 +203,9 @@
   </div>
   </div>
   </div> <!-- end of message well -->
+  
+  </c:if>
   </div>
-  
-  
-  
- 
   
   </body>
   

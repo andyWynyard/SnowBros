@@ -24,7 +24,7 @@
    
   
   <form action="getProfilePage.do" method="GET">
-  			<input type="submit" class="btn btn-primary btn-lg btn-block" value="Profile Page">
+  			<input type="submit" class="btn btn-primary btn-lg btn-block" value="Profile">
   			<input type="hidden" value="${user.id}" name="userId">
   		</form>
   		
@@ -34,19 +34,19 @@
   		</form>
   
   		<form action="searchPage.do"  method="GET">
-  			<input type="submit" class="btn btn-info btn-lg btn-block" value="Search for Bros or Rides">
+  			<input type="submit" class="btn btn-info btn-lg btn-block" value="Search">
   		</form>
   		<form action="logOut.do" method="GET">
   			<input type="submit" class="btn btn-secondary btn-lg btn-block" value="Log Out">
   		</form>
   		
   			<form action="editUserPage.do" method="GET">
-    			<input type="submit" class="btn btn-warning btn-lg btn-block" value="Edit your Profile" name="${user.id}">
+    			<input type="submit" class="btn btn-warning btn-lg btn-block" value="Edit Profile" name="${user.id}">
     			<input type="hidden" value="${user.id}" name="userId">
   		</form>
   		
   		<form action="deleteUser.do" method="POST">
-    			<input type="submit" class="btn btn-danger btn-lg btn-block" value="Delete your account">
+    			<input type="submit" class="btn btn-danger btn-lg btn-block" value="Delete Account">
     			<input type="hidden" value="${user.id}" name="userId">
   		</form>	
   		

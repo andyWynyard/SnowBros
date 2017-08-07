@@ -46,7 +46,6 @@
 	</div>
 	<div class="row">
   		
-  		
   			<c:choose>
   				<c:when test = "${previousRater}">
   			<form action="rate.do" method="GET">
