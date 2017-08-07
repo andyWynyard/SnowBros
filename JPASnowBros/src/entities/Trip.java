@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,6 +30,9 @@ public class Trip {
 	
 	@Column(name = "owner_id")
 	private int ownerId;
+	
+	@OneToMany(mappedBy = "trip")
+	private List<Message> messages;
 	
 	@ManyToMany
 	@JoinTable(name = "trip_ec",
@@ -160,6 +164,14 @@ public class Trip {
 
 	public void setOwnerId(int ownerId) {
 		this.ownerId = ownerId;
+	}
+	
+	public List<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
 	}
 
 	@Override
