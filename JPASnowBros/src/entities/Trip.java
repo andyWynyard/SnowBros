@@ -3,6 +3,7 @@ package entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,11 +33,12 @@ public class Trip {
 	@Column(name = "owner_id")
 	private int ownerId;
 	
-	@OneToMany(mappedBy = "trip")
+
 	@OrderBy("id DESC")
+	@OneToMany(mappedBy = "trip", cascade=CascadeType.REMOVE)
 	private List<Message> messages;
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.REMOVE)
 	@JoinTable(name = "trip_ec",
 	joinColumns = @JoinColumn(name = "trip_id"),
 	inverseJoinColumns = @JoinColumn(name = "ec_id")
@@ -45,7 +47,7 @@ public class Trip {
 
 	private String title;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name = "destination_id")
 	private Destination destination;
 
@@ -71,7 +73,7 @@ public class Trip {
 	private String description;
 
 
-	@OneToOne(mappedBy = "trip")
+	@OneToOne(cascade=CascadeType.REMOVE, mappedBy = "trip")
 	private Return roundtrip;
 
 	// gets and sets

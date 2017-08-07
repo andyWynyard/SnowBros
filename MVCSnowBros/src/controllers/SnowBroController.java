@@ -356,12 +356,16 @@ public class SnowBroController {
 	@RequestMapping(path = "deleteTripAdmin.do", method = RequestMethod.POST)
 	public String deleteTripadmin(@ModelAttribute("user") User user, Model model, @RequestParam("tripId") int tripId) {
 		td.deleteTrip(td.findTripById(tripId));
+		model.addAttribute("allUsers", ud.getAllUsers());
+		model.addAttribute("allTrips", td.allTrips());
 		return "admin.jsp";
 	}
 	@RequestMapping(path = "deleteUserAdmin.do", method = RequestMethod.POST)
 	public String deleteUserAdmin(@ModelAttribute("user") User user, Model model,
 			@RequestParam(name = "deleteId") int userId) {
 		ud.deleteUser(ud.findUserById(userId));
+		model.addAttribute("allUsers", ud.getAllUsers());
+		model.addAttribute("allTrips", td.allTrips());
 		return "admin.jsp";
 	}
 	@RequestMapping(path = "deleteUser.do", method = RequestMethod.POST)
@@ -454,11 +458,9 @@ public class SnowBroController {
 		} else {
 			friends = ud.viewFriends(user);
 		}
-		List<UserRating> ratings;
-		if (ud.viewUserRating(u) == null) {
+		List<UserRating> ratings = ud.viewUserRating(u);
+		if (ratings == null) {
 			ratings = new ArrayList<>();
-		} else {
-			ratings = ud.viewUserRating(u);
 		}
 		boolean b = true;
 		boolean previousRater = true;
@@ -468,15 +470,23 @@ public class SnowBroController {
 				break;
 			}
 		}
-		for (UserRating ur : ratings) {
-			if (ur.getRateId() == user.getId()) {
-				previousRater = false;
-				break;
+		
+		float avgRating = 0.0f;
+		if (ratings.size() > 0) {
+			for (UserRating ur : ratings) {
+				if (ur.getRateId() == user.getId()) {
+					previousRater = false;
+					break;
+				}
+				avgRating += ur.getValue();
 			}
+			avgRating = avgRating / ratings.size();
+		} else {
+			previousRater = true;
 		}
 		model.addAttribute("addFriend", b);
 		model.addAttribute("previousRater", previousRater);
-		model.addAttribute("brorating", ud.getUserRating(u));
+		model.addAttribute("brorating", avgRating);
 		model.addAttribute("bro", u);
 
 		return "bro.jsp";
