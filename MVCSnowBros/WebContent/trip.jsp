@@ -166,14 +166,23 @@
   </div>
   </div>
   <div class="well">
+  
 	  <!--MESSAGE BOARD-->
 	  <c:forEach items="${messages}" var="message">
-	  	<h3>${message.ownerName} at ${message.date}</h3>
+	  <div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">${message.ownerName} at ${message.date}</h3>
+    </div>
+  <div class="panel-body">
+	  	
 	  	<h4>${message.message}</h4>
+	  	</div>
+	  	</div>
 	  	<br>
 	  </c:forEach>
+	  
 	  <form action="postMessage.do" method="POST">
-	  	<input type="text" name="message" placeholder="Enter a message here!">
+	  	<input type="text" class="form-control input-lg" name="message" placeholder="Enter a message here!">
 	  	<input type="hidden" name="tripId" value="${trip.id}">
 	  	<input type="submit" value="Post this message!">
 	  </form>
