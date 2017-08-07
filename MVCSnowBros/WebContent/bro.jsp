@@ -17,7 +17,8 @@
  <jsp:include page="partials/_navProfile.jsp"></jsp:include>
   
   <div class="well">
- 
+  <div class="row">
+ <div class="col-sm-6">
   
   
   
@@ -29,8 +30,7 @@
     				<input type="hidden" value="${friends.id}" name="friendId">
          </c:forEach>	
   		</form> --%>
-  	<div class="row">
-  		<div class="col-sm-6">
+  	
   	
   	
   	<div class="row">
@@ -44,14 +44,17 @@
   		<h4>${bro.phoneNumber}</h4>
   		<h4>Rating: ${brorating}</h4>
 	</div>
-  		<div class="row">
-  		<div class="col-sm-3">
-  		<h3>Rate this Bro: </h3>
-  		</div>
-  		<div class="col-sm-4">
+	</div>
+	<div class="row">
+  		
+  		
   			<c:choose>
   				<c:when test = "${previousRater}">
   			<form action="rate.do" method="GET">
+		<div class="col-sm-4">
+  			<p><button type="button" class="btn btn-primary btn-lg btn-block" disabled>Rate this Bro: </button></p>
+		</div>
+		<div class="col-sm-4">
   			<input type="hidden" value="${bro.id}" name="broId">
   			<p><select name = "rating" class="form-control input-lg">
   				<option value="1">1</option>
@@ -61,27 +64,30 @@
  				 <option value="5">5</option>
 			</select></p>
 			
-			</div>
-			<div class="col-sm-5">
+		</div>
+		<div class="col-sm-4">
 
 			<p><input type="submit" class="btn btn-primary btn-lg btn-block" value="Rate"></p>
-  			</div>
+		</div>
   			</form>
   			
   			
   		</c:when>
 		</c:choose>
-		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
   			<c:choose>
+  			
     				<c:when test="${addFriend}">
 					
 					<form action="addFriend.do" method="POST">
-    					<p><input type="submit" class="btn btn-success btn-lg btn-block" value="Add Friend">
+    					<p><input type="submit" class="btn btn-success btn-lg btn-block" value="Add Bro">
     					<input type="hidden" value="${bro.id}" name="broId">
     					<input type="hidden" value="${user.id}" name="userId">
   					</form>	
 	
-						<br>
+						
 				
 				</c:when>
 				<c:otherwise>
@@ -91,15 +97,18 @@
     					<input type="hidden" value="${user.id}" name="userId">
   					</form>	
 	
-						<br>
+						
 				</c:otherwise>
+				
 		</c:choose>
 		</div>
-		</div>
+	</div>
+	</div>
 		<div class="col-sm-6">
 		
 		
-  			<br><br>
+ 	<p><button type="button" class="btn btn-secondary btn-block btn-lg" disabled>Bro's Trips</button></p>
+  			
   			<c:forEach items = "${bro.trips}" var = "trips">
   			<form action="viewTrip.do" method="GET">
          		<p><input type="submit" class="btn btn-info btn-lg btn-block" value="${trips.destination.name} on ${trips.date}"></p>
@@ -108,10 +117,11 @@
          </c:forEach>	
   		
   		
-</div>	
+		</div>	
+		</div>
+	</div> <!-- end of single well for page -->
+	
   
-  </div>
-  </div>
  
     </div> <!-- end of opening container -->
   
