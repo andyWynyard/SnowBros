@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -278,7 +279,7 @@ public class SnowBroController {
 	// User validate(String email, String password)
 
 	@RequestMapping(path = "getUser.do")
-	public String validate(@ModelAttribute("user") User user, Model model, @RequestParam("email") String email,
+	public String validate(@ModelAttribute(name = "user") User user, Model model, @RequestParam("email") String email,
 			@RequestParam("password") String password) {
 
 		// ************* testing encryption ************************************
