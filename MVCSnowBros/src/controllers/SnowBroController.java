@@ -11,12 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,15 +54,6 @@ public class SnowBroController {
 		return u;
 
 	}
-	
-	
-	@RequestMapping(path="index.do")
-	public String getIndex() {
-		
-		return "index.jsp";
-	}
-	
-	
 
 	/////////////////////////////////////////////////////////
 	//////////////////// SEARCH.JSP///////////////////////
@@ -290,26 +279,18 @@ public class SnowBroController {
 	// User validate(String email, String password)
 
 	@RequestMapping(path = "getUser.do")
-	public String validate(User user, Errors errors, Model model) {
+	public String validate(@ModelAttribute(name = "user") User user, Model model, @RequestParam("email") String email,
+			@RequestParam("password") String password) {
 
 		// ************* testing encryption ************************************
 		// validate password
-		String email = user.getEmail();
-		String password = user.getPassword();
 		System.out.println(ud.findUserPasswordByEmail(email) + " from database");
 		System.out.println(password + " from user");
 		boolean passWordMatches = ed.matches(password, ud.findUserPasswordByEmail(email));
 		// print out true or false for password matching
 		System.out.println(passWordMatches);
 		User u = ud.validate(email, password);
-		if (u == null) {
-			errors.rejectValue("email", "error.email",
-		  		    "The email you entered is not associated with an account, please try another, or create a new account");
-		}
-		else if (!passWordMatches) {
-			errors.rejectValue("password", "error.password", "Invalid password");
-		}
-		else if (u != null && passWordMatches) {
+		if (u != null && passWordMatches) {
 			if (u.isUserType() == true) {
 				model.addAttribute("user", u);
 				model.addAttribute("allUsers", ud.getAllUsers());
@@ -323,17 +304,9 @@ public class SnowBroController {
 				return "user.jsp";
 			}
 			return "index.jsp";
-		} 
-		
-		if (errors.getErrorCount() != 0) {
-		      // If there are any errors, return the login form.
-		      return "index.jsp";
-		}
-		//If no errors, send the user forward to the profile view.
-	    return "user.jsp";
-		
-		
-		
+
+		} else
+			return "index.jsp";
 
 	}
 

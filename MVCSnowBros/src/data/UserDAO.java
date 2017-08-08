@@ -20,7 +20,7 @@ public interface UserDAO {
 	public List<Trip> userTrips(User user);
 	
 	public User updateUser(User user);
-	
+
 	public User deleteUser(User user);
 	
 	public User addFriend(User user, User friend);
