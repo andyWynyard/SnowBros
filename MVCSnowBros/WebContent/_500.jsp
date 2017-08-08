@@ -11,6 +11,6 @@
    <jsp:include page="partials/_title.jsp"></jsp:include> 
    <jsp:include page="partials/_navProfile.jsp"></jsp:include>
    
-   <h1>WE DONE FUCKED UP, BRO</h1>
+   <h1>Error, BRO</h1>
 </body>
 </html>
