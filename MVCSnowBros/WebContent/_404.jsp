@@ -11,6 +11,11 @@
    <jsp:include page="partials/_title.jsp"></jsp:include> 
    <jsp:include page="partials/_navProfile.jsp"></jsp:include>
    
-   <h1>PAGE NOT FOUND, BRO</h1>
+    <div class="well">
+   		<h1> _400 BROKEN </h1>
+   		<h1>You done messed it a wee bit, PAGE NOT FOUND, BRO!</h1>
+   </div>
+   
+ 
 </body>
 </html>
