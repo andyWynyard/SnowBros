@@ -57,6 +57,8 @@
        
        <div class="invisible"><h4>Submit</h4></div>
        <input type="hidden" name="userId" value="${user.id}">
+       <input type="hidden" name="tripId" value="${trip.id}">
+       
       <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit" name="submit" />
        
        </div>

@@ -6,7 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import data.EncryptionDAO;
 import data.TripDAO;
@@ -37,6 +40,10 @@ public class SnowBroController {
 	private UserDAO ud;
 	@Autowired
 	private EncryptionDAO ed;
+	
+	private Map<Integer, Integer> lastEditedTrip = new HashMap<>();
+	private Map<Integer, Integer> lastRatedUser = new HashMap<>();
+	
 
 	@ModelAttribute("user")
 	public User initSessionUser() {
@@ -83,21 +90,6 @@ public class SnowBroController {
 		return "search.jsp";
 	}
 
-	// @RequestMapping(path = "searchExtra.do")
-	// public String SearchTitle(@RequestParam("searchEC") ExtraCurr ec, Model
-	// model) {
-	// List<Trip> trips = td.searchTrip(ec.getName());
-	// model.addAttribute("searchResults", trips);
-	// return "search.jsp";
-	// }
-	//
-	// @RequestMapping(path = "searchUser.do")
-	// public String SearchTitle(@RequestParam("searchUser") User u, Model model) {
-	// List<Trip> trips = ud.userTrips(u);
-	// model.addAttribute("searchResults", trips);
-	// return "search.jsp";
-	// }
-
 	/////////////////////////////////////////////////////////
 	//////////////////// createEditProfile.jsp///////////////
 	///////////////////////////////////////////////////////
@@ -107,11 +99,11 @@ public class SnowBroController {
 		return "createProfile.jsp";
 	}
 
-	@RequestMapping(path = "createProfile.do")
+	@RequestMapping(path = "createProfile.do", method = RequestMethod.POST)
 	public String CreateProfile(Model model, @RequestParam("firstName") String fName,
 			@RequestParam("lastName") String lName, @RequestParam("email") String email,
-			@RequestParam("picture") String picture, @RequestParam("password") String password)
-			throws NoSuchAlgorithmException {
+			@RequestParam("picture") String picture, @RequestParam("password") String password,
+			RedirectAttributes redir) throws NoSuchAlgorithmException {
 		User user = new User();
 		user.setFirstName(fName);
 		user.setLastName(lName);
@@ -122,15 +114,19 @@ public class SnowBroController {
 		user.setPicture(picture);
 		user.setUserType(false);
 		ud.create(user);
-		model.addAttribute("user", user);
-		model.addAttribute("rating", ud.getUserRating(user));
+		return "redirect:login.do";
+	}
+
+	@RequestMapping(name = "login.do", method = RequestMethod.GET)
+	public String loginPage() {
 		return "index.jsp";
 	}
 
-	@RequestMapping(path = "editProfile.do")
+	@RequestMapping(path = "editProfile.do", method = RequestMethod.POST)
 	public String EditProfile(@ModelAttribute("user") User user, Model model, @RequestParam("firstName") String fName,
 			@RequestParam("lastName") String lName, @RequestParam("email") String email,
-			@RequestParam("picture") String picture, @RequestParam("password") String password) {
+			@RequestParam("picture") String picture, @RequestParam("password") String password,
+			RedirectAttributes redir) {
 		User user1 = ud.findUserById(user.getId());
 		user1.setFirstName(fName);
 		user1.setLastName(lName);
@@ -138,24 +134,29 @@ public class SnowBroController {
 		user1.setPassword(password);
 		user1.setPicture(picture);
 		ud.updateUser(user1);
-		model.addAttribute("user", user1);
-		model.addAttribute("rating", ud.getUserRating(user1));
-		List<User> friends = ud.viewFriends(user);
-		model.addAttribute("friends", friends);
-		System.out.println(ud.getUserRating(user1));
+		redir.addFlashAttribute("user", user1);
+		return "redirect:viewEditedUser.do";
+	}
+
+	@RequestMapping(path = "viewEditedUser.do", method = RequestMethod.GET)
+	public String viewEditedUser(@ModelAttribute(name = "user") User user, Model model) {
+		model.addAttribute("user", user);
+		model.addAttribute("rating", ud.getUserRating(user));
+		model.addAttribute("friends", ud.viewFriends(user));
 		return "user.jsp";
+
 	}
 
 	/////////////////////////////////////////////////////////
 	//////////////////// createEditTrip.jsp///////////////
 	///////////////////////////////////////////////////////
 
-	@RequestMapping(path = "createTrip.do")
+	@RequestMapping(path = "createTrip.do", method = RequestMethod.POST)
 	public String CreateTrip(@ModelAttribute("user") User user, Model model, @RequestParam("title") String title,
 			@RequestParam("destination") String dest, @RequestParam("description") String desc,
 			@RequestParam("pointOfOrigin") String pO, @RequestParam("tripdate") String date,
 			@RequestParam("pointOfReturn") String pR, @RequestParam("numberSeats") int seats,
-			@RequestParam("userId") int userId) {
+			@RequestParam("userId") int userId, RedirectAttributes redir) {
 		Trip trip = new Trip();
 
 		System.out.println("what is given" + date);
@@ -187,22 +188,47 @@ public class SnowBroController {
 		List<Trip> trips = user.getTrips();
 		trips.add(trip);
 		user.setTrips(trips);
+		redir.addFlashAttribute("user", user);
+		redir.addFlashAttribute("trip", t);
+		return "redirect:viewNewTrip.do";
+	}
 
-		model.addAttribute("trip", t);
-		List<Message> messages = td.getMessagesByTripId(t.getId());
-		model.addAttribute("messages", messages);
+	@RequestMapping(path = "viewNewTrip.do", method = RequestMethod.GET)
+	public String viewNewTrip(@ModelAttribute("user") User user, Model model, @ModelAttribute(name = "trip") Trip trip) {
+		
+		List<Trip> usersTrips = user.getTrips();
+		
+		
+		Trip newTrip = usersTrips.get(usersTrips.size() - 1);
+		model.addAttribute("trip", newTrip);
 		model.addAttribute("rating", ud.getUserRating(user));
 		model.addAttribute("user", user);
+
+		boolean riderCheck = false;
+		List<User> riders = trip.getUsers();
+		if (riders == null) {
+			riders = new ArrayList<>();
+			System.out.println(riders);
+		}
+		for (User user2 : riders) {
+			if (user2.getId() == user.getId()) {
+				riderCheck = true;
+			}
+		}
+		model.addAttribute("rider", riderCheck);
+		List<Message> messages = td.getMessagesByTripId(newTrip.getId());
+		model.addAttribute("messages", messages);
+
 		return "trip.jsp";
 	}
 
-	@RequestMapping(path = "editTrip.do")
+	@RequestMapping(path = "editTrip.do", method = RequestMethod.POST)
 	public String editTrip(@ModelAttribute("user") User user, Model model, @RequestParam("title") String title,
 			@RequestParam("destination") String dest, @RequestParam("description") String desc,
 			@RequestParam("pointOfOrigin") String pO, @RequestParam("date") String date,
 			@RequestParam("pointOfReturn") String pR, @RequestParam("numberSeats") int seats,
-			/* @RequestParam("extraCurr") ExtraCurr ec, */ @RequestParam("userId") int userId) {
-		Trip trip = new Trip();
+			@RequestParam("userId") int userId, @RequestParam("tripId") int tripId, RedirectAttributes redir) {
+		Trip trip = td.findTripById(tripId);
 		Destination d = td.findDestinationByNameOrCreateNewDestination(dest);
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
@@ -224,16 +250,30 @@ public class SnowBroController {
 		trip.setPointOfReturn(pR);
 		trip.setNumberSeats(seats);
 		trip.setOwnerId(userId);
-		// trip.setExtraCurrs(ec);
+		td.updateTrip(trip);
+		lastEditedTrip.put(user.getId(), trip.getId());
+		redir.addFlashAttribute("user", user);
+		return "redirect:viewEditedTrip.do";
+	}
+	@RequestMapping(path = "viewEditedTrip.do", method = RequestMethod.GET)
+	public String viewEditedTrip(@ModelAttribute("user") User user, Model model) {
+		int editedTripId = lastEditedTrip.get(user.getId());
+		Trip editedTrip = td.findTripById(editedTripId);
 		model.addAttribute("user", user);
+		model.addAttribute("trip", editedTrip);
 		model.addAttribute("rating", ud.getUserRating(user));
-		model.addAttribute("trip", trip);
-		List<Message> messages = td.getMessagesByTripId(trip.getId());
+		List<Message> messages;
+		try {
+			messages = td.getMessagesByTripId(editedTripId);
+			System.out.println(messages);
+		} catch (Exception e) {
+			messages = new ArrayList<>();
+		}
 		model.addAttribute("messages", messages);
 		return "trip.jsp";
 	}
 
-	//////////////////////////// Index.jsp//////////////////////////////////////////////////////
+///////////////////////////////// Index.jsp//////////////////////////////////////////////////////
 
 	// User validate(String email, String password)
 
@@ -280,9 +320,8 @@ public class SnowBroController {
 	}
 
 	@RequestMapping(path = "getProfilePage.do", method = RequestMethod.GET)
-	public String goToProfile(@ModelAttribute("user") User user, Model model,
-			@RequestParam(name = "userId") int userId) {
-		model.addAttribute("user", ud.findUserById(userId)); // ud.findUserById(userId) returns a user object
+	public String goToProfile(@ModelAttribute("user") User user, Model model) {
+		model.addAttribute("user", user); // ud.findUserById(userId) returns a user object
 		model.addAttribute("rating", ud.getUserRating(user));
 		List<User> friends = ud.viewFriends(user);
 		model.addAttribute("friends", friends);
@@ -301,7 +340,7 @@ public class SnowBroController {
 
 	@RequestMapping(path = "addMeToTrip.do", method = RequestMethod.POST)
 	public String addMeToTrip(@ModelAttribute("user") User user, Model model, @RequestParam(name = "userId") int userId,
-			@RequestParam(name = "tripId") int tripId) {
+			@RequestParam(name = "tripId") int tripId, RedirectAttributes redir) {
 		Trip t = td.findTripById(tripId);
 		User u = ud.findUserById(userId);
 		t.setNumberSeats(t.getNumberSeats() - 1);
@@ -311,6 +350,16 @@ public class SnowBroController {
 		t.setUsers(users);
 		System.out.println(t.getUsers().toString());
 		td.updateTrip(t);
+		lastEditedTrip.put(user.getId(), t.getId());
+		redir.addFlashAttribute("user", user);
+		return "redirect:viewAddedToTrip.do";
+	}
+	
+	@RequestMapping(path = "viewAddedToTrip.do", method = RequestMethod.GET)
+	public String viewAddedToTrip(@ModelAttribute(name = "user") User user, Model model) {
+		int tripId = lastEditedTrip.get(user.getId());
+		Trip trip = td.findTripById(tripId);
+		
 		List<User> riders = td.findTripById(tripId).getUsers();
 		boolean riderCheck = false;
 		for (User user2 : riders) {
@@ -318,11 +367,12 @@ public class SnowBroController {
 				riderCheck = true;
 			}
 		}
-		List<Message> messages = td.getMessagesByTripId(t.getId());
+		List<Message> messages = td.getMessagesByTripId(trip.getId());
 		model.addAttribute("messages", messages);
 		model.addAttribute("rider", riderCheck);
-		model.addAttribute("trip", t);
 		model.addAttribute("rating", ud.getUserRating(user));
+
+		model.addAttribute("trip", trip);
 		model.addAttribute("user", user);
 		return "trip.jsp";
 	}
@@ -336,18 +386,28 @@ public class SnowBroController {
 
 	@RequestMapping(path = "deleteTrip.do", method = RequestMethod.POST)
 	public String deleteTrip(@ModelAttribute("user") User user, Model model, @RequestParam("tripId") int tripId,
-			@RequestParam("userId") int userId) {
+			@RequestParam("userId") int userId, RedirectAttributes redir) {
 		td.deleteTrip(td.findTripById(tripId));
-		model.addAttribute("user", ud.findUserById(userId));
-		model.addAttribute("rating", ud.getUserRating(user));
-		List<User> friends = ud.viewFriends(user);
-		model.addAttribute("friends", friends);
-		return "user.jsp";
+		List<Trip> updatedTrips = user.getTrips();
+		for (Trip trip : updatedTrips) {
+			if (trip.getId() == tripId) {
+				updatedTrips.remove(trip);
+				break;
+			}
+		}
+		user.setTrips(updatedTrips);
+		ud.updateUser(user);
+		return "redirect:getProfilePage.do";
 	}
 
 	@RequestMapping(path = "deleteTripAdmin.do", method = RequestMethod.POST)
 	public String deleteTripadmin(@ModelAttribute("user") User user, Model model, @RequestParam("tripId") int tripId) {
 		td.deleteTrip(td.findTripById(tripId));
+		return "redirect:deletedPastTenseAdmin.do";
+	}
+	
+	@RequestMapping(path = "deletedPastTenseAdmin.do", method = RequestMethod.GET)
+	public String deletedPastTense(@ModelAttribute("user") User user, Model model) {
 		model.addAttribute("allUsers", ud.getAllUsers());
 		model.addAttribute("allTrips", td.allTrips());
 		return "admin.jsp";
@@ -357,16 +417,14 @@ public class SnowBroController {
 	public String deleteUserAdmin(@ModelAttribute("user") User user, Model model,
 			@RequestParam(name = "deleteId") int userId) {
 		ud.deleteUser(ud.findUserById(userId));
-		model.addAttribute("allUsers", ud.getAllUsers());
-		model.addAttribute("allTrips", td.allTrips());
-		return "admin.jsp";
+		return "redirect:deletedPastTenseAdmin.do";
 	}
-
+	
 	@RequestMapping(path = "deleteUser.do", method = RequestMethod.POST)
 	public String deleteUser(@ModelAttribute("user") User user, Model model,
 			@RequestParam(name = "userId") int userId) {
 		ud.deleteUser(ud.findUserById(userId));
-		return "index.jsp";
+		return "redirect:login.do";
 	}
 
 	@RequestMapping(path = "viewTrip.do", method = RequestMethod.GET)
@@ -392,28 +450,13 @@ public class SnowBroController {
 	@RequestMapping(path = "postMessage.do", method = RequestMethod.POST)
 	public String postMessageToTrip(@ModelAttribute("user") User user, Model model, @RequestParam("tripId") int tripId,
 			@RequestParam("message") String message) {
-		model.addAttribute("rating", ud.getUserRating(user));
-		model.addAttribute("user", user);
 
-		List<User> riders = td.findTripById(tripId).getUsers();
-		boolean riderCheck = false;
-		for (User user2 : riders) {
-			if (user2.getId() == user.getId()) {
-				riderCheck = true;
-			}
-		}
 		Trip trip = td.findTripById(tripId);
-
 		Date date = new Date();
-
+		lastEditedTrip.put(user.getId(), tripId);
 		trip = td.addMessage(user, trip, message, date);
 
-		List<Message> messages = td.getMessagesByTripId(tripId);
-		model.addAttribute("trip", trip);
-		model.addAttribute("messages", messages);
-		model.addAttribute("rider", riderCheck);
-
-		return "trip.jsp";
+		return "redirect:viewAddedToTrip.do";
 	}
 
 	@RequestMapping(path = "createTripPage.do", method = RequestMethod.GET)
@@ -432,11 +475,7 @@ public class SnowBroController {
 	public String addFriend(@ModelAttribute("user") User user, @RequestParam(name = "broId") int broId, Model model) {
 		User friend = ud.findUserById(broId);
 		user = ud.addFriend(user, friend);
-
-		model.addAttribute("user", user);
-		model.addAttribute("rating", ud.getUserRating(user));
-		model.addAttribute("friend", ud.viewFriends(user));
-		return "user.jsp";
+		return "redirect:getProfilePage.do";
 	}
 
 	@RequestMapping(path = "ViewUser.do", method = RequestMethod.GET)
@@ -462,17 +501,16 @@ public class SnowBroController {
 				break;
 			}
 		}
-		
-			for (UserRating ur : ratings) {
-				if (ur.getRateId() == user.getId()) {
-					previousRater = false;
-					break;
-				}
-				 else {
-					previousRater = true;
-				}
+
+		for (UserRating ur : ratings) {
+			if (ur.getRateId() == user.getId()) {
+				previousRater = false;
+				break;
+			} else {
+				previousRater = true;
 			}
-		
+		}
+
 		model.addAttribute("addFriend", b);
 		model.addAttribute("previousRater", previousRater);
 		model.addAttribute("brorating", ud.getUserRating(u));
@@ -481,31 +519,57 @@ public class SnowBroController {
 		return "bro.jsp";
 	}
 
-	@RequestMapping(path = "rate.do", method = RequestMethod.GET)
+	@RequestMapping(path = "rate.do", method = RequestMethod.POST)
 	public String goToRate(@ModelAttribute("user") User user, Model model, @RequestParam("broId") int broId,
 			@RequestParam("rating") int rating) {
-		model.addAttribute("user", user);
-		model.addAttribute("rating", ud.getUserRating(user));
+		
 		ud.rateUser(ud.findUserById(broId), user.getId(), rating);
-		User u = ud.findUserById(broId);
-		List<User> friends;
-		if (ud.viewFriends(user) == null) {
-			friends = new ArrayList<>();
-		} else {
-			friends = ud.viewFriends(user);
-		}
-		boolean b = true;
-		for (User use : friends) {
-			if (use.getId() == u.getId()) {
-				b = false;
-				break;
-			}
-		}
-		model.addAttribute("addFriend", b);
-		model.addAttribute("brorating", ud.getUserRating(u));
-		model.addAttribute("bro", u);
+		lastRatedUser.put(user.getId(), broId);
 
-		return "bro.jsp";
+		return "redirect:viewRatedUser.do";
+	}
+	
+	@RequestMapping(path = "viewRatedUser.do", method = RequestMethod.GET)
+	public String viewRatedUser(@ModelAttribute("user") User user, Model model) {
+		{
+			model.addAttribute("user", user);
+			model.addAttribute("rating", ud.getUserRating(user));
+			User u = ud.findUserById(lastRatedUser.get(user.getId()));
+			List<User> friends;
+			if (ud.viewFriends(user) == null) {
+				friends = new ArrayList<>();
+			} else {
+				friends = ud.viewFriends(user);
+			}
+			List<UserRating> ratings = ud.viewUserRating(u);
+			if (ratings == null) {
+				ratings = new ArrayList<>();
+			}
+			boolean b = true;
+			boolean previousRater = true;
+			for (User use : friends) {
+				if (use.getId() == u.getId()) {
+					b = false;
+					break;
+				}
+			}
+
+			for (UserRating ur : ratings) {
+				if (ur.getRateId() == user.getId()) {
+					previousRater = false;
+					break;
+				} else {
+					previousRater = true;
+				}
+			}
+
+			model.addAttribute("addFriend", b);
+			model.addAttribute("previousRater", previousRater);
+			model.addAttribute("brorating", ud.getUserRating(u));
+			model.addAttribute("bro", u);
+
+			return "bro.jsp";
+		}
 	}
 
 	@RequestMapping(path = "deleteFriend.do", method = RequestMethod.POST)
@@ -518,38 +582,21 @@ public class SnowBroController {
 		ud.deleteFriend(user, bro);
 		ud.updateUser(user);
 
-		model.addAttribute("user", user);
-		model.addAttribute("rating", ud.getUserRating(user));
-
-		model.addAttribute("friends", ud.viewFriends(user));
-		return "user.jsp";
+		return "redirect:getProfilePage.do";
 	}
 
 	@RequestMapping(path = "removeBroFromTrip.do", method = RequestMethod.POST)
 	public String removeBroFromTrip(@ModelAttribute("user") User user, @RequestParam(name = "broId") int broId,
 			@RequestParam(name = "userId") int userId, @RequestParam(name = "tripId") int tripId, Model model) {
-		User user1 = ud.findUserById(userId);
 		User bro = ud.findUserById(broId);
 		Trip trip = td.findTripById(tripId);
 		trip.setUsers(td.getAllUsersOnTrip(tripId));
 
 		trip = td.removeBroFromTrip(trip, bro);
 		td.updateTrip(trip);
+		lastEditedTrip.put(user.getId(), trip.getId());
 
-		model.addAttribute("trip", td.findTripById(tripId));
-		model.addAttribute("rating", ud.getUserRating(user1));
-		model.addAttribute("user", user1);
-		List<User> riders = td.findTripById(tripId).getUsers();
-		boolean riderCheck = false;
-		for (User user2 : riders) {
-			if (user2.getId() == user1.getId()) {
-				riderCheck = true;
-			}
-		}
-		model.addAttribute("rider", riderCheck);
-		List<Message> messages = td.getMessagesByTripId(trip.getId());
-		model.addAttribute("messages", messages);
-		return "trip.jsp";
+		return "redirect:viewEditedTrip.do";
 	}
 
 }

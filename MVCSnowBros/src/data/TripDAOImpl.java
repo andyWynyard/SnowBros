@@ -117,9 +117,6 @@ public class TripDAOImpl implements TripDAO {
 		tripupdated.setTitle(trip.getTitle());
 		tripupdated.setUsers(trip.getUsers());
 
-		em.persist(tripupdated);
-		em.flush();
-
 		return tripupdated;
 
 	}

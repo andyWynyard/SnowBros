@@ -48,7 +48,7 @@
   		
   			<c:choose>
   				<c:when test = "${previousRater}">
-  			<form action="rate.do" method="GET">
+  			<form action="rate.do" method="POST">
 		<div class="col-sm-4">
   			<p><button type="button" class="btn btn-primary btn-lg btn-block" disabled>Rate this Bro: </button></p>
 		</div>
