@@ -64,8 +64,8 @@ public class Trip {
 	@Column(name = "point_of_origin")
 	private String pointOfOrigin;
 
-	@Temporal(TemporalType.DATE)
-	private Date date;
+	
+	private String date;
 
 	@Column(name = "point_of_return")
 	private String pointOfReturn;
@@ -110,11 +110,11 @@ public class Trip {
 		this.pointOfOrigin = pointOfOrigin;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

@@ -164,20 +164,15 @@ public class SnowBroController {
 		date = date.replaceAll("T", " ");
 		System.out.println("what is given" + date);
 		Destination d = td.findDestinationByNameOrCreateNewDestination(dest);
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		Date datey = new Date();
+		
 
-		try {
-			datey = format.parse(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		
 		trip.setTitle(title);
 		trip.setDestination(d);
 		trip.setDescription(desc);
 		trip.setPointOfOrigin(pO);
-		trip.setDate(datey);
-		System.out.println(datey);
+		trip.setDate(date.toString());
+		System.out.println(date);
 		trip.setPointOfReturn(pR);
 		trip.setNumberSeats(seats);
 		List<User> users = new ArrayList<>();
@@ -236,18 +231,12 @@ public class SnowBroController {
 		System.out.println("what is given" + date);
 		date = date.replaceAll("T", " ");
 		System.out.println("what is given" + date);
-		Date datey = new Date();
-		try {
-			datey = format.parse(date);
-			System.out.println(datey);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		
 		trip.setTitle(title);
 		trip.setDestination(d);
 		trip.setDescription(desc);
 		trip.setPointOfOrigin(pO);
-		trip.setDate(datey);
+		trip.setDate(date);
 		trip.setPointOfReturn(pR);
 		trip.setNumberSeats(seats);
 		trip.setOwnerId(userId);

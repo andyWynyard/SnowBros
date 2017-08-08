@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -228,6 +230,15 @@ public class TripDAOImpl implements TripDAO {
 		m.setMessage(message);
 		m.setTrip(trip);
 		String datey = date.toString();
+		
+		System.out.println(datey);
+		final String regex = "[\\w\\d]{3,5}\\s[\\w\\d]{3,5}\\s[\\d]{2}";
+		final Pattern pattern = Pattern.compile(regex);
+		final Matcher matcher = pattern.matcher(datey);
+		while (matcher.find()) {
+			datey = matcher.group(); 
+			
+		}
 		m.setDate(datey);
 		
 		em.persist(m);
