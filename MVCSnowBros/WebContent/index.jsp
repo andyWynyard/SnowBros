@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>    
@@ -23,17 +24,20 @@
   
   
   <div class="col-sm-4">
-  <form action="getUser.do" method="GET">
+  <form:form action="getUser.do" method="GET" modelAttribute="user">
   
   	<h4>Email</h4>
-    <input type="email" class="form-control input-lg" name="email"/>
+  	
+    <form:input class="form-control input-lg" path="email" /><form:errors path="email" /><!-- name="email" -->
+    
     <h4>Password</h4>
-    <input type="password" class="form-control input-lg" name="password"/>
+    
+    <form:input type="password" class="form-control input-lg" path="password" /><form:errors path="password" /> <!-- name="password" -->
        
     		<br>
       <input type="submit" class="btn btn-block btn-lg btn-primary" value="Submit" name="submit" />
 
-  </form>
+  </form:form>
   <br>
   
   <form action="createProfile1.do" method="GET">

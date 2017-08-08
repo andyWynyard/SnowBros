@@ -3,13 +3,11 @@
   <display-name>MVCSnowBros</display-name>
   <welcome-file-list>
     
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.do</welcome-file>
     
   </welcome-file-list>
   
-  
-
-
+ 
    <servlet>
     <servlet-name>SnowBros</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet
@@ -19,7 +17,7 @@
     <servlet-name>SnowBros</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
-  
+    
      <error-page>
         <error-code>500</error-code>
         <location>/_500.jsp</location>

@@ -76,8 +76,8 @@
 					
 			</form>
 
-	<c:choose>
-    						<c:when test="${searchResultsUsers != null}">
+			<c:choose>
+				<c:when test="${searchResultsUsers != null}">
 					<c:forEach items="${searchResultsUsers}" var="bro">
 					
 					
