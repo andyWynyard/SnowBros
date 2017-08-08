@@ -10,7 +10,10 @@
    <jsp:include page="partials/_resources.jsp"></jsp:include>
    <jsp:include page="partials/_title.jsp"></jsp:include> 
    <jsp:include page="partials/_navProfile.jsp"></jsp:include>
+   <div class="well">
+   		<h1> _500 BROKEN </h1>
+   		<h1>You done messed it a wee bit, please dont break everything!</h1>
+   </div>
    
-   <h1>WE DONE FUCKED UP, BRO</h1>
 </body>
 </html>
