@@ -155,7 +155,7 @@ public class SnowBroController {
 			@RequestParam("destination") String dest, @RequestParam("description") String desc,
 			@RequestParam("pointOfOrigin") String pO, @RequestParam("tripdate") String date,
 			@RequestParam("pointOfReturn") String pR, @RequestParam("numberSeats") int seats,
-			/* @RequestParam("extraCurrs") String ec, */ @RequestParam("userId") int userId) {
+			@RequestParam("userId") int userId) {
 		Trip trip = new Trip();
 
 		System.out.println("what is given" + date);
