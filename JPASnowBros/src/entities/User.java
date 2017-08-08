@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 
 
@@ -49,11 +51,13 @@ public class User {
 	@ManyToMany(cascade=CascadeType.REMOVE,mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Trip> trips;
 	
+	@Email
 	private String email;
 	
 	@Column(name = "phone_number")
 	private String phoneNumber;
 
+	@Size(min = 6, max = 35)
 	private String password;
 	
 	private String picture;
